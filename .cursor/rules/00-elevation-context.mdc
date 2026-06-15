@@ -1,0 +1,30 @@
+---
+description: Rule to enforce Lotus Rise brand design standards, local-only guardrails, and Once UI development instructions
+globs: "src/**/*.{ts,tsx,js,jsx,css,scss}"
+---
+# Lotus Rise — Brand Standards & Localhost Guardrails
+
+Always apply these rules when editing any layout, style, or component in this codebase.
+
+## 1. Safety & Environment Guardrails
+*   **Dev Port:** Must be on port **3010** (`npm run dev`).
+*   **No Git Remotes:** Under no circumstances should this repository be pushed to a public remote repository. Keep all premium Once UI code local-only.
+*   **Local Indexing:** Enforce `robots: { index: false, follow: false }` in `src/resources/seo.js`.
+
+## 2. Reconciled Color Palette & Typography
+We use Once UI sand tokens mapped to our custom cream-paper palette:
+*   **Background:** Warm Cream (`#FAF6EE`). Enforce light-mode only. No dark-mode overrides or dark-theme swaps.
+*   **Headlines (H1, H2, H3):** Source Serif 4 or Lora. Spaced, literary, high-caliber.
+*   **Body Copy & Micro-labels:** Inter or Geist. Modern, sharp, hyper-legible.
+*   **Primary Institutional Text:** Deep Indigo (`#1A237E`). Used for all main headers.
+*   **Interactive Accent / CTA:** Janus Violet (`#5A40FF`). Serves as the product link token.
+
+## 3. Strict Design Anti-Patterns
+*   **NO Stock Handshakes:** Do not use corporate clichés or un-grounded placeholder photography.
+*   **NO Photorealistic AI Faces:** All people depicted must be authentic, licensed, or represented via abstract illustrations.
+*   **NO Saturated Mesh Gradients:** Do not add trendy pink/purple blurry gradients. Keep backgrounds solid warm cream.
+*   **NO Fake Screenshots:** All visual mockups must map to actual product interfaces in the Janus product suite (`evaltool v2`).
+
+## 4. Crucial Components to Maintain
+*   **`src/components/ProductTheatre.tsx`:** The auto-cycling showcase widget. Ensures 6000ms transition steps, pause-on-hover, arrow navigability (`role="tablist"`), and instant reduced-motion fallbacks.
+*   **`src/components/ImpactCalculator.tsx`:** The state-driven capacity wizard (Step 1: sector, Step 2: scale, Step 3: results with PDF download).
