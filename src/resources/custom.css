@@ -3444,3 +3444,56 @@ html {
     transform: rotate(90deg);
   }
 }
+
+/* Redesigned high-prestige sticky contact bar (resolves variable resolution bug) */
+.lr-desktop-cta {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .lr-desktop-cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    position: fixed;
+    bottom: 28px;
+    right: clamp(20px, 3vw, 32px);
+    z-index: 100;
+    padding: 10px 12px 10px 16px;
+    background: rgba(255, 252, 247, 0.98);
+    border: 1px solid var(--neutral-border-weak);
+    border-radius: 6px;
+    box-shadow: 
+      0 4px 12px rgba(26, 35, 126, 0.04),
+      0 16px 48px rgba(26, 35, 126, 0.12);
+    animation: lrDesktopCtaIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .lr-desktop-cta__soft {
+    font-family: var(--font-label), sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--neutral-text-medium);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  .lr-desktop-cta__soft:hover,
+  .lr-desktop-cta__soft:focus-visible {
+    color: var(--brand-primary);
+  }
+}
+
+@keyframes lrDesktopCtaIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

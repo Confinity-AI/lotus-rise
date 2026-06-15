@@ -43,11 +43,11 @@ export const DesktopStickyCta = () => {
   if (!visible) return null;
 
   return (
-    <aside className="he-desktop-cta" aria-label="Quick contact">
-      <a href={DEMO_FUNDER} className="he-btn he-btn--fill he-btn--sm">
+    <aside className="lr-desktop-cta" aria-label="Quick contact">
+      <a href={DEMO_FUNDER} className="lr-btn lr-btn--primary lr-btn--sm">
         Request a pilot
       </a>
-      <a href={DEMO} className="he-desktop-cta__soft">
+      <a href={DEMO} className="lr-desktop-cta__soft">
         Write to us
       </a>
     </aside>
