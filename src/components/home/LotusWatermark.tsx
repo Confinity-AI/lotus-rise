@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
+import { assetPath } from "@/lib/assetPath";
 
 interface LotusWatermarkProps {
   size?: number;
@@ -15,7 +16,7 @@ export const LotusWatermark = ({
 }: LotusWatermarkProps) => (
   <div className={className} style={style} aria-hidden>
     <Image
-      src="/trademarks/icon-dark.svg"
+      src={assetPath("/trademarks/icon-dark.svg")}
       alt=""
       width={size}
       height={size}
