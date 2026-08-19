@@ -64,16 +64,15 @@ export function SiteFooter({ contact = false }: SiteHeaderProps) {
             alt="Lotus Rise"
             width={240}
             height={48}
-            loading="eager"
           />
           <span>{siteContent.brand.descriptor}</span>
         </div>
         <div className="footer-meta">
           <span>&copy; 2026 Lotus Rise</span>
-          <div className="footer-links">
+          <nav className="footer-links" aria-label="Footer navigation">
             {!contact && <a href={sitePath("/contact/")}>Contact</a>}
             <a href={contact ? sitePath("/#principles") : "#principles"}>Principles</a>
-          </div>
+          </nav>
         </div>
       </div>
     </footer>

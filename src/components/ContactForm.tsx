@@ -67,7 +67,7 @@ export function ContactForm() {
     return (
       <output className="form-success is-visible" aria-live="polite" tabIndex={-1} ref={successRef}>
         <h2>Thank you.</h2>
-        <p>We have your note and will be in touch.</p>
+        <p>We'll be in touch.</p>
         <StaticLinkButton className="button button-secondary" href="/">
           Return to the homepage
         </StaticLinkButton>
@@ -76,7 +76,12 @@ export function ContactForm() {
   }
 
   return (
-    <form className="contact-form" onSubmit={submit} onFocus={noteStart}>
+    <form
+      className="contact-form"
+      onSubmit={submit}
+      onFocus={noteStart}
+      aria-busy={status === "sending"}
+    >
       <div className="form-row">
         <div className="field">
           <label htmlFor="name">Name</label>
@@ -93,7 +98,7 @@ export function ContactForm() {
           <input id="organization" name="organization" autoComplete="organization" required />
         </div>
         <div className="field">
-          <label htmlFor="role">You work in</label>
+          <label htmlFor="role">Organization type</label>
           <select id="role" name="role" required defaultValue="">
             <option value="" disabled>
               Select one
@@ -106,7 +111,7 @@ export function ContactForm() {
         </div>
       </div>
       <div className="field">
-        <label htmlFor="message">What would you like to improve?</label>
+        <label htmlFor="message">What would you like to make easier?</label>
         <textarea id="message" name="message" placeholder="A few sentences are enough." required />
       </div>
       {status === "error" && (
@@ -117,7 +122,7 @@ export function ContactForm() {
       <Button className="button button-primary" type="submit" disabled={status === "sending"}>
         {status === "sending" ? "Sending" : "Send request"} <HiArrowRight aria-hidden="true" />
       </Button>
-      <p className="form-help">We will only use these details to respond to your request.</p>
+      <p className="form-help">We'll only use these details to reply to your request.</p>
     </form>
   );
 }

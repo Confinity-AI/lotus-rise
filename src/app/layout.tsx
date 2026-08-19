@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Lotus Rise",
   },
   description:
-    "Lotus Rise builds practical AI tools for foundations and nonprofits. Explore Janus Evaluation, now in private preview.",
+    "Lotus Rise builds AI tools for the work behind grants. Explore Janus Evaluation, now in private preview.",
   alternates: { canonical: sitePath("/") },
   openGraph: {
     type: "website",

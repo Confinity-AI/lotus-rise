@@ -7,18 +7,18 @@ export const siteContent = {
   },
   navigation: [
     { label: "Janus", href: "#janus" },
-    { label: "Product path", href: "#connected-work" },
+    { label: "Roadmap", href: "#connected-work" },
     { label: "Principles", href: "#principles" },
   ],
   hero: {
     eyebrow: "AI tools for people who make a difference",
     title: "Foundations and nonprofits: amplify your impact with the right technology.",
-    lead: "Lotus Rise builds AI tools for foundations and nonprofits. Our first product, Janus, keeps a program plan, evidence, findings and final report connected, so teams can spend more time on the work that changes lives.",
+    lead: "Lotus Rise builds AI tools for the work behind grants. Our first product, Janus, keeps program plans, evidence, findings and final reports connected, so teams spend less time piecing the work back together.",
   },
   janus: {
     eyebrow: "Our first product",
     title: "Keep the whole evaluation in one place.",
-    body: "Janus carries a team from program plan to reviewed report. Every finding stays connected to the questions, measures and evidence behind it.",
+    body: "Janus keeps the work together from program plan to reviewed report. Each finding stays linked to the questions, measures and evidence behind it.",
     statuses: ["Evaluation · private preview", "Grant reporting · next", "Strategy · later"],
     note: "Screens from the current private preview. The interface may change.",
     views: [
@@ -59,9 +59,9 @@ export const siteContent = {
     organization: "John Templeton Foundation",
   },
   connectedWork: {
-    eyebrow: "The product path",
-    title: "Start with evaluation. Reuse the work from there.",
-    body: "Janus is being built in the order the work happens. A reviewed evaluation can feed reporting, strategy and, later, cross-program insights.",
+    eyebrow: "Roadmap",
+    title: "Start with evaluation and build from there.",
+    body: "The roadmap follows the way teams work: evaluation first, then grant reporting and strategy. Later, connected evidence can reveal patterns across programs.",
     steps: [
       {
         title: "Evaluation",
@@ -88,7 +88,7 @@ export const siteContent = {
   ai: {
     eyebrow: "Practical AI for good",
     title: "Use AI to move faster. Keep people in control.",
-    body: "Janus works from the team's own material. It shows the source behind each finding and leaves review and approval with people.",
+    body: "Janus works from the team's own material. Each finding points back to its source, and people decide what is ready to approve or share.",
     behaviors: [
       { title: "Bring in sources", copy: "Use the documents and data the team already has." },
       { title: "Build a draft", copy: "Turn that material into a useful first pass." },
@@ -98,8 +98,8 @@ export const siteContent = {
   },
   audiences: {
     eyebrow: "Who it is for",
-    title: "Built for the people on both sides of the grant.",
-    body: "The same work should help a foundation decide, a nonprofit report and an evaluator explain what changed.",
+    title: "Built for foundations, nonprofits and evaluators.",
+    body: "Everyone should be able to work from the same evidence, without rebuilding it for the next decision or report.",
     items: [
       {
         label: "Foundations",
@@ -121,14 +121,14 @@ export const siteContent = {
   principles: {
     eyebrow: "Our guiding principles",
     title: "Technology should help the people helping others.",
-    body: "Lotus Rise is a public benefit corporation. We believe technology can change the world for the better, so we build around a simple question: does this make the work easier for the people doing it?",
+    body: "Lotus Rise is a public benefit corporation. We believe technology can change the world for the better. For us, that comes down to one practical question: does this make the work easier for the people doing it?",
     founderQuote:
       "The work that foundations and nonprofits do benefits the whole planet. We have a responsibility to make their lives easier.",
     founder: "Neeraj Vir, Founder & CEO",
     items: [
       {
         title: "Empowerment",
-        copy: "Give foundations and nonprofits the tools and control to reach their full potential.",
+        copy: "Give foundations and nonprofits the tools and control they need to reach their full potential.",
       },
       {
         title: "Innovation",
@@ -146,13 +146,13 @@ export const siteContent = {
   },
   closing: {
     title: "Tell us what should be easier.",
-    body: "Janus is opening to a small private-preview group. Bring us one real evaluation and tell us where the work gets stuck.",
+    body: "Janus is opening to a small private preview group. Bring one real evaluation and show us where the work gets stuck.",
   },
   contact: {
     eyebrow: "Start a conversation",
     title: "Tell us what should be easier.",
-    lead: "Tell us where the process gets stuck and what your team needs to improve. We will see whether Janus fits the private preview.",
-    next: "We will read your note and reply with a clear next step.",
+    lead: "Tell us where your evaluation gets stuck and what your team needs next. We'll see whether Janus is a fit for the private preview.",
+    next: "We'll read your note and reply with a clear next step.",
   },
 } as const;
 

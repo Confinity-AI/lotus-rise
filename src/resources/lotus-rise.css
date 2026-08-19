@@ -77,9 +77,11 @@ a {
   left: 8px;
   z-index: 100;
   padding: 10px 14px;
+  border-radius: 4px;
   background: var(--ink);
   color: white;
   transform: translateY(-160%);
+  transition: transform 120ms ease;
 }
 
 .skip-link:focus {
@@ -168,10 +170,6 @@ a {
 }
 
 .nav-links a:not(.button)[aria-current="location"] {
-  color: var(--brand-pale) !important;
-}
-
-.nav-links a:not(.button):hover {
   color: var(--brand-pale) !important;
 }
 
@@ -2110,7 +2108,7 @@ a {
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
   .audience-grid {
     grid-template-columns: 1fr;
     border-bottom: 0;
