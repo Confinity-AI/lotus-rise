@@ -1,5 +1,5 @@
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
-import { Button } from "@once-ui-system/core";
+import { StaticLinkButton } from "@/components/StaticLinkButton";
 
 export default function NotFound() {
   return (
@@ -10,9 +10,9 @@ export default function NotFound() {
           <p className="eyebrow">Page not found</p>
           <h1>This page is not here.</h1>
           <p>Return to Lotus Rise and continue from the homepage.</p>
-          <Button className="button button-primary" href="/">
+          <StaticLinkButton className="button button-primary" href="/">
             Go to homepage
-          </Button>
+          </StaticLinkButton>
         </div>
       </main>
       <SiteFooter contact />

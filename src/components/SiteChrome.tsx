@@ -1,7 +1,7 @@
 import { MotionReady } from "@/components/MotionReady";
+import { StaticLinkButton } from "@/components/StaticLinkButton";
 import { siteContent } from "@/content/site-content";
 import { sitePath } from "@/lib/site-path";
-import { Button } from "@once-ui-system/core";
 import Image from "next/image";
 import { HiArrowRight } from "react-icons/hi2";
 
@@ -30,9 +30,9 @@ export function SiteHeader({ contact = false }: SiteHeaderProps) {
             {contact ? (
               <>
                 <a href={sitePath("/#janus")}>Janus</a>
-                <Button className="button button-secondary" href="/">
+                <StaticLinkButton className="button button-secondary" href="/">
                   Back to homepage
-                </Button>
+                </StaticLinkButton>
               </>
             ) : (
               <>
@@ -41,9 +41,9 @@ export function SiteHeader({ contact = false }: SiteHeaderProps) {
                     {item.label}
                   </a>
                 ))}
-                <Button className="button button-primary" href="/contact/">
+                <StaticLinkButton className="button button-primary" href="/contact/">
                   Request a preview <HiArrowRight aria-hidden="true" />
-                </Button>
+                </StaticLinkButton>
               </>
             )}
           </nav>

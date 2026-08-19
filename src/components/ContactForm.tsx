@@ -1,5 +1,6 @@
 "use client";
 
+import { StaticLinkButton } from "@/components/StaticLinkButton";
 import { Button } from "@once-ui-system/core";
 import { type FormEvent, useRef, useState } from "react";
 import { HiArrowRight } from "react-icons/hi2";
@@ -67,9 +68,9 @@ export function ContactForm() {
       <output className="form-success is-visible" aria-live="polite" tabIndex={-1} ref={successRef}>
         <h2>Thank you.</h2>
         <p>We have your note and will be in touch.</p>
-        <Button className="button button-secondary" href="/">
+        <StaticLinkButton className="button button-secondary" href="/">
           Return to the homepage
-        </Button>
+        </StaticLinkButton>
       </output>
     );
   }

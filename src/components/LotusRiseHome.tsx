@@ -1,8 +1,8 @@
 import { JanusTheatre } from "@/components/JanusTheatre";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
+import { StaticLinkButton } from "@/components/StaticLinkButton";
 import { siteContent } from "@/content/site-content";
 import { sitePath } from "@/lib/site-path";
-import { Button } from "@once-ui-system/core";
 import Image from "next/image";
 import {
   HiArrowRight,
@@ -33,12 +33,12 @@ export function LotusRiseHome() {
                 <h1 id="hero-title">{hero.title}</h1>
                 <p className="hero-lead">{hero.lead}</p>
                 <div className="hero-actions">
-                  <Button className="button button-primary" href="/contact/">
+                  <StaticLinkButton className="button button-primary" href="/contact/">
                     Request a Janus preview <HiArrowRight aria-hidden="true" />
-                  </Button>
-                  <Button className="button button-secondary" href="#janus">
+                  </StaticLinkButton>
+                  <StaticLinkButton className="button button-secondary" href="#janus">
                     Explore Janus
-                  </Button>
+                  </StaticLinkButton>
                 </div>
               </div>
               <figure className="hero-growth hero-technology reveal" aria-hidden="true">
@@ -77,9 +77,9 @@ export function LotusRiseHome() {
                   </span>
                 ))}
               </div>
-              <Button className="button button-product" href="/contact/">
+              <StaticLinkButton className="button button-product" href="/contact/">
                 Request a Janus preview <HiArrowRight aria-hidden="true" />
-              </Button>
+              </StaticLinkButton>
             </div>
             <JanusTheatre />
           </div>
@@ -266,9 +266,9 @@ export function LotusRiseHome() {
               <h2 id="closing-title">{closing.title}</h2>
               <p>{closing.body}</p>
             </div>
-            <Button className="button button-light" href="/contact/">
+            <StaticLinkButton className="button button-light" href="/contact/">
               Request a preview <HiArrowRight aria-hidden="true" />
-            </Button>
+            </StaticLinkButton>
           </div>
         </section>
       </main>
