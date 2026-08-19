@@ -3,7 +3,7 @@ import { sitePath } from "@/lib/site-path";
 export const siteContent = {
   brand: {
     name: "Lotus Rise",
-    descriptor: "AI tools for foundations and nonprofits.",
+    descriptor: "A public benefit corporation building AI tools for foundations and nonprofits.",
   },
   navigation: [
     { label: "Janus", href: "#janus" },
@@ -12,6 +12,7 @@ export const siteContent = {
   ],
   hero: {
     eyebrow: "AI tools for people who make a difference",
+    companyType: "Public benefit corporation",
     title: "Foundations and nonprofits: amplify your impact with the right technology.",
     lead: "Lotus Rise builds AI tools for the work behind grants. Our first product, Janus, keeps program plans, evidence, findings and final reports connected, so teams spend less time piecing the work back together.",
   },

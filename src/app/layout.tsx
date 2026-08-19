@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | Lotus Rise",
   },
   description:
-    "Lotus Rise builds AI tools for the work behind grants. Explore Janus Evaluation, now in private preview.",
+    "Lotus Rise is a public benefit corporation building AI tools for the work behind grants. Explore Janus Evaluation, now in private preview.",
   alternates: { canonical: sitePath("/") },
   openGraph: {
     type: "website",
@@ -27,20 +27,21 @@ export const metadata: Metadata = {
     siteName: "Lotus Rise",
     title: "Lotus Rise | Amplify your impact with the right technology",
     description:
-      "AI tools for foundations and nonprofits, with Janus Evaluation now in private preview.",
+      "A public benefit corporation building AI tools for foundations and nonprofits. Janus Evaluation is now in private preview.",
     images: [
       {
         url: socialImage,
         width: 1200,
         height: 630,
-        alt: "Lotus Rise builds AI tools for foundations and nonprofits",
+        alt: "Lotus Rise, a public benefit corporation building AI tools for foundations and nonprofits",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Lotus Rise | Amplify your impact with the right technology",
-    description: "AI tools for foundations and nonprofits, with Janus in private preview.",
+    description:
+      "A public benefit corporation building AI tools for foundations and nonprofits. Janus is in private preview.",
     images: [socialImage],
   },
   icons: {

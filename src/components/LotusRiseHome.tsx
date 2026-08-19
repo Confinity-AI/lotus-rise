@@ -9,6 +9,7 @@ import {
   HiOutlineCheckCircle,
   HiOutlineDocumentText,
   HiOutlineMagnifyingGlass,
+  HiOutlineScale,
   HiOutlineSparkles,
 } from "react-icons/hi2";
 
@@ -29,7 +30,13 @@ export function LotusRiseHome() {
           <div className="container hero-inner">
             <div className="hero-opening has-growth">
               <div className="hero-copy reveal">
-                <p className="eyebrow">{hero.eyebrow}</p>
+                <div className="hero-meta">
+                  <p className="eyebrow">{hero.eyebrow}</p>
+                  <p className="hero-purpose">
+                    <HiOutlineScale aria-hidden="true" />
+                    {hero.companyType}
+                  </p>
+                </div>
                 <h1 id="hero-title">{hero.title}</h1>
                 <p className="hero-lead">{hero.lead}</p>
                 <div className="hero-actions">
