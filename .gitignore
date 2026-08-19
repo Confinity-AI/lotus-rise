@@ -28,6 +28,10 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# Local strategy, research, evidence, and delivery files.
+# This folder must never be committed or deployed.
+/.private/
+
 # vercel
 .vercel
 

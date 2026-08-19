@@ -1,7 +1,8 @@
-﻿# lotus-rise Project Context
+# Lotus Rise project context
 
-- This is a downstream site built from the Once UI workspace at C:\Users\ryana\Desktop\AmalgamSites\once-ui.
-- Read PROJECT_SOURCE.md, AGENTS.md, and docs/ONBOARDING.md before making large changes.
-- Start theme, color, border, scaling, surface, typography wiring, and chart styling changes in `src/resources/once-ui.config.js`.
-- Check `src/components/Providers.tsx`, `src/app/(main)/layout.tsx`, `src/resources/seo.js` before changing global system behavior.
-- Use the upstream Once UI docs and live sources as the reference layer.
+- Read PROJECT_SOURCE.md, AGENTS.md, and IMPLEMENTATION_ACCEPTANCE.md.
+- Use ../../once-ui as the private Once UI reference workspace.
+- Keep public scope to the homepage and contact page.
+- Keep public copy in src/content/site-content.ts.
+- Keep theme decisions in src/resources/once-ui.config.ts.
+- Never commit or deploy .private/.

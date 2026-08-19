@@ -1,5 +1,7 @@
 "use client";
 
+import { iconLibrary } from "@/resources/icons";
+import { dataStyle, style } from "@/resources/once-ui.config";
 import {
   type BorderStyle,
   type ChartMode,
@@ -18,8 +20,6 @@ import {
   ToastProvider,
   type TransitionStyle,
 } from "@once-ui-system/core";
-import { iconLibrary } from "../resources/icons";
-import { dataStyle, style } from "../resources/once-ui.config";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -40,14 +40,8 @@ export function Providers({ children }: { children: React.ReactNode }) {
           variant={dataStyle.variant as ChartVariant}
           mode={dataStyle.mode as ChartMode}
           height={dataStyle.height}
-          axis={{
-            stroke: dataStyle.axis.stroke,
-          }}
-          tick={{
-            fill: dataStyle.tick.fill,
-            fontSize: dataStyle.tick.fontSize,
-            line: dataStyle.tick.line,
-          }}
+          axis={dataStyle.axis}
+          tick={dataStyle.tick}
         >
           <ToastProvider>
             <IconProvider icons={iconLibrary}>{children}</IconProvider>

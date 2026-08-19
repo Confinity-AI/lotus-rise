@@ -1,0 +1,13 @@
+---
+description: Lotus Rise product-site rules
+alwaysApply: true
+---
+
+Read PROJECT_SOURCE.md, AGENTS.md, and IMPLEMENTATION_ACCEPTANCE.md first.
+
+- Keep public scope to the homepage and contact page.
+- Edit copy in src/content/site-content.ts.
+- Edit design-system settings in src/resources/once-ui.config.ts before adding CSS overrides.
+- Use only approved real Janus captures.
+- Keep Lotus Rise product-led, human, and evidence-bound.
+- Never commit or deploy .private/.

@@ -1,40 +1,37 @@
 {
-  "name": "@once-ui-system/magic-studio",
+  "name": "@lotus-rise/site",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
-    "export": "next export",
     "build": "next build",
     "build:pages": "node scripts/build-pages.mjs",
-    "deploy:pages": "npm run build:pages && npx gh-pages -d out --dotfiles --nojekyll -f",
-    "start": "next start",
-    "lint": "npx @biomejs/biome@1.9.4 lint src --files-ignore-unknown=true",
-    "biome-write": "npx @biomejs/biome format --write ."
+    "deploy:pages": "npm run build:pages && gh-pages -d out --dotfiles --nojekyll -f",
+    "start": "serve out",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src",
+    "format": "biome check --write src"
   },
   "dependencies": {
-    "@mdx-js/loader": "^3.1.0",
-    "@next/mdx": "^16.1.1",
-    "@once-ui-system/core": "^1.6.4",
-    "classnames": "^2.5.1",
-    "gray-matter": "^4.0.3",
-    "next": "^16.2.9",
-    "next-mdx-remote": "^6.0.0",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
-    "react-icons": "^5.2.1",
-    "sass": "^1.77.6",
-    "sharp": "^0.33.4"
+    "@once-ui-system/core": "1.8.2",
+    "classnames": "2.5.1",
+    "next": "16.3.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-icons": "5.7.0",
+    "sass": "1.102.0",
+    "sharp": "0.35.3"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/node": "20.17.23",
-    "@types/react": "19.0.1",
-    "@types/react-dom": "19.0.2",
+    "@types/react": "19.2.2",
+    "@types/react-dom": "19.2.2",
+    "gh-pages": "6.3.0",
+    "serve": "14.2.6",
     "typescript": "5.8.2"
-  },
-  "overrides": {
-    "@types/react": "19.0.1",
-    "@types/react-dom": "19.0.2"
   }
 }

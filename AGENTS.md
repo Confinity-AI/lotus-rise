@@ -1,39 +1,45 @@
-﻿# lotus-rise Project Instructions
+# Lotus Rise project instructions
 
-These instructions apply to this downstream project.
+## Product position
 
-## Upstream Once UI Workspace
+- Lotus Rise is a standalone public-benefit AI tools company for foundations and nonprofits.
+- Lead with tools and practical outcomes. Do not reintroduce advisory, consulting, or agency positioning.
+- Janus is the first product. Evaluation is in private preview; grant reporting, strategy, and insights are roadmap modules.
+- Keep public language natural, concise, specific, and evidence-bound.
 
-Use the Once UI reference workspace here:
+## Public scope
 
-- C:\Users\ryana\Desktop\AmalgamSites\once-ui
+- Keep the public experience to `/` and `/contact`.
+- Use only approved real Janus captures. Never fabricate product UI.
+- Keep one botanical gesture in the hero; the rest of the visual language should read as technology.
+- Do not add generic AI imagery, decorative gradients, floating blobs, or template demo content.
 
-## Read First
+## Once UI
 
-1. PROJECT_SOURCE.md
-2. AGENTS.md
-3. C:\Users\ryana\Desktop\AmalgamSites\once-ui\AGENTS.md
-4. C:\Users\ryana\Desktop\AmalgamSites\once-ui\README.md
-5. C:\Users\ryana\Desktop\AmalgamSites\once-ui\docs\THEME_SYSTEM.md
-6. C:\Users\ryana\Desktop\AmalgamSites\once-ui\docs\COMPONENT_CATALOG.md
-7. C:\Users\ryana\Desktop\AmalgamSites\once-ui\docs\BLOCKS_AND_PATTERNS.md
-8. C:\Users\ryana\Desktop\AmalgamSites\once-ui\docs\LIVE_SOURCES.md
-9. C:\Users\ryana\Desktop\AmalgamSites\once-ui\core\apps\docs\public\llms.txt
+- Read the shared Once UI guidance at `../../once-ui` before changing system behavior.
+- Start theme, color, typography, border, surface, transition, or scale changes in `src/resources/once-ui.config.ts`.
+- Prefer Once UI primitives and tokens. Keep custom CSS focused on the approved composition.
+- Do not replace the homepage with generic landing-page blocks.
 
-## Local Once UI Entry Points
+## Content and claims
 
-- `src/resources/once-ui.config.js`
-- `src/components/Providers.tsx`
-- `src/app/(main)/layout.tsx`
-- `src/resources/seo.js`
-- `src/resources/custom.css`
+- Edit public copy in `src/content/site-content.ts`.
+- Preserve clear roadmap labels and private-preview language.
+- Publish no unverified claims about accuracy, savings, security, compliance, integrations, pricing, or scale.
+- Reconfirm the legal company wording and quote permission before launch.
 
-## Theme Rule
+## Delivery
 
-When changing color, brand, accent, neutral, border, surface, scaling, typography wiring, or data-viz theme, check `src/resources/once-ui.config.js` first.
+- Never commit or deploy `.private/`.
+- Run `npm run typecheck`, `npm run lint`, `npm run build`, and `npm run build:pages`.
+- Verify desktop and mobile layouts, keyboard behavior, dialog behavior, reduced motion, console output, and route integrity.
 
-## Workflow
+<!-- BEGIN:nextjs-agent-rules -->
 
-- Build the real site in this repo.
-- Use the upstream Once UI workspace as the private source and pattern reference.
-- Keep this project separate from the upstream templates and repos.
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

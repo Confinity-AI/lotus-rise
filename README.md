@@ -1,107 +1,41 @@
-# Magic Studio
+# Lotus Rise website
 
-A ready-made template for launching your own productized service agency. Built on the Once UI ecosystem, Magic Studio helps you offer high-value frontend services to clients without building everything from scratch.
+The production website for Lotus Rise. It is a focused Next.js and Once UI build with two public routes:
 
-Perfect for designers, developers, and indie builders who want to turn their skills into a scalable service business.
+- `/` for the product-led homepage
+- `/contact` for Janus preview requests
 
-![Magic Studio cover image](public/images/og/home.jpg)
+The site presents Lotus Rise as a public-benefit AI tools company for foundations and nonprofits. Janus is shown with approved, real product captures. Roadmap modules remain clearly labeled as future work.
 
-## What's included
+## Start locally
 
-**Complete agency website**
-- Hero section with clear value proposition
-- Service showcase with modal details for each offering
-- Testimonial section with case study modal
-- Pricing bundles with interactive extras
-- Process timeline
-- FAQ section
-- Fully responsive and SEO-optimized
-
-**Pre-configured services**
-- Landing page design & development
-- Authentication & onboarding flows
-- Dashboard interfaces
-- Documentation systems
-- Brand stores
-- Launch strategy
-- Community platforms
-
-**Reusable components**
-- `Showcase` - Portfolio grid with modal navigation
-- `Testimonial` - Client testimonial with case study
-- `Pricing` - Interactive pricing bundles
-- `Process` - Visual process timeline
-- `Hero` - Conversion-optimized hero section
-- `Modal` - Portal-based modal with scroll management
-- `ModalLink` - Navigation links that preserve scroll position
-
-**Content management**
-- MDX-based content for easy editing
-- Structured content files in `/src/resources/content`
-- Hot-reload support during development
-- Type-safe content interfaces
-
-## Quick start
-
-1. **Clone and install**
-```bash
-git clone https://github.com/your-username/magic-agency.git
-cd magic-agency
+```powershell
 npm install
-```
-
-2. **Customize your content**
-- Update `/src/resources/content/` files with your services
-- Modify `/src/resources/seo.ts` with your agency details
-- Replace images in `/public/images/`
-- Adjust pricing in `/src/resources/content/plans.tsx`
-
-3. **Run locally**
-```bash
 npm run dev
 ```
 
-4. **Deploy**
-```bash
+Use Node 20.9 or later.
+
+## Quality checks
+
+```powershell
+npm run typecheck
+npm run lint
 npm run build
+npm run build:pages
 ```
 
-## Customization
+## Architecture
 
-All design tokens are managed in `/src/resources/once-ui.config.js`.
+- `src/content/site-content.ts` is the single source for public copy.
+- `src/resources/once-ui.config.ts` owns the Once UI theme and typography.
+- `src/resources/custom.css` owns custom color tokens.
+- `src/resources/lotus-rise.css` owns the approved page composition and breakpoints.
+- `src/components/JanusTheatre.tsx` owns the interactive product preview.
+- `public/lotus-rise` contains only approved production assets.
 
-Customize:
-- Brand colors
-- Typography
-- Border style
+## Private delivery library
 
-## Documentation
+Plans, decks, research, evidence, and delivery archives live in `.private/`. The folder is excluded by both repository and local Git rules and must never be committed or deployed.
 
-Learn more about Once UI at [docs.once-ui.com](https://docs.once-ui.com).
-
-## Extend with Once UI products
-
-**[Magic Portfolio](https://once-ui.com/products/magic-portfolio)** - Add a personal portfolio to showcase your own work
-
-**[Magic Docs](https://once-ui.com/products/magic-docs)** - Create documentation for your services
-
-**[Once UI Blocks](https://once-ui.com/blocks)** - Access 100+ pre-built components and sections
-
-## Built with
-
-- [Next.js](https://nextjs.org/) - React framework
-- [Once UI](https://once-ui.com/) - Design system
-- [TypeScript](https://www.typescriptlang.org/) - Type safety
-- [MDX](https://mdxjs.com/) - Content management
-
-## License
-
-TL;DR: Access to Magic Studio under Once UI Pro and Once UI Indie plans allows personal / internal / commercial use, but prohibits SaaS, resale, redistribution, and public sharing of the source code.
-
-See `LICENSE.txt` for more information.
-
-## Created by
-
-**Lorant One** - [lorant.one](https://lorant.one)
-
-Part of the [Once UI](https://once-ui.com) ecosystem.
+Read `IMPLEMENTATION_ACCEPTANCE.md` before launch. The contact endpoint, legal wording, preview status, quote permission, analytics, spam protection, and final product screenshots remain owner-controlled launch gates.
