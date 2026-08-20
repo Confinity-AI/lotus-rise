@@ -14,7 +14,7 @@ export const siteContent = {
     eyebrow: "AI tools for people who make a difference",
     companyType: "Public benefit corporation",
     title: "Foundations and nonprofits: amplify your impact with the right technology.",
-    lead: "Lotus Rise builds AI tools for the work behind grants. Janus keeps plans, evidence, findings and reports connected, so teams spend less time piecing the work back together and more time on the people they serve.",
+    lead: "Lotus Rise builds AI tools for the work behind grants. Janus keeps plans, evidence, findings and reports connected, so teams spend less time rebuilding the record and more time on the people they serve.",
   },
   janus: {
     eyebrow: "Our first product",
@@ -62,7 +62,7 @@ export const siteContent = {
   connectedWork: {
     eyebrow: "Roadmap",
     title: "Start with evaluation and build from there.",
-    body: "The roadmap follows the way teams work: evaluation first, then grant reporting and strategy. Later, connected evidence can reveal patterns across programs.",
+    body: "We are starting with evaluation. Grant reporting and strategy come next. Over time, connected evidence can reveal patterns across programs.",
     steps: [
       {
         title: "Evaluation",
@@ -89,7 +89,7 @@ export const siteContent = {
   ai: {
     eyebrow: "Practical AI for good",
     title: "Use AI to move faster. Keep people in control.",
-    body: "Janus works from the team's own material. Each finding points back to its source, and people decide what is ready to approve or share.",
+    body: "Janus works with the material your team already has. Each finding points back to its source, and people decide what is ready to approve or share.",
     behaviors: [
       { title: "Bring in sources", copy: "Use the documents and data the team already has." },
       { title: "Build a draft", copy: "Turn that material into a useful first pass." },
@@ -100,7 +100,7 @@ export const siteContent = {
   audiences: {
     eyebrow: "Who it is for",
     title: "Built for foundations, nonprofits and evaluators.",
-    body: "Everyone should be able to work from the same evidence, without rebuilding it for the next decision or report.",
+    body: "Foundations, nonprofits and evaluators can work from the same evidence without rebuilding it at every handoff.",
     items: [
       {
         label: "Foundations",
@@ -122,7 +122,7 @@ export const siteContent = {
   principles: {
     eyebrow: "Our guiding principles",
     title: "Technology should help the people helping others.",
-    body: "Lotus Rise is a public benefit corporation. We believe technology can change the world for the better when it makes good work easier for the people doing it. These four principles guide what we build and how we work.",
+    body: "Lotus Rise is a public benefit corporation. We believe technology can change the world for the better when it makes life easier for people doing work that matters. These principles guide what we build and how we work.",
     founderQuote:
       "The work that foundations and nonprofits do benefits the whole planet. We have a responsibility to make their lives easier.",
     founder: "Neeraj Vir, Founder & CEO",

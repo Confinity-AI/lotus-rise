@@ -50,6 +50,7 @@ export function LotusRiseHome() {
               </div>
               <figure className="hero-growth hero-technology reveal" aria-hidden="true">
                 <span className="hero-tech-grid" />
+                <span className="hero-tech-scan" />
                 <span className="hero-orbit hero-orbit-one" />
                 <span className="hero-orbit hero-orbit-two" />
                 <span className="hero-tech-label hero-tech-label-source">Evidence</span>

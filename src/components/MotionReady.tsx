@@ -17,6 +17,9 @@ export function MotionReady() {
     const syncNavigation = () => {
       frame = 0;
       header?.classList.toggle("is-scrolled", window.scrollY > 12);
+      const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+      const pageProgress = Math.min(Math.max(window.scrollY / scrollable, 0), 1);
+      header?.style.setProperty("--page-progress", String(pageProgress));
 
       const marker =
         window.scrollY + (header?.offsetHeight ?? 0) + Math.min(window.innerHeight * 0.32, 240);
