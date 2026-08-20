@@ -312,7 +312,7 @@ export function createLotusBloomScene({
   renderer.toneMappingExposure = 0.9;
   renderer.setClearColor(0x000000, 0);
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 30);
