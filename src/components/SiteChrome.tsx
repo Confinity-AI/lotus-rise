@@ -52,7 +52,7 @@ export function SiteHeader({ currentPage = "home" }: SiteChromeProps) {
               className={contact ? "button button-secondary" : "button button-primary"}
               href={contact ? "/" : "/contact/"}
             >
-              {contact ? "Back to homepage" : "Request a preview"}
+              {contact ? "Back to homepage" : "Contact us"}
               {!contact && <HiArrowRight aria-hidden="true" />}
             </StaticLinkButton>
           </nav>
@@ -63,7 +63,7 @@ export function SiteHeader({ currentPage = "home" }: SiteChromeProps) {
             <nav className="mobile-nav-panel" aria-label="Mobile navigation">
               <PageLinks currentPage={currentPage} />
               <a href={sitePath(contact ? "/" : "/contact/")}>
-                {contact ? "Back to homepage" : "Request a preview"}
+                {contact ? "Back to homepage" : "Contact us"}
               </a>
             </nav>
           </details>

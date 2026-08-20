@@ -428,197 +428,182 @@ a {
   margin: 0;
 }
 
-.lotus-bloom svg {
+.lotus-bloom-3d {
+  contain: layout paint;
+  isolation: isolate;
+}
+
+.lotus-bloom-canvas,
+.lotus-bloom-fallback,
+.lotus-bloom-photo,
+.lotus-photo-layer {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   display: block;
+  pointer-events: none;
+}
+
+.lotus-bloom-canvas {
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+
+.lotus-bloom-fallback {
+  opacity: 1;
   overflow: visible;
+  transition: opacity 420ms ease;
 }
 
-.lotus-bloom-shadow {
-  fill: rgba(13, 89, 69, 0.055);
-  filter: blur(18px);
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.lotus-petal-shell {
-  transform: rotate(var(--petal-angle)) scale(var(--petal-scale-x), var(--petal-scale-y));
-  transform-box: view-box;
-  transform-origin: 260px 260px;
-}
-
-.lotus-petal-face {
-  transform-box: fill-box;
-  transform-origin: 50% 96%;
-}
-
-.lotus-petal-surface {
-  filter: url(#lotus-petal-shadow);
-  stroke: rgba(13, 72, 57, 0.18);
-  stroke-width: 0.7;
-  vector-effect: non-scaling-stroke;
-}
-
-.lotus-petal-ring-outer .lotus-petal-surface {
-  fill: url(#lotus-outer-petal);
-}
-
-.lotus-petal-ring-middle .lotus-petal-surface {
-  fill: url(#lotus-middle-petal);
-}
-
-.lotus-petal-ring-inner .lotus-petal-surface {
-  fill: url(#lotus-inner-petal);
-}
-
-.lotus-petal-shell:nth-child(3n + 2) .lotus-petal-surface {
-  opacity: 0.94;
-}
-
-.lotus-petal-shadow-side {
-  fill: rgba(12, 75, 58, 0.09);
-  pointer-events: none;
-}
-
-.lotus-petal-ridge {
-  fill: rgba(255, 255, 255, 0.19);
-  pointer-events: none;
-}
-
-.lotus-petal-ring-inner .lotus-petal-ridge {
-  fill: rgba(255, 255, 255, 0.13);
-}
-
-.lotus-heart {
-  transform-box: view-box;
-  transform-origin: 260px 260px;
-}
-
-.lotus-heart-halo {
-  fill: rgba(239, 216, 111, 0.2);
-}
-
-.lotus-stamen {
-  fill: #e8c64d;
-  stroke: rgba(103, 77, 5, 0.18);
-  stroke-width: 0.65;
-}
-
-.lotus-seed-pod {
-  fill: #c8aa4e;
-  stroke: rgba(85, 65, 9, 0.2);
-  stroke-width: 0.8;
-}
-
-.lotus-seed {
-  fill: #6a5618;
-  opacity: 0.76;
-}
-
-html[data-js="true"] .lotus-bloom .lotus-bloom-shadow {
+.lotus-bloom-photo {
+  z-index: 2;
   opacity: 0;
-  transform: scale(0.35);
+  filter: saturate(0.72) contrast(0.96) brightness(1.015)
+    drop-shadow(0 18px 28px rgba(16, 56, 47, 0.07));
+  pointer-events: none;
+  transform: scale(0.92);
+  transform-origin: 50% 50%;
 }
 
-html[data-js="true"] .lotus-bloom .lotus-petal-shell {
-  opacity: 0.08;
-  transform: rotate(calc(var(--petal-angle) - 13deg)) scale(0.18, 0.14);
+.lotus-photo-layer {
+  object-fit: contain;
+  transform-origin: 50% 50%;
 }
 
-html[data-js="true"] .lotus-bloom .lotus-heart {
+.lotus-photo-outer {
+  -webkit-mask-image: radial-gradient(
+    circle,
+    transparent 0 53%,
+    rgba(0, 0, 0, 0.5) 60%,
+    #000 67% 100%
+  );
+  mask-image: radial-gradient(circle, transparent 0 53%, rgba(0, 0, 0, 0.5) 60%, #000 67% 100%);
+}
+
+.lotus-photo-middle {
+  -webkit-mask-image: radial-gradient(circle, transparent 0 27%, #000 37% 64%, transparent 73% 100%);
+  mask-image: radial-gradient(circle, transparent 0 27%, #000 37% 64%, transparent 73% 100%);
+}
+
+.lotus-photo-inner {
+  -webkit-mask-image: radial-gradient(circle, #000 0 43%, transparent 52% 100%);
+  mask-image: radial-gradient(circle, #000 0 43%, transparent 52% 100%);
+}
+
+.lotus-bloom-3d.is-rendered .lotus-bloom-canvas {
+  opacity: 1;
+}
+
+.lotus-bloom-3d.is-rendered.has-photo .lotus-bloom-canvas {
+  animation: lotus-canvas-settle 11.8s ease forwards;
+}
+
+.lotus-bloom-3d.is-rendered.has-photo .lotus-bloom-photo {
+  animation: lotus-photo-settle 11.8s ease forwards;
+}
+
+.lotus-bloom-3d.is-rendered.has-photo .lotus-photo-outer {
+  animation: lotus-photo-outer-breathe 8.8s ease-in-out 11.8s infinite alternate;
+}
+
+.lotus-bloom-3d.is-rendered.has-photo .lotus-photo-middle {
+  animation: lotus-photo-middle-breathe 7.2s ease-in-out 11.8s infinite alternate;
+}
+
+.lotus-bloom-3d.is-rendered.has-photo .lotus-photo-inner {
+  animation: lotus-photo-inner-breathe 6.4s ease-in-out 11.8s infinite alternate;
+}
+
+.lotus-bloom-3d.is-rendered .lotus-bloom-fallback {
   opacity: 0;
-  transform: scale(0.42) rotate(-8deg);
 }
 
-html[data-js="true"] .lotus-bloom.is-visible .lotus-bloom-shadow {
-  animation: lotus-shadow-open 5000ms cubic-bezier(0.22, 0.72, 0.24, 1) 900ms forwards;
+.lotus-bloom-3d.has-photo:not(.is-rendered) .lotus-bloom-photo {
+  opacity: 1;
 }
 
-html[data-js="true"] .lotus-bloom.is-visible .lotus-petal-shell {
-  animation: lotus-rosette-open var(--open-duration) cubic-bezier(0.2, 0.72, 0.2, 1)
-    var(--open-delay) forwards;
+.lotus-bloom-3d.has-photo:not(.is-rendered) .lotus-bloom-fallback {
+  opacity: 0;
 }
 
-html[data-js="true"] .lotus-bloom.is-visible .lotus-petal-face {
-  animation: lotus-petal-breathe var(--drift-duration) ease-in-out var(--drift-delay) infinite
-    alternate;
-}
-
-html[data-js="true"] .lotus-bloom.is-visible .lotus-heart {
-  animation: lotus-heart-open 2600ms cubic-bezier(0.2, 0.75, 0.18, 1) 2900ms forwards,
-    lotus-heart-breathe 12s ease-in-out 7.2s infinite alternate;
-}
-
-@keyframes lotus-rosette-open {
-  0% {
-    opacity: 0.08;
-    transform: rotate(calc(var(--petal-angle) - 13deg)) scale(0.18, 0.14);
+@keyframes lotus-canvas-settle {
+  0%,
+  82% {
+    opacity: 1;
   }
-
-  34% {
-    opacity: 0.38;
-    transform: rotate(calc(var(--petal-angle) - 8deg)) scale(0.42, 0.37);
-  }
-
-  68% {
-    opacity: 0.82;
-    transform: rotate(calc(var(--petal-angle) - 2.8deg)) scale(0.8, 0.75);
-  }
-
-  90% {
-    transform: rotate(calc(var(--petal-angle) + 1.1deg))
-      scale(calc(var(--petal-scale-x) + 0.014), calc(var(--petal-scale-y) + 0.018));
-  }
-
   100% {
-    opacity: 1;
-    transform: rotate(var(--petal-angle)) scale(var(--petal-scale-x), var(--petal-scale-y));
-  }
-}
-
-@keyframes lotus-shadow-open {
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes lotus-heart-open {
-  0% {
     opacity: 0;
-    transform: scale(0.42) rotate(-8deg);
   }
+}
 
-  75% {
-    opacity: 1;
-    transform: scale(1.035) rotate(0.6deg);
+@keyframes lotus-photo-settle {
+  0%,
+  80% {
+    opacity: 0;
   }
-
   100% {
     opacity: 1;
-    transform: scale(1) rotate(0deg);
   }
 }
 
-@keyframes lotus-petal-breathe {
+@keyframes lotus-photo-outer-breathe {
   from {
-    transform: rotate(calc(var(--drift-angle) * -0.55)) scaleY(0.996);
+    transform: scale(0.998) rotate(-0.08deg);
   }
-
   to {
-    transform: rotate(var(--drift-angle)) scaleY(1.008);
+    transform: scale(1.003) rotate(0.08deg);
   }
 }
 
-@keyframes lotus-heart-breathe {
+@keyframes lotus-photo-middle-breathe {
   from {
-    transform: scale(1) rotate(-0.25deg);
+    transform: scale(1.002) rotate(0.07deg);
   }
-
   to {
-    transform: scale(1.012) rotate(0.25deg);
+    transform: scale(0.998) rotate(-0.06deg);
   }
+}
+
+@keyframes lotus-photo-inner-breathe {
+  from {
+    transform: scale(0.999);
+  }
+  to {
+    transform: scale(1.003);
+  }
+}
+
+.lotus-fallback-shadow {
+  fill: rgba(13, 89, 69, 0.06);
+  filter: blur(18px);
+}
+
+.lotus-fallback-outer path {
+  fill: #e8f0e7;
+  stroke: rgba(39, 96, 73, 0.22);
+  stroke-width: 0.75;
+}
+
+.lotus-fallback-middle path {
+  fill: #a8cbb6;
+  stroke: rgba(35, 88, 67, 0.22);
+  stroke-width: 0.75;
+}
+
+.lotus-fallback-inner path {
+  fill: #6da188;
+  stroke: rgba(29, 78, 59, 0.24);
+  stroke-width: 0.75;
+}
+
+.lotus-fallback-heart {
+  fill: rgba(229, 196, 77, 0.34);
+}
+
+.lotus-fallback-core {
+  fill: #c8a942;
 }
 
 .hero-product {
@@ -2217,27 +2202,74 @@ html[data-js="true"] .reveal.is-visible {
   align-items: center;
 }
 
-.team-role-index {
-  display: grid;
+.team-founder-note {
+  position: relative;
+  max-width: 440px;
+  margin: 0;
+  padding: 34px 0 0 36px;
   border-top: 1px solid rgba(21, 35, 29, 0.24);
 }
 
-.team-role-index span {
-  min-height: 64px;
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  border-bottom: 1px solid rgba(21, 35, 29, 0.18);
-  font-family: var(--display);
-  font-size: 19px;
+.team-founder-note::before {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 18px;
+  height: 2px;
+  background: var(--gold);
+  content: "";
 }
 
-.team-role-index small {
-  width: 30px;
-  color: var(--emerald-dark);
-  font-family: var(--sans);
-  font-size: 10px;
-  font-weight: 760;
+.team-founder-note blockquote {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.34;
+}
+
+.team-founder-note figcaption {
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 780;
+  text-transform: uppercase;
+}
+
+.team-origin {
+  padding: 96px 0;
+  border-bottom: 1px solid rgba(21, 35, 29, 0.12);
+  background: var(--mist);
+}
+
+.team-origin-inner,
+.team-roster-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(340px, 0.88fr);
+  gap: 100px;
+  align-items: end;
+}
+
+.team-origin h2,
+.team-roster-head h2 {
+  max-width: 660px;
+  margin: 0;
+  font-family: var(--display);
+  font-size: 52px;
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+.team-origin-inner > p,
+.team-roster-head > p {
+  max-width: 520px;
+  margin: 0;
+  color: #425149;
+  font-size: 18px;
+}
+
+.team-roster-head {
+  margin-bottom: 56px;
 }
 
 .team-grid {
@@ -2306,7 +2338,7 @@ html[data-js="true"] .reveal.is-visible {
   font-weight: 760;
 }
 
-.team-member h2 {
+.team-member h3 {
   margin: 20px 0 3px;
   font-family: var(--display);
   font-size: 28px;
@@ -2314,12 +2346,19 @@ html[data-js="true"] .reveal.is-visible {
   line-height: 1.15;
 }
 
-.team-member > p {
+.team-role {
   margin: 0;
-  color: var(--muted);
+  color: var(--emerald-dark);
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.team-bio {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.58;
 }
 
 .team-statement {
@@ -2789,6 +2828,8 @@ html[data-js="true"] .reveal.is-visible {
 
   .janus-lineage-layout,
   .team-hero-inner,
+  .team-origin-inner,
+  .team-roster-head,
   .team-statement-inner {
     grid-template-columns: 1fr;
   }
@@ -2807,8 +2848,14 @@ html[data-js="true"] .reveal.is-visible {
     padding: 82px 0;
   }
 
-  .team-role-index {
+  .team-founder-note {
     width: min(100%, 560px);
+  }
+
+  .team-origin-inner,
+  .team-roster-head {
+    gap: 28px;
+    align-items: start;
   }
 
   .team-grid {
@@ -2923,8 +2970,8 @@ html[data-js="true"] .reveal.is-visible {
   }
 
   .lotus-bloom {
-    width: min(268px, 82vw);
-    margin: 18px auto -20px;
+    width: min(236px, 72vw);
+    margin: 12px auto -28px;
   }
 
   .direction-connected .dark-section {
@@ -3299,6 +3346,32 @@ html[data-js="true"] .reveal.is-visible {
     padding: 68px 0 72px;
   }
 
+  .team-founder-note {
+    padding-left: 30px;
+  }
+
+  .team-founder-note blockquote {
+    font-size: 25px;
+  }
+
+  .team-origin {
+    padding: 76px 0;
+  }
+
+  .team-origin h2,
+  .team-roster-head h2 {
+    font-size: 42px;
+  }
+
+  .team-origin-inner > p,
+  .team-roster-head > p {
+    font-size: 16px;
+  }
+
+  .team-roster-head {
+    margin-bottom: 42px;
+  }
+
   .team-grid {
     gap: 48px;
   }
@@ -3447,27 +3520,21 @@ html[data-js="true"] .reveal.is-visible {
     transform: none;
   }
 
-  html[data-js="true"] .lotus-bloom .lotus-petal-shell {
-    opacity: 1;
-    transform: rotate(var(--petal-angle)) scale(var(--petal-scale-x), var(--petal-scale-y));
-    animation: none;
+  .lotus-bloom-canvas,
+  .lotus-bloom-fallback {
+    transition: none;
   }
 
-  html[data-js="true"] .lotus-bloom .lotus-petal-face {
-    transform: none;
-    animation: none;
+  .lotus-bloom-3d.is-rendered.has-photo .lotus-bloom-canvas {
+    opacity: 0;
   }
 
-  html[data-js="true"] .lotus-bloom .lotus-bloom-shadow {
+  .lotus-bloom-3d.is-rendered.has-photo .lotus-bloom-photo {
     opacity: 1;
-    transform: scale(1);
-    animation: none;
   }
 
-  html[data-js="true"] .lotus-bloom .lotus-heart {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-    animation: none;
+  .lotus-photo-layer {
+    transform: none !important;
   }
 
   .product-system.is-visible .product-system-signal,

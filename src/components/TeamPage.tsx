@@ -18,41 +18,57 @@ export function TeamPage() {
               <h1 id="team-title">{team.hero.title}</h1>
               <p>{team.hero.lead}</p>
             </div>
-            <div className="team-role-index reveal" aria-label="Team disciplines">
-              {team.members.map((member, index) => (
-                <span key={member.name}>
-                  <small>{String(index + 1).padStart(2, "0")}</small>
-                  {member.role}
-                </span>
-              ))}
-            </div>
+            <figure className="team-founder-note reveal">
+              <blockquote>{team.hero.quote}</blockquote>
+              <figcaption>{team.hero.quoteBy}</figcaption>
+            </figure>
           </div>
         </section>
 
-        <section className="section section-paper team-roster" aria-label="Lotus Rise team">
-          <div className="container team-grid reveal">
-            {team.members.map((member, index) => (
-              <article className="team-member" key={member.name}>
-                <div className="team-portrait">
-                  {member.image ? (
-                    <Image
-                      src={member.image}
-                      alt={member.alt}
-                      width={1000}
-                      height={1000}
-                      sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 960px) 45vw, 280px"
-                    />
-                  ) : (
-                    <span role="img" aria-label={member.name}>
-                      {member.initials}
-                    </span>
-                  )}
-                  <small>{String(index + 1).padStart(2, "0")}</small>
-                </div>
-                <h2>{member.name}</h2>
-                <p>{member.role}</p>
-              </article>
-            ))}
+        <section className="team-origin" aria-labelledby="team-origin-title">
+          <div className="container team-origin-inner reveal">
+            <div>
+              <p className="eyebrow">{team.origin.eyebrow}</p>
+              <h2 id="team-origin-title">{team.origin.title}</h2>
+            </div>
+            <p>{team.origin.body}</p>
+          </div>
+        </section>
+
+        <section className="section section-paper team-roster" aria-labelledby="team-roster-title">
+          <div className="container">
+            <div className="team-roster-head reveal">
+              <div>
+                <p className="eyebrow">{team.roster.eyebrow}</p>
+                <h2 id="team-roster-title">{team.roster.title}</h2>
+              </div>
+              <p>{team.roster.body}</p>
+            </div>
+            <div className="team-grid reveal">
+              {team.members.map((member, index) => (
+                <article className="team-member" key={member.name}>
+                  <div className="team-portrait">
+                    {member.image ? (
+                      <Image
+                        src={member.image}
+                        alt={member.alt}
+                        width={1000}
+                        height={1000}
+                        sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 960px) 45vw, 280px"
+                      />
+                    ) : (
+                      <span role="img" aria-label={member.name}>
+                        {member.initials}
+                      </span>
+                    )}
+                    <small>{String(index + 1).padStart(2, "0")}</small>
+                  </div>
+                  <h3>{member.name}</h3>
+                  <p className="team-role">{member.role}</p>
+                  <p className="team-bio">{member.bio}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -65,7 +81,7 @@ export function TeamPage() {
             <div>
               <p>{team.statement.body}</p>
               <StaticLinkButton className="button button-product" href="/contact/">
-                Start a conversation <HiArrowRight aria-hidden="true" />
+                Contact us <HiArrowRight aria-hidden="true" />
               </StaticLinkButton>
             </div>
           </div>

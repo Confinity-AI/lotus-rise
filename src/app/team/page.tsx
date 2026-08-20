@@ -3,8 +3,9 @@ import { sitePath } from "@/lib/site-path";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Team",
-  description: "Meet the team building Lotus Rise tools for foundations and nonprofits.",
+  title: "About us",
+  description:
+    "Why Lotus Rise exists and the team building AI tools for foundations and nonprofits.",
   alternates: { canonical: sitePath("/team/") },
 };
 

@@ -4,11 +4,11 @@
 
 - Check the implemented routes at 1920, 1440, 1280, 1024, 768, 390, 360, and 320 pixels.
 - Preserve the original Lotus Rise SVG geometry and its pale-on-evergreen treatment.
-- Keep the homepage hero image-free. Use the rounded, top-down lotus rosette with its slow opening sequence and barely perceptible settled petal motion.
+- Use the approved hybrid hero only: a procedural 3D lotus seen directly from above, followed by the transparent botanical settle frame. It should begin as a compact bud, unfold from the inner petals outward over roughly 11 seconds, then keep only faint independent movement across feathered petal rings.
 - Use evergreen, green, white, pale green, and restrained gold. Do not reintroduce blue section bands or blue interface accents.
 - Keep a real Janus view visible in the first homepage product section and in the first viewport of the Janus page.
 - Preserve stable product-frame dimensions while tabs change.
-- Do not add gradient page backgrounds, floating decoration, generic AI imagery, or ornamental flower photography. Subtle tonal shading is reserved for the hero lotus petals.
+- Do not add gradient page backgrounds, floating decoration, generic AI imagery, or more flower photography. The single hero lotus is the exception; subtle tonal shading is reserved for its petals.
 - Do not invent screens for Grant Reporting, Strategy, or Insights.
 
 ## Responsive behavior
@@ -18,7 +18,7 @@
 - At 360 pixels and below, hero actions stack.
 - Janus tabs remain a three-part segmented control on mobile.
 - Full-screen product media can scroll without moving controls off screen.
-- Team portraits and monograms keep stable dimensions and never shift the surrounding grid.
+- Team portraits keep stable dimensions and never shift the surrounding grid.
 
 ## Accessibility
 
@@ -39,7 +39,7 @@
 - Confirm exact quote permission and attribution.
 - Confirm legal company wording.
 - Keep `public benefit corporation` distinct from Certified B Corporation status. Do not use `B Corp` or its certification mark without verified certification.
-- Confirm the approved portraits for Neeraj Vir and Ryan Ward. Do not substitute another person's photo for Parul Ohri or Jub.
+- Confirm publication approval for the portraits of Neeraj Vir, Ryan Ward, Parul Ohri, and Supamit Chaiya. Do not substitute, synthesize, or retouch identity details.
 - Publish no unverified claims about accuracy, savings, security, compliance, integrations, pricing, or scale.
 
 ## Production

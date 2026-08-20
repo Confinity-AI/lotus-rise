@@ -7,7 +7,7 @@ export const siteContent = {
   },
   navigation: [
     { label: "Janus", href: "/janus/", page: "janus" },
-    { label: "Team", href: "/team/", page: "team" },
+    { label: "About us", href: "/team/", page: "team" },
   ],
   hero: {
     eyebrow: "AI tools for people who make a difference",
@@ -203,9 +203,22 @@ export const siteContent = {
   },
   team: {
     hero: {
-      eyebrow: "Team",
-      title: "The people building Lotus Rise.",
-      lead: "Lotus Rise is built by a small team across product, technology, architecture and community. We stay close to the people who will use what we make.",
+      eyebrow: "About Lotus Rise",
+      title: "Technology should make good work easier.",
+      lead: "Lotus Rise began after years of seeing foundations and nonprofits struggle with technology that did not fit the way they worked. Staff had too many systems to manage and too little time for the work that mattered.",
+      quote:
+        "The work that foundations and nonprofits do benefits the whole planet. We have a responsibility to make their lives easier.",
+      quoteBy: "Neeraj Vir, Founder & CEO",
+    },
+    origin: {
+      eyebrow: "Why we started",
+      title: "Build the tools around the work.",
+      body: "We started Lotus Rise to give foundations and nonprofits technology made for their needs. Janus is our first product: an AI workspace that keeps plans, evidence and decisions connected through evaluation. Grant reporting comes next.",
+    },
+    roster: {
+      eyebrow: "The team",
+      title: "Small by design. Close to the work.",
+      body: "Product, technology, architecture and community, working together around real needs.",
     },
     members: [
       {
@@ -214,6 +227,7 @@ export const siteContent = {
         initials: "NV",
         image: sitePath("/lotus-rise/team/neeraj-vir.webp"),
         alt: "Neeraj Vir",
+        bio: "Shapes the product around the needs of foundations, nonprofits and the people they serve.",
       },
       {
         name: "Ryan Ward",
@@ -221,20 +235,23 @@ export const siteContent = {
         initials: "RW",
         image: sitePath("/lotus-rise/team/ryan-ward.webp"),
         alt: "Ryan Ward",
+        bio: "Sets the technical direction and turns product decisions into dependable systems.",
       },
       {
         name: "Parul Ohri",
         role: "Community Builder",
         initials: "PO",
-        image: null,
-        alt: "",
+        image: sitePath("/lotus-rise/team/parul-ohri.webp"),
+        alt: "Parul Ohri",
+        bio: "Keeps Lotus Rise connected to the organizations and communities closest to the work.",
       },
       {
-        name: "Jub",
+        name: "Supamit Chaiya",
         role: "Architect",
-        initials: "J",
-        image: null,
-        alt: "",
+        initials: "SC",
+        image: sitePath("/lotus-rise/team/supamit-chaiya.webp"),
+        alt: "Supamit Chaiya",
+        bio: "Designs the architecture that keeps Janus connected, dependable and ready to grow.",
       },
     ],
     statement: {
