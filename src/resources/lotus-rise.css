@@ -1315,16 +1315,21 @@ a {
   min-height: 310px;
   padding: 34px 26px 32px;
   border-right: 1px solid rgba(255, 255, 255, 0.16);
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 600ms ease, transform 700ms cubic-bezier(0.22, 0.8, 0.25, 1);
+}
+
+html[data-js="true"] .ai-flow-step {
   opacity: 0;
   transform: translateY(14px);
-  transition: opacity 600ms ease, transform 700ms cubic-bezier(0.22, 0.8, 0.25, 1);
 }
 
 .ai-flow-step:last-child {
   border-right: 0;
 }
 
-.ai-flow.is-visible .ai-flow-step {
+html[data-js="true"] .ai-flow.is-visible .ai-flow-step {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1683,12 +1688,17 @@ a {
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(18px);
+  opacity: 1;
+  transform: translateY(0);
   transition: opacity 560ms ease, transform 560ms ease;
 }
 
-.reveal.is-visible {
+html[data-js="true"] .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+html[data-js="true"] .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -2668,12 +2678,14 @@ a {
     animation-iteration-count: 1 !important;
   }
 
-  .reveal {
+  .reveal,
+  html[data-js="true"] .reveal {
     opacity: 1;
     transform: none;
   }
 
-  .ai-flow-step {
+  .ai-flow-step,
+  html[data-js="true"] .ai-flow-step {
     opacity: 1;
     transform: none;
   }

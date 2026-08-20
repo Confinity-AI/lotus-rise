@@ -8,9 +8,26 @@ import { sitePath } from "@/lib/site-path";
 import { dataStyle, fonts, style } from "@/resources/once-ui.config";
 import classNames from "classnames";
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 
 const baseURL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lotusrise.org";
 const socialImage = sitePath("/lotus-rise/brand/og-home.png");
+const canonicalURL = new URL(sitePath("/"), baseURL).toString();
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Corporation",
+  "@id": `${canonicalURL}#organization`,
+  name: "Lotus Rise",
+  url: canonicalURL,
+  logo: new URL(sitePath("/lotus-rise/brand/lotus-rise-logo.svg"), baseURL).toString(),
+  description: "A public benefit corporation building AI tools for foundations and nonprofits.",
+  founder: {
+    "@type": "Person",
+    name: "Neeraj Vir",
+    jobTitle: "Founder & CEO",
+  },
+};
+const organizationSchemaJSON = JSON.stringify(organizationSchema).replace(/</g, "\\u003c");
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseURL),
@@ -19,7 +36,7 @@ export const metadata: Metadata = {
     template: "%s | Lotus Rise",
   },
   description:
-    "Lotus Rise is a public benefit corporation building AI tools for the work behind grants. Explore Janus Evaluation, now in private preview.",
+    "Lotus Rise is a public benefit corporation building AI tools for foundations and nonprofits. Explore Janus Evaluation, now in private preview.",
   alternates: { canonical: sitePath("/") },
   openGraph: {
     type: "website",
@@ -72,6 +89,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       data-transition={style.transition}
       data-scaling={style.scaling}
       data-viz-style={dataStyle.variant}
+      data-js="false"
       className={classNames(
         fonts.heading.variable,
         fonts.body.variable,
@@ -79,6 +97,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         fonts.code.variable,
       )}
     >
+      <head>
+        <Script id="lotus-motion-ready" strategy="beforeInteractive">
+          {'document.documentElement.dataset.js="true";'}
+        </Script>
+        <script type="application/ld+json">{organizationSchemaJSON}</script>
+      </head>
       <body>
         <Providers>{children}</Providers>
       </body>

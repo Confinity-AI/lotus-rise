@@ -274,7 +274,7 @@ export function LotusRiseHome() {
               <p>{closing.body}</p>
             </div>
             <StaticLinkButton className="button button-light" href="/contact/">
-              Request a preview <HiArrowRight aria-hidden="true" />
+              Request a Janus preview <HiArrowRight aria-hidden="true" />
             </StaticLinkButton>
           </div>
         </section>

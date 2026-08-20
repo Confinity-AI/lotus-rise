@@ -14,7 +14,7 @@ export const siteContent = {
     eyebrow: "AI tools for people who make a difference",
     companyType: "Public benefit corporation",
     title: "Foundations and nonprofits: amplify your impact with the right technology.",
-    lead: "Lotus Rise builds AI tools for the work behind grants. Our first product, Janus, keeps program plans, evidence, findings and final reports connected, so teams spend less time piecing the work back together.",
+    lead: "Lotus Rise builds AI tools for the work behind grants. Janus keeps plans, evidence, findings and reports connected, so teams spend less time piecing the work back together and more time on the people they serve.",
   },
   janus: {
     eyebrow: "Our first product",
@@ -122,7 +122,7 @@ export const siteContent = {
   principles: {
     eyebrow: "Our guiding principles",
     title: "Technology should help the people helping others.",
-    body: "Lotus Rise is a public benefit corporation. We believe technology can change the world for the better. For us, that comes down to one practical question: does this make the work easier for the people doing it?",
+    body: "Lotus Rise is a public benefit corporation. We believe technology can change the world for the better when it makes good work easier for the people doing it. These four principles guide what we build and how we work.",
     founderQuote:
       "The work that foundations and nonprofits do benefits the whole planet. We have a responsibility to make their lives easier.",
     founder: "Neeraj Vir, Founder & CEO",
