@@ -4,11 +4,11 @@
 
 - Check the implemented routes at 1920, 1440, 1280, 1024, 768, 390, 360, and 320 pixels.
 - Preserve the original Lotus Rise SVG geometry and its pale-on-evergreen treatment.
-- Keep the homepage hero image-free. Use the logo-derived lotus blossom, with one opening sequence that settles and stops.
+- Keep the homepage hero image-free. Use the rounded, top-down lotus rosette with its slow opening sequence and barely perceptible settled petal motion.
 - Use evergreen, green, white, pale green, and restrained gold. Do not reintroduce blue section bands or blue interface accents.
 - Keep a real Janus view visible in the first homepage product section and in the first viewport of the Janus page.
 - Preserve stable product-frame dimensions while tabs change.
-- Do not add gradients, floating decoration, generic AI imagery, or ornamental flower photography.
+- Do not add gradient page backgrounds, floating decoration, generic AI imagery, or ornamental flower photography. Subtle tonal shading is reserved for the hero lotus petals.
 - Do not invent screens for Grant Reporting, Strategy, or Insights.
 
 ## Responsive behavior

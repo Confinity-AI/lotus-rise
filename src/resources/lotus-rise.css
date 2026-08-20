@@ -435,205 +435,189 @@ a {
   overflow: visible;
 }
 
-.lotus-bloom-ring,
-.lotus-bloom-axis {
-  fill: none;
-  stroke: rgba(8, 124, 104, 0.13);
-  stroke-width: 1;
-}
-
-.lotus-bloom-ring-inner {
-  stroke-dasharray: 3 9;
-}
-
-.lotus-bloom-axis {
-  stroke-dasharray: 2 11;
-}
-
-.lotus-petal {
-  --petal-angle: 0deg;
-  --petal-scale-x: 1;
-  --petal-scale-y: 1;
-  transform: rotate(var(--petal-angle)) scale(var(--petal-scale-x), var(--petal-scale-y));
-  transform-box: view-box;
-  transform-origin: 260px 394px;
-  stroke: rgba(16, 56, 47, 0.72);
-  stroke-width: 1.25;
-  vector-effect: non-scaling-stroke;
-}
-
-.lotus-petal-1,
-.lotus-petal-9 {
-  --petal-scale-x: 0.88;
-  --petal-scale-y: 0.62;
-  fill: #bad9c7;
-}
-
-.lotus-petal-1 {
-  --petal-angle: -67deg;
-}
-
-.lotus-petal-9 {
-  --petal-angle: 67deg;
-}
-
-.lotus-petal-2,
-.lotus-petal-8 {
-  --petal-scale-x: 0.9;
-  --petal-scale-y: 0.74;
-  fill: #80b49d;
-}
-
-.lotus-petal-2 {
-  --petal-angle: -49deg;
-}
-
-.lotus-petal-8 {
-  --petal-angle: 49deg;
-}
-
-.lotus-petal-3,
-.lotus-petal-7 {
-  --petal-scale-x: 0.84;
-  --petal-scale-y: 0.88;
-  fill: #e4ffd1;
-}
-
-.lotus-petal-3 {
-  --petal-angle: -32deg;
-}
-
-.lotus-petal-7 {
-  --petal-angle: 32deg;
-}
-
-.lotus-petal-4,
-.lotus-petal-6 {
-  --petal-scale-x: 0.72;
-  --petal-scale-y: 0.98;
-  fill: #4f8f77;
-}
-
-.lotus-petal-4 {
-  --petal-angle: -16deg;
-}
-
-.lotus-petal-6 {
-  --petal-angle: 16deg;
-}
-
-.lotus-petal-5 {
-  --petal-scale-x: 0.66;
-  --petal-scale-y: 1.06;
-  fill: #d5a92a;
-}
-
-.lotus-bloom-base {
-  fill: var(--brand-deep);
-  stroke: var(--brand-deeper);
-  stroke-width: 1.2;
-}
-
-.lotus-bloom-stem,
-.lotus-bloom-trace {
-  fill: none;
-  stroke: var(--emerald);
-  stroke-linecap: round;
-  stroke-width: 2;
-}
-
-.lotus-bloom-node {
-  fill: var(--paper);
-  stroke: var(--emerald);
-  stroke-width: 2;
-}
-
-html[data-js="true"] .lotus-bloom .lotus-petal {
-  opacity: 0.18;
-  transform: rotate(0deg) scale(0.34, 0.98);
-}
-
-html[data-js="true"] .lotus-bloom .lotus-bloom-base {
-  opacity: 0;
-  transform: scaleX(0.2);
+.lotus-bloom-shadow {
+  fill: rgba(13, 89, 69, 0.055);
+  filter: blur(18px);
   transform-box: fill-box;
   transform-origin: center;
 }
 
-html[data-js="true"] .lotus-bloom .lotus-bloom-stem,
-html[data-js="true"] .lotus-bloom .lotus-bloom-trace {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
+.lotus-petal-shell {
+  transform: rotate(var(--petal-angle)) scale(var(--petal-scale-x), var(--petal-scale-y));
+  transform-box: view-box;
+  transform-origin: 260px 260px;
 }
 
-html[data-js="true"] .lotus-bloom .lotus-bloom-node {
+.lotus-petal-face {
+  transform-box: fill-box;
+  transform-origin: 50% 96%;
+}
+
+.lotus-petal-surface {
+  filter: url(#lotus-petal-shadow);
+  stroke: rgba(13, 72, 57, 0.18);
+  stroke-width: 0.7;
+  vector-effect: non-scaling-stroke;
+}
+
+.lotus-petal-ring-outer .lotus-petal-surface {
+  fill: url(#lotus-outer-petal);
+}
+
+.lotus-petal-ring-middle .lotus-petal-surface {
+  fill: url(#lotus-middle-petal);
+}
+
+.lotus-petal-ring-inner .lotus-petal-surface {
+  fill: url(#lotus-inner-petal);
+}
+
+.lotus-petal-shell:nth-child(3n + 2) .lotus-petal-surface {
+  opacity: 0.94;
+}
+
+.lotus-petal-shadow-side {
+  fill: rgba(12, 75, 58, 0.09);
+  pointer-events: none;
+}
+
+.lotus-petal-ridge {
+  fill: rgba(255, 255, 255, 0.19);
+  pointer-events: none;
+}
+
+.lotus-petal-ring-inner .lotus-petal-ridge {
+  fill: rgba(255, 255, 255, 0.13);
+}
+
+.lotus-heart {
+  transform-box: view-box;
+  transform-origin: 260px 260px;
+}
+
+.lotus-heart-halo {
+  fill: rgba(239, 216, 111, 0.2);
+}
+
+.lotus-stamen {
+  fill: #e8c64d;
+  stroke: rgba(103, 77, 5, 0.18);
+  stroke-width: 0.65;
+}
+
+.lotus-seed-pod {
+  fill: #c8aa4e;
+  stroke: rgba(85, 65, 9, 0.2);
+  stroke-width: 0.8;
+}
+
+.lotus-seed {
+  fill: #6a5618;
+  opacity: 0.76;
+}
+
+html[data-js="true"] .lotus-bloom .lotus-bloom-shadow {
   opacity: 0;
+  transform: scale(0.35);
 }
 
-html[data-js="true"] .lotus-bloom.is-visible .lotus-petal {
-  animation: lotus-open 1300ms cubic-bezier(0.16, 0.86, 0.24, 1) forwards;
+html[data-js="true"] .lotus-bloom .lotus-petal-shell {
+  opacity: 0.08;
+  transform: rotate(calc(var(--petal-angle) - 13deg)) scale(0.18, 0.14);
 }
 
-.lotus-bloom.is-visible .lotus-petal-1,
-.lotus-bloom.is-visible .lotus-petal-9 {
-  animation-delay: 90ms;
+html[data-js="true"] .lotus-bloom .lotus-heart {
+  opacity: 0;
+  transform: scale(0.42) rotate(-8deg);
 }
 
-.lotus-bloom.is-visible .lotus-petal-2,
-.lotus-bloom.is-visible .lotus-petal-8 {
-  animation-delay: 170ms;
+html[data-js="true"] .lotus-bloom.is-visible .lotus-bloom-shadow {
+  animation: lotus-shadow-open 5000ms cubic-bezier(0.22, 0.72, 0.24, 1) 900ms forwards;
 }
 
-.lotus-bloom.is-visible .lotus-petal-3,
-.lotus-bloom.is-visible .lotus-petal-7 {
-  animation-delay: 250ms;
+html[data-js="true"] .lotus-bloom.is-visible .lotus-petal-shell {
+  animation: lotus-rosette-open var(--open-duration) cubic-bezier(0.2, 0.72, 0.2, 1)
+    var(--open-delay) forwards;
 }
 
-.lotus-bloom.is-visible .lotus-petal-4,
-.lotus-bloom.is-visible .lotus-petal-6 {
-  animation-delay: 330ms;
+html[data-js="true"] .lotus-bloom.is-visible .lotus-petal-face {
+  animation: lotus-petal-breathe var(--drift-duration) ease-in-out var(--drift-delay) infinite
+    alternate;
 }
 
-.lotus-bloom.is-visible .lotus-petal-5 {
-  animation-delay: 410ms;
+html[data-js="true"] .lotus-bloom.is-visible .lotus-heart {
+  animation: lotus-heart-open 2600ms cubic-bezier(0.2, 0.75, 0.18, 1) 2900ms forwards,
+    lotus-heart-breathe 12s ease-in-out 7.2s infinite alternate;
 }
 
-html[data-js="true"] .lotus-bloom.is-visible .lotus-bloom-base {
-  animation: lotus-base-open 700ms cubic-bezier(0.22, 0.8, 0.25, 1) 680ms forwards;
-}
+@keyframes lotus-rosette-open {
+  0% {
+    opacity: 0.08;
+    transform: rotate(calc(var(--petal-angle) - 13deg)) scale(0.18, 0.14);
+  }
 
-html[data-js="true"] .lotus-bloom.is-visible .lotus-bloom-stem,
-html[data-js="true"] .lotus-bloom.is-visible .lotus-bloom-trace {
-  animation: lotus-trace 700ms ease 940ms forwards;
-}
+  34% {
+    opacity: 0.38;
+    transform: rotate(calc(var(--petal-angle) - 8deg)) scale(0.42, 0.37);
+  }
 
-html[data-js="true"] .lotus-bloom.is-visible .lotus-bloom-node {
-  animation: lotus-node 420ms ease 1480ms forwards;
-}
+  68% {
+    opacity: 0.82;
+    transform: rotate(calc(var(--petal-angle) - 2.8deg)) scale(0.8, 0.75);
+  }
 
-@keyframes lotus-open {
-  to {
+  90% {
+    transform: rotate(calc(var(--petal-angle) + 1.1deg))
+      scale(calc(var(--petal-scale-x) + 0.014), calc(var(--petal-scale-y) + 0.018));
+  }
+
+  100% {
     opacity: 1;
     transform: rotate(var(--petal-angle)) scale(var(--petal-scale-x), var(--petal-scale-y));
   }
 }
 
-@keyframes lotus-base-open {
+@keyframes lotus-shadow-open {
   to {
     opacity: 1;
-    transform: scaleX(1);
+    transform: scale(1);
   }
 }
 
-@keyframes lotus-trace {
-  to {
-    stroke-dashoffset: 0;
+@keyframes lotus-heart-open {
+  0% {
+    opacity: 0;
+    transform: scale(0.42) rotate(-8deg);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(1.035) rotate(0.6deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
   }
 }
 
-@keyframes lotus-node {
+@keyframes lotus-petal-breathe {
+  from {
+    transform: rotate(calc(var(--drift-angle) * -0.55)) scaleY(0.996);
+  }
+
   to {
-    opacity: 1;
+    transform: rotate(var(--drift-angle)) scaleY(1.008);
+  }
+}
+
+@keyframes lotus-heart-breathe {
+  from {
+    transform: scale(1) rotate(-0.25deg);
+  }
+
+  to {
+    transform: scale(1.012) rotate(0.25deg);
   }
 }
 
@@ -3463,26 +3447,26 @@ html[data-js="true"] .reveal.is-visible {
     transform: none;
   }
 
-  html[data-js="true"] .lotus-bloom .lotus-petal {
+  html[data-js="true"] .lotus-bloom .lotus-petal-shell {
     opacity: 1;
     transform: rotate(var(--petal-angle)) scale(var(--petal-scale-x), var(--petal-scale-y));
     animation: none;
   }
 
-  html[data-js="true"] .lotus-bloom .lotus-bloom-base {
-    opacity: 1;
-    transform: scaleX(1);
+  html[data-js="true"] .lotus-bloom .lotus-petal-face {
+    transform: none;
     animation: none;
   }
 
-  html[data-js="true"] .lotus-bloom .lotus-bloom-stem,
-  html[data-js="true"] .lotus-bloom .lotus-bloom-trace {
-    stroke-dashoffset: 0;
+  html[data-js="true"] .lotus-bloom .lotus-bloom-shadow {
+    opacity: 1;
+    transform: scale(1);
     animation: none;
   }
 
-  html[data-js="true"] .lotus-bloom .lotus-bloom-node {
+  html[data-js="true"] .lotus-bloom .lotus-heart {
     opacity: 1;
+    transform: scale(1) rotate(0deg);
     animation: none;
   }
 

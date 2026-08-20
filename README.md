@@ -7,7 +7,7 @@ The production website for Lotus Rise. It is a focused Next.js and Once UI build
 - `/team` for the current four-person team
 - `/contact` for Janus preview requests
 
-The site presents Lotus Rise as a public benefit corporation building AI tools for foundations and nonprofits. The homepage uses a logo-derived blossom motion and an evergreen, green, white and gold palette. Janus is shown only with approved, real product captures. Roadmap modules remain clearly labeled as future work.
+The site presents Lotus Rise as a public benefit corporation building AI tools for foundations and nonprofits. The homepage uses a slow, top-down lotus bloom and an evergreen, green, white and gold palette. Janus is shown only with approved, real product captures. Roadmap modules remain clearly labeled as future work.
 
 ## Start locally
 
@@ -34,7 +34,7 @@ npm run build:pages
 - `src/resources/custom.css` owns custom color tokens.
 - `src/resources/lotus-rise.css` owns the approved page composition and breakpoints.
 - `src/components/JanusTheatre.tsx` owns the interactive product preview.
-- `src/components/LotusBloom.tsx` owns the one-time hero blossom motion.
+- `src/components/LotusBloom.tsx` owns the hero lotus opening and its restrained settled motion.
 - `src/components/JanusPage.tsx` and `src/components/TeamPage.tsx` own the two supporting pages.
 - `public/lotus-rise` contains only approved production assets.
 
