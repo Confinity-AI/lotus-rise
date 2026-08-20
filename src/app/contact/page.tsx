@@ -16,7 +16,7 @@ export default function ContactPage() {
 
   return (
     <div className="contact-page">
-      <SiteHeader contact />
+      <SiteHeader currentPage="contact" />
       <main className="contact-main" id="main">
         <div className="container contact-layout">
           <section className="contact-copy">
@@ -34,7 +34,7 @@ export default function ContactPage() {
           </section>
         </div>
       </main>
-      <SiteFooter contact />
+      <SiteFooter currentPage="contact" />
     </div>
   );
 }

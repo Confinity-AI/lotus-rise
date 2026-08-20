@@ -4,7 +4,7 @@ import { StaticLinkButton } from "@/components/StaticLinkButton";
 export default function NotFound() {
   return (
     <div className="contact-page">
-      <SiteHeader contact />
+      <SiteHeader currentPage="contact" />
       <main className="contact-main" id="main">
         <div className="container not-found">
           <p className="eyebrow">Page not found</p>
@@ -15,7 +15,7 @@ export default function NotFound() {
           </StaticLinkButton>
         </div>
       </main>
-      <SiteFooter contact />
+      <SiteFooter currentPage="contact" />
     </div>
   );
 }

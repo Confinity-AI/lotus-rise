@@ -7,4 +7,4 @@
 5. Review `src/resources/once-ui.config.ts` before changing the design system.
 6. Run typecheck, lint, both builds, and responsive browser QA before handoff.
 
-Keep the public site focused on the homepage and contact page. Keep internal plans and evidence in `.private/`.
+Keep the public site focused on four routes: homepage, Janus, Team, and Contact. Keep internal plans and evidence in `.private/`.

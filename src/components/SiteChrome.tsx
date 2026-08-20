@@ -3,13 +3,33 @@ import { StaticLinkButton } from "@/components/StaticLinkButton";
 import { siteContent } from "@/content/site-content";
 import { sitePath } from "@/lib/site-path";
 import Image from "next/image";
-import { HiArrowRight } from "react-icons/hi2";
+import { HiArrowRight, HiBars3 } from "react-icons/hi2";
 
-type SiteHeaderProps = {
-  contact?: boolean;
+export type SitePage = "home" | "janus" | "team" | "contact";
+
+type SiteChromeProps = {
+  currentPage?: SitePage;
 };
 
-export function SiteHeader({ contact = false }: SiteHeaderProps) {
+function PageLinks({ currentPage }: { currentPage: SitePage }) {
+  return (
+    <>
+      {siteContent.navigation.map((item) => (
+        <a
+          key={item.href}
+          href={sitePath(item.href)}
+          aria-current={item.page === currentPage ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </>
+  );
+}
+
+export function SiteHeader({ currentPage = "home" }: SiteChromeProps) {
+  const contact = currentPage === "contact";
+
   return (
     <>
       <a className="skip-link" href="#main">
@@ -26,27 +46,27 @@ export function SiteHeader({ contact = false }: SiteHeaderProps) {
               loading="eager"
             />
           </a>
-          <nav className="nav-links" aria-label="Primary navigation">
-            {contact ? (
-              <>
-                <a href={sitePath("/#janus")}>Janus</a>
-                <StaticLinkButton className="button button-secondary" href="/">
-                  Back to homepage
-                </StaticLinkButton>
-              </>
-            ) : (
-              <>
-                {siteContent.navigation.map((item) => (
-                  <a key={item.href} href={item.href}>
-                    {item.label}
-                  </a>
-                ))}
-                <StaticLinkButton className="button button-primary" href="/contact/">
-                  Request a preview <HiArrowRight aria-hidden="true" />
-                </StaticLinkButton>
-              </>
-            )}
+          <nav className="nav-links nav-links-desktop" aria-label="Primary navigation">
+            <PageLinks currentPage={currentPage} />
+            <StaticLinkButton
+              className={contact ? "button button-secondary" : "button button-primary"}
+              href={contact ? "/" : "/contact/"}
+            >
+              {contact ? "Back to homepage" : "Request a preview"}
+              {!contact && <HiArrowRight aria-hidden="true" />}
+            </StaticLinkButton>
           </nav>
+          <details className="mobile-nav">
+            <summary className="mobile-nav-trigger" aria-label="Open navigation" title="Menu">
+              <HiBars3 aria-hidden="true" />
+            </summary>
+            <nav className="mobile-nav-panel" aria-label="Mobile navigation">
+              <PageLinks currentPage={currentPage} />
+              <a href={sitePath(contact ? "/" : "/contact/")}>
+                {contact ? "Back to homepage" : "Request a preview"}
+              </a>
+            </nav>
+          </details>
         </div>
       </header>
       <MotionReady />
@@ -54,7 +74,13 @@ export function SiteHeader({ contact = false }: SiteHeaderProps) {
   );
 }
 
-export function SiteFooter({ contact = false }: SiteHeaderProps) {
+export function SiteFooter({ currentPage = "home" }: SiteChromeProps) {
+  const footerLinks = [
+    { label: "Home", href: "/", page: "home" },
+    ...siteContent.navigation,
+    { label: "Contact", href: "/contact/", page: "contact" },
+  ];
+
   return (
     <footer className="site-footer">
       <div className="container footer-inner">
@@ -70,8 +96,15 @@ export function SiteFooter({ contact = false }: SiteHeaderProps) {
         <div className="footer-meta">
           <span>&copy; 2026 Lotus Rise</span>
           <nav className="footer-links" aria-label="Footer navigation">
-            {!contact && <a href={sitePath("/contact/")}>Contact</a>}
-            <a href={contact ? sitePath("/#principles") : "#principles"}>Principles</a>
+            {footerLinks.map((item) => (
+              <a
+                key={item.href}
+                href={sitePath(item.href)}
+                aria-current={item.page === currentPage ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            ))}
           </nav>
         </div>
       </div>

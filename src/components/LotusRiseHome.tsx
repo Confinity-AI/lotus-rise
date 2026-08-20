@@ -1,4 +1,5 @@
 import { JanusTheatre } from "@/components/JanusTheatre";
+import { LotusBloom } from "@/components/LotusBloom";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { StaticLinkButton } from "@/components/StaticLinkButton";
 import { siteContent } from "@/content/site-content";
@@ -9,7 +10,6 @@ import {
   HiOutlineCheckCircle,
   HiOutlineDocumentText,
   HiOutlineMagnifyingGlass,
-  HiOutlineScale,
   HiOutlineSparkles,
 } from "react-icons/hi2";
 
@@ -30,44 +30,19 @@ export function LotusRiseHome() {
           <div className="container hero-inner">
             <div className="hero-opening has-growth">
               <div className="hero-copy reveal">
-                <div className="hero-meta">
-                  <p className="eyebrow">{hero.eyebrow}</p>
-                  <p className="hero-purpose">
-                    <HiOutlineScale aria-hidden="true" />
-                    {hero.companyType}
-                  </p>
-                </div>
+                <p className="eyebrow">{hero.eyebrow}</p>
                 <h1 id="hero-title">{hero.title}</h1>
                 <p className="hero-lead">{hero.lead}</p>
                 <div className="hero-actions">
                   <StaticLinkButton className="button button-primary" href="/contact/">
                     Request a Janus preview <HiArrowRight aria-hidden="true" />
                   </StaticLinkButton>
-                  <StaticLinkButton className="button button-secondary" href="#janus">
+                  <StaticLinkButton className="button button-secondary" href="/janus/">
                     Explore Janus
                   </StaticLinkButton>
                 </div>
               </div>
-              <figure className="hero-growth hero-technology reveal" aria-hidden="true">
-                <span className="hero-tech-grid" />
-                <span className="hero-tech-scan" />
-                <span className="hero-orbit hero-orbit-one" />
-                <span className="hero-orbit hero-orbit-two" />
-                <span className="hero-tech-label hero-tech-label-source">Evidence</span>
-                <span className="hero-tech-label hero-tech-label-review">Review</span>
-                <span className="hero-tech-label hero-tech-label-output">Impact</span>
-                <Image
-                  src={sitePath("/lotus-rise/brand/lotus-rise-growth-system.webp")}
-                  alt=""
-                  width={1122}
-                  height={1402}
-                  priority
-                  sizes="(max-width: 640px) 148px, (max-width: 960px) 190px, 330px"
-                />
-                <span className="hero-tech-status">
-                  <i /> Human reviewed
-                </span>
-              </figure>
+              <LotusBloom />
             </div>
           </div>
         </section>
@@ -85,8 +60,8 @@ export function LotusRiseHome() {
                   </span>
                 ))}
               </div>
-              <StaticLinkButton className="button button-product" href="/contact/">
-                Request a Janus preview <HiArrowRight aria-hidden="true" />
+              <StaticLinkButton className="button button-product" href="/janus/">
+                Explore Janus <HiArrowRight aria-hidden="true" />
               </StaticLinkButton>
             </div>
             <JanusTheatre />
@@ -274,13 +249,13 @@ export function LotusRiseHome() {
               <h2 id="closing-title">{closing.title}</h2>
               <p>{closing.body}</p>
             </div>
-            <StaticLinkButton className="button button-light" href="/contact/">
+            <StaticLinkButton className="button button-primary" href="/contact/">
               Request a Janus preview <HiArrowRight aria-hidden="true" />
             </StaticLinkButton>
           </div>
         </section>
       </main>
-      <SiteFooter />
+      <SiteFooter currentPage="home" />
     </div>
   );
 }

@@ -2,19 +2,23 @@
 
 ## Visual parity
 
-- Match the recommended HTML prototype at 1920, 1440, 1280, 1024, 768, 390, 360, and 320 pixels.
+- Check the implemented routes at 1920, 1440, 1280, 1024, 768, 390, 360, and 320 pixels.
 - Preserve the original Lotus Rise SVG geometry and its pale-on-evergreen treatment.
-- Keep the first real Janus view visible immediately after the hero.
+- Keep the homepage hero image-free. Use the logo-derived lotus blossom, with one opening sequence that settles and stops.
+- Use evergreen, green, white, pale green, and restrained gold. Do not reintroduce blue section bands or blue interface accents.
+- Keep a real Janus view visible in the first homepage product section and in the first viewport of the Janus page.
 - Preserve stable product-frame dimensions while tabs change.
-- Do not add cards, gradients, floating decoration, or generic AI imagery.
+- Do not add gradients, floating decoration, generic AI imagery, or ornamental flower photography.
+- Do not invent screens for Grant Reporting, Strategy, or Insights.
 
 ## Responsive behavior
 
 - No horizontal overflow, overlap, clipped copy, or layout shift.
-- Mobile header retains the original logo and one preview action.
+- Mobile header retains the original logo and an accessible page menu.
 - At 360 pixels and below, hero actions stack.
 - Janus tabs remain a three-part segmented control on mobile.
 - Full-screen product media can scroll without moving controls off screen.
+- Team portraits and monograms keep stable dimensions and never shift the surrounding grid.
 
 ## Accessibility
 
@@ -25,6 +29,7 @@
 - Native dialog behavior with Escape, backdrop close, and focus return.
 - Useful image alt text, labeled fields, validation messages, and polite success status.
 - Reduced-motion mode removes entrance transforms and smooth scrolling.
+- Reduced-motion mode shows the lotus fully open without playing the blossom sequence.
 
 ## Product and claim controls
 
@@ -33,6 +38,8 @@
 - Confirm safe demo data and current product version for all screenshots.
 - Confirm exact quote permission and attribution.
 - Confirm legal company wording.
+- Keep `public benefit corporation` distinct from Certified B Corporation status. Do not use `B Corp` or its certification mark without verified certification.
+- Confirm the approved portraits for Neeraj Vir and Ryan Ward. Do not substitute another person's photo for Parul Ohri or Jub.
 - Publish no unverified claims about accuracy, savings, security, compliance, integrations, pricing, or scale.
 
 ## Production
