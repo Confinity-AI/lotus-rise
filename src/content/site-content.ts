@@ -151,23 +151,57 @@ export const siteContent = {
     hero: {
       eyebrow: "Janus · Evaluation in private preview",
       title: "Keep every step of an evaluation connected.",
-      lead: "Janus brings the program plan, questions, measures, evidence, findings and report into one working record. Teams can move faster without losing how a conclusion was reached.",
+      lead: "Janus keeps the program plan, questions, measures, evidence, findings and report in one working record. That means less rebuilding and a clearer trail from source to decision.",
+    },
+    problem: {
+      eyebrow: "Why Janus",
+      title: "The work is connected. The tools usually aren't.",
+      body: "A program plan starts in one file. Evidence lands somewhere else. By the time the report is written, the team is reconstructing how it reached the conclusion.",
+      pieces: [
+        { title: "Plan", copy: "What the program set out to do." },
+        { title: "Evidence", copy: "What happened and where it was recorded." },
+        { title: "Report", copy: "What the team can stand behind." },
+      ],
+      bridge: "Janus keeps them connected from the start.",
     },
     path: {
       eyebrow: "One connected path",
-      title: "From program plan to reviewed report.",
-      body: "The work stays linked as it moves. Each output carries the evidence and decisions behind it.",
-      steps: ["Program plan", "Questions + measures", "Evidence + findings", "Reviewed report"],
+      title: "Build the record as the work happens.",
+      body: "Questions, measures, evidence and findings stay linked from setup to review. The report is the end of the path, not a fresh start.",
+      steps: ["Program plan", "Questions + measures", "Evidence + findings", "Review + report"],
     },
     gallery: {
       eyebrow: "Inside Janus",
-      title: "See the real product.",
-      body: "These screens come from the current private preview.",
+      title: "See Janus as it is today.",
+      body: "Every view below comes from the current private preview. No concept screens.",
+    },
+    humanReview: {
+      eyebrow: "AI with a visible trail",
+      title: "Let AI do the first pass. Keep the judgment with the team.",
+      body: "Janus can help organize source material and draft findings. People can check the evidence, change the work and approve what is ready to share.",
+      steps: [
+        {
+          title: "Source material",
+          copy: "Bring in the documents and data the team already trusts.",
+        },
+        {
+          title: "First pass",
+          copy: "Use AI to organize the material and prepare a draft.",
+        },
+        {
+          title: "Review",
+          copy: "Check each finding against its source.",
+        },
+        {
+          title: "Approval",
+          copy: "A person decides what is ready to share.",
+        },
+      ],
     },
     lineage: {
       eyebrow: "Evidence stays attached",
       title: "A finding should never lose its source.",
-      body: "Janus keeps the chain visible from source material to a reviewed output. That makes the work easier to check, discuss and reuse.",
+      body: "Janus keeps the trail visible from source material to reviewed output. When a question comes up, the team can see what supports the finding and who approved it.",
       points: [
         { title: "Source", copy: "Start with the material the team already trusts." },
         { title: "Finding", copy: "Show the evidence behind each conclusion." },
@@ -175,9 +209,9 @@ export const siteContent = {
       ],
     },
     modules: {
-      eyebrow: "What comes next",
-      title: "Finish evaluation. Then reuse the work.",
-      body: "Evaluation is the first module to prove with real teams. Grant reporting comes next, followed by strategy.",
+      eyebrow: "Built in a deliberate order",
+      title: "Start with evaluation. Carry the work forward.",
+      body: "We are testing evaluation with real teams first. Grant reporting follows, then strategy.",
       items: [
         {
           label: "Now · private preview",
@@ -205,20 +239,52 @@ export const siteContent = {
     hero: {
       eyebrow: "About Lotus Rise",
       title: "Technology should make good work easier.",
-      lead: "Lotus Rise began after years of seeing foundations and nonprofits struggle with technology that did not fit the way they worked. Staff had too many systems to manage and too little time for the work that mattered.",
+      lead: "Lotus Rise grew out of years spent alongside foundations and nonprofits. We saw smart teams lose time to systems that did not fit the work, scattered records and reports rebuilt by hand.",
       quote:
         "The work that foundations and nonprofits do benefits the whole planet. We have a responsibility to make their lives easier.",
       quoteBy: "Neeraj Vir, Founder & CEO",
     },
     origin: {
       eyebrow: "Why we started",
-      title: "Build the tools around the work.",
-      body: "We started Lotus Rise to give foundations and nonprofits technology made for their needs. Janus is our first product: an AI workspace that keeps plans, evidence and decisions connected through evaluation. Grant reporting comes next.",
+      title: "The mission should shape the technology.",
+      body: [
+        "Foundations and nonprofits know their work. Too often, their software does not. It breaks one connected effort into separate systems, files and handoffs.",
+        "We started Lotus Rise to make the technology fit the mission. Our AI tools help teams keep the record connected, learn from it and spend more time on the people they serve.",
+      ],
+      product: {
+        eyebrow: "Our first product",
+        title: "Janus starts with evaluation.",
+        body: "It keeps program plans, questions, measures, evidence, findings and reports in one working record.",
+      },
+    },
+    values: {
+      eyebrow: "Our guiding principles",
+      title: "What we come back to.",
+      body: "Lotus Rise is a public benefit corporation. Our purpose is built into the company: help foundations and nonprofits amplify their impact with the right technology.",
+      note: "Empowerment, innovation, integrity and community have guided Lotus Rise from the start.",
+      items: [
+        {
+          title: "Empowerment",
+          copy: "Give people useful tools, clear evidence and the final say.",
+        },
+        {
+          title: "Innovation",
+          copy: "Use new technology where it solves a real problem. Novelty on its own is not progress.",
+        },
+        {
+          title: "Integrity",
+          copy: "Take the long view. Be honest about what the product can do, and make the work easy to check.",
+        },
+        {
+          title: "Community",
+          copy: "Build with foundations, nonprofits and evaluators. Share what works so good ideas travel.",
+        },
+      ],
     },
     roster: {
       eyebrow: "The team",
       title: "Small by design. Close to the work.",
-      body: "Product, technology, architecture and community, working together around real needs.",
+      body: "We are a small team, and everyone stays close to the product and the people using it.",
     },
     members: [
       {
@@ -227,7 +293,7 @@ export const siteContent = {
         initials: "NV",
         image: sitePath("/lotus-rise/team/neeraj-vir.webp"),
         alt: "Neeraj Vir",
-        bio: "Shapes the product around the needs of foundations, nonprofits and the people they serve.",
+        bio: "Keeps the product focused on what foundations and nonprofits need from technology.",
       },
       {
         name: "Ryan Ward",
@@ -235,7 +301,7 @@ export const siteContent = {
         initials: "RW",
         image: sitePath("/lotus-rise/team/ryan-ward.webp"),
         alt: "Ryan Ward",
-        bio: "Sets the technical direction and turns product decisions into dependable systems.",
+        bio: "Turns product direction into technology that teams can depend on.",
       },
       {
         name: "Parul Ohri",
@@ -243,7 +309,7 @@ export const siteContent = {
         initials: "PO",
         image: sitePath("/lotus-rise/team/parul-ohri.webp"),
         alt: "Parul Ohri",
-        bio: "Keeps Lotus Rise connected to the organizations and communities closest to the work.",
+        bio: "Listens to the organizations closest to the work and brings those needs into the product.",
       },
       {
         name: "Supamit Chaiya",
@@ -251,13 +317,13 @@ export const siteContent = {
         initials: "SC",
         image: sitePath("/lotus-rise/team/supamit-chaiya.webp"),
         alt: "Supamit Chaiya",
-        bio: "Designs the architecture that keeps Janus connected, dependable and ready to grow.",
+        bio: "Designs the architecture that keeps Janus connected today and ready for what comes next.",
       },
     ],
     statement: {
-      eyebrow: "How we work",
+      eyebrow: "How we build",
       title: "Stay close to the people doing the work.",
-      body: "We build with foundations, nonprofits and evaluators, test the product against real workflows, and keep people responsible for the final call.",
+      body: "We test Janus against real evaluations and change it when the product does not fit the work. People remain responsible for the final call.",
     },
   },
   contact: {

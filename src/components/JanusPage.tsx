@@ -47,6 +47,33 @@ export function JanusPage() {
           </div>
         </section>
 
+        <section className="janus-problem" aria-labelledby="janus-problem-title">
+          <div className="container janus-problem-layout">
+            <div className="janus-problem-copy reveal">
+              <p className="eyebrow">{janusPage.problem.eyebrow}</p>
+              <h2 id="janus-problem-title">{janusPage.problem.title}</h2>
+              <p>{janusPage.problem.body}</p>
+            </div>
+            <div className="janus-record reveal" aria-label="The parts of an evaluation record">
+              <div className="janus-record-pieces">
+                {janusPage.problem.pieces.map((piece, index) => (
+                  <article key={piece.title}>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <div>
+                      <h3>{piece.title}</h3>
+                      <p>{piece.copy}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <p className="janus-record-bridge">
+                <span aria-hidden="true" />
+                {janusPage.problem.bridge}
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section className="janus-path-band" aria-labelledby="janus-path-title">
           <div className="container">
             <div className="section-head reveal">
@@ -85,6 +112,33 @@ export function JanusPage() {
               <p className="section-intro">{janusPage.gallery.body}</p>
             </div>
             <JanusTheatre />
+          </div>
+        </section>
+
+        <section className="section janus-human-review" aria-labelledby="human-review-title">
+          <div className="container">
+            <div className="section-head reveal">
+              <div>
+                <p className="eyebrow">{janusPage.humanReview.eyebrow}</p>
+                <h2 className="section-title" id="human-review-title">
+                  {janusPage.humanReview.title}
+                </h2>
+              </div>
+              <p className="section-intro">{janusPage.humanReview.body}</p>
+            </div>
+            <div className="janus-review-path reveal">
+              {janusPage.humanReview.steps.map((step, index) => (
+                <article key={step.title}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{step.title}</h3>
+                  <p>{step.copy}</p>
+                </article>
+              ))}
+            </div>
+            <p className="janus-review-note reveal">
+              <HiOutlineCheckCircle aria-hidden="true" />
+              People decide what is ready to share.
+            </p>
           </div>
         </section>
 

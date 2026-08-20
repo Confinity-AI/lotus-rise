@@ -1988,6 +1988,110 @@ html[data-js="true"] .reveal.is-visible {
   height: auto;
 }
 
+.janus-problem {
+  padding: 112px 0;
+  border-top: 1px solid rgba(21, 35, 29, 0.08);
+  border-bottom: 1px solid rgba(21, 35, 29, 0.12);
+  background: var(--paper);
+}
+
+.janus-problem-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(420px, 1.12fr);
+  gap: clamp(72px, 10vw, 140px);
+  align-items: center;
+}
+
+.janus-problem-copy h2 {
+  max-width: 620px;
+  margin: 0;
+  font-family: var(--display);
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 1.06;
+}
+
+.janus-problem-copy > p:not(.eyebrow) {
+  max-width: 600px;
+  margin: 26px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+}
+
+.janus-record-pieces {
+  display: grid;
+  gap: 12px;
+}
+
+.janus-record-pieces article {
+  --record-offset: 0px;
+  width: calc(100% - var(--record-offset));
+  min-height: 96px;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  margin-left: var(--record-offset);
+  padding: 19px 22px;
+  border: 1px solid rgba(21, 35, 29, 0.15);
+  border-radius: 4px;
+  background: rgba(234, 242, 237, 0.55);
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.janus-record-pieces article:nth-child(2) {
+  --record-offset: 28px;
+}
+
+.janus-record-pieces article:nth-child(3) {
+  --record-offset: 56px;
+}
+
+.janus-record-pieces article:hover {
+  border-color: rgba(8, 124, 104, 0.38);
+  transform: translateX(-4px);
+}
+
+.janus-record-pieces span {
+  color: var(--emerald-dark);
+  font-size: 11px;
+  font-weight: 780;
+}
+
+.janus-record-pieces h3,
+.janus-record-pieces p {
+  margin: 0;
+}
+
+.janus-record-pieces h3 {
+  font-family: var(--display);
+  font-size: 23px;
+  font-weight: 500;
+}
+
+.janus-record-pieces p {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.janus-record-bridge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0 0 56px;
+  color: var(--emerald-dark);
+  font-size: 14px;
+  font-weight: 740;
+}
+
+.janus-record-bridge span {
+  width: 34px;
+  height: 2px;
+  display: block;
+  background: var(--gold);
+}
+
 .janus-path-band {
   padding: 112px 0;
   background: var(--leaf);
@@ -2057,6 +2161,78 @@ html[data-js="true"] .reveal.is-visible {
 .janus-gallery .product-stage {
   width: min(100%, 1080px);
   margin-inline: auto;
+}
+
+.janus-human-review {
+  background: var(--mist);
+}
+
+.janus-review-path {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid rgba(21, 35, 29, 0.22);
+  border-bottom: 1px solid rgba(21, 35, 29, 0.22);
+}
+
+.janus-review-path article {
+  position: relative;
+  min-height: 248px;
+  padding: 26px 28px 30px;
+  border-right: 1px solid rgba(21, 35, 29, 0.16);
+}
+
+.janus-review-path article:last-child {
+  border-right: 0;
+}
+
+.janus-review-path article:not(:last-child)::after {
+  position: absolute;
+  top: 42px;
+  right: -5px;
+  z-index: 1;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--mist);
+  border-radius: 50%;
+  background: var(--emerald);
+  content: "";
+}
+
+.janus-review-path span {
+  display: block;
+  margin-bottom: 62px;
+  color: var(--emerald-dark);
+  font-size: 11px;
+  font-weight: 780;
+}
+
+.janus-review-path h3 {
+  margin: 0 0 10px;
+  font-family: var(--display);
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1.16;
+}
+
+.janus-review-path p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.janus-review-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 28px 0 0;
+  color: var(--emerald-dark);
+  font-size: 14px;
+  font-weight: 740;
+}
+
+.janus-review-note svg {
+  width: 21px;
+  height: 21px;
 }
 
 .janus-lineage-layout {
@@ -2260,12 +2436,153 @@ html[data-js="true"] .reveal.is-visible {
   line-height: 1.08;
 }
 
-.team-origin-inner > p,
+.team-origin-story > p,
 .team-roster-head > p {
   max-width: 520px;
   margin: 0;
   color: #425149;
   font-size: 18px;
+}
+
+.team-origin-story > p + p {
+  margin-top: 18px;
+}
+
+.team-origin-product {
+  display: grid;
+  grid-template-columns: minmax(160px, 0.72fr) minmax(0, 1.28fr) 28px;
+  gap: 24px;
+  align-items: center;
+  margin-top: 34px;
+  padding: 22px 0;
+  border-top: 1px solid rgba(21, 35, 29, 0.2);
+  border-bottom: 1px solid rgba(21, 35, 29, 0.2);
+  transition: border-color 180ms ease, color 180ms ease;
+}
+
+.team-origin-product:hover {
+  border-color: var(--emerald);
+  color: var(--emerald-dark);
+}
+
+.team-origin-product small,
+.team-origin-product strong {
+  display: block;
+}
+
+.team-origin-product small {
+  margin-bottom: 5px;
+  color: var(--emerald-dark);
+  font-size: 10px;
+  font-weight: 780;
+  text-transform: uppercase;
+}
+
+.team-origin-product strong {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.team-origin-product p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.team-origin-product svg {
+  transition: transform 180ms ease;
+}
+
+.team-origin-product:hover svg {
+  transform: translateX(3px);
+}
+
+.team-values {
+  padding: 116px 0;
+  background: var(--leaf);
+  color: #fff;
+}
+
+.team-values-inner {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.88fr) minmax(0, 1.12fr);
+  gap: clamp(70px, 9vw, 120px);
+  align-items: start;
+}
+
+.team-values-copy {
+  position: sticky;
+  top: 112px;
+}
+
+.team-values .eyebrow {
+  color: #c2ddd1;
+}
+
+.team-values-copy h2 {
+  max-width: 560px;
+  margin: 0;
+  font-family: var(--display);
+  font-size: 56px;
+  font-weight: 500;
+  line-height: 1.06;
+}
+
+.team-values-copy > p {
+  max-width: 560px;
+  margin: 26px 0 0;
+  color: #d8e2dc;
+  font-size: 17px;
+}
+
+.team-values-copy > small {
+  max-width: 510px;
+  display: block;
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.26);
+  color: #bcd0c5;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.team-values-list {
+  border-top: 1px solid rgba(255, 255, 255, 0.36);
+}
+
+.team-values-list article {
+  min-height: 138px;
+  display: grid;
+  grid-template-columns: 52px minmax(180px, 0.65fr) minmax(0, 1.35fr);
+  gap: 18px;
+  align-items: start;
+  padding: 28px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.team-values-list span {
+  color: #a9c8b9;
+  font-size: 11px;
+  font-weight: 780;
+}
+
+.team-values-list h3,
+.team-values-list p {
+  margin: 0;
+}
+
+.team-values-list h3 {
+  font-family: var(--display);
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.18;
+}
+
+.team-values-list p {
+  color: #d5dfd9;
+  font-size: 14px;
 }
 
 .team-roster-head {
@@ -2392,8 +2709,15 @@ html[data-js="true"] .reveal.is-visible {
   color: #c6d7ce;
 }
 
-.team-statement .button {
+.team-statement-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-top: 28px;
+}
+
+.team-statement .button {
+  margin-top: 0;
 }
 
 /* Contact */
@@ -2827,15 +3151,38 @@ html[data-js="true"] .reveal.is-visible {
   }
 
   .janus-lineage-layout,
+  .janus-problem-layout,
   .team-hero-inner,
   .team-origin-inner,
   .team-roster-head,
+  .team-values-inner,
   .team-statement-inner {
     grid-template-columns: 1fr;
   }
 
+  .janus-problem-layout,
   .janus-lineage-layout {
     gap: 54px;
+  }
+
+  .janus-record {
+    width: min(100%, 720px);
+  }
+
+  .janus-review-path {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .janus-review-path article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .janus-review-path article:nth-child(-n + 2) {
+    border-bottom: 1px solid rgba(21, 35, 29, 0.16);
+  }
+
+  .janus-review-path article:nth-child(2)::after {
+    display: none;
   }
 
   .lineage-product {
@@ -2856,6 +3203,14 @@ html[data-js="true"] .reveal.is-visible {
   .team-roster-head {
     gap: 28px;
     align-items: start;
+  }
+
+  .team-values-inner {
+    gap: 54px;
+  }
+
+  .team-values-copy {
+    position: static;
   }
 
   .team-grid {
@@ -3321,6 +3676,49 @@ html[data-js="true"] .reveal.is-visible {
     font-size: 20px;
   }
 
+  .janus-problem {
+    padding: 78px 0;
+  }
+
+  .janus-problem-copy h2,
+  .team-values-copy h2 {
+    font-size: 42px;
+  }
+
+  .janus-record-pieces article,
+  .janus-record-pieces article:nth-child(2),
+  .janus-record-pieces article:nth-child(3) {
+    --record-offset: 0px;
+  }
+
+  .janus-record-bridge {
+    margin-left: 0;
+  }
+
+  .janus-review-path {
+    grid-template-columns: 1fr;
+  }
+
+  .janus-review-path article,
+  .janus-review-path article:last-child {
+    min-height: auto;
+    padding: 26px 0;
+    border-right: 0;
+    border-bottom: 1px solid rgba(21, 35, 29, 0.16);
+  }
+
+  .janus-review-path article:last-child {
+    border-bottom: 0;
+  }
+
+  .janus-review-path article:not(:last-child)::after {
+    display: none;
+  }
+
+  .janus-review-path span {
+    margin-bottom: 30px;
+  }
+
   .module-order,
   .team-grid {
     grid-template-columns: 1fr;
@@ -3358,12 +3756,47 @@ html[data-js="true"] .reveal.is-visible {
     padding: 76px 0;
   }
 
+  .team-origin-product {
+    grid-template-columns: minmax(0, 1fr) 28px;
+    gap: 14px;
+  }
+
+  .team-origin-product > span {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .team-origin-product > p {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .team-origin-product > svg {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .team-values {
+    padding: 82px 0;
+  }
+
+  .team-values-list article {
+    min-height: auto;
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px;
+    padding: 26px 0;
+  }
+
+  .team-values-list p {
+    grid-column: 2;
+  }
+
   .team-origin h2,
   .team-roster-head h2 {
     font-size: 42px;
   }
 
-  .team-origin-inner > p,
+  .team-origin-story > p,
   .team-roster-head > p {
     font-size: 16px;
   }
@@ -3388,7 +3821,17 @@ html[data-js="true"] .reveal.is-visible {
     font-size: 42px;
   }
 
+  .team-statement-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .team-statement-actions .button {
+    width: 100%;
+  }
+
   .footer-links {
+    width: 100%;
     flex-wrap: wrap;
     gap: 6px 20px;
   }
@@ -3401,7 +3844,8 @@ html[data-js="true"] .reveal.is-visible {
   .footer-meta {
     width: 100%;
     align-items: flex-start;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
     gap: 20px;
   }
 
