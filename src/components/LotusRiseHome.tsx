@@ -30,7 +30,6 @@ export function LotusRiseHome() {
           <div className="container hero-inner">
             <div className="hero-opening has-growth">
               <div className="hero-copy reveal">
-                <p className="eyebrow">{hero.eyebrow}</p>
                 <h1 id="hero-title">{hero.title}</h1>
                 <p className="hero-lead">{hero.lead}</p>
                 <div className="hero-actions">
@@ -50,7 +49,6 @@ export function LotusRiseHome() {
         <section className="dark-section" id="janus" aria-labelledby="janus-title">
           <div className="container product-promise">
             <div className="product-copy reveal">
-              <p className="eyebrow">{janus.eyebrow}</p>
               <h2 id="janus-title">{janus.title}</h2>
               <p>{janus.body}</p>
               <div className="product-badges" aria-label="Product status">
@@ -90,7 +88,6 @@ export function LotusRiseHome() {
           <div className="container">
             <div className="section-head reveal">
               <div>
-                <p className="eyebrow">{connectedWork.eyebrow}</p>
                 <h2 className="section-title" id="connected-title">
                   {connectedWork.title}
                 </h2>
@@ -140,7 +137,6 @@ export function LotusRiseHome() {
           <div className="container">
             <div className="section-head reveal">
               <div>
-                <p className="eyebrow">{ai.eyebrow}</p>
                 <h2 className="section-title" id="behavior-title">
                   {ai.title}
                 </h2>
@@ -184,7 +180,6 @@ export function LotusRiseHome() {
           <div className="container">
             <div className="audience-story reveal">
               <div className="audience-story-copy">
-                <p className="eyebrow">{audiences.eyebrow}</p>
                 <h2 className="section-title" id="audience-title">
                   {audiences.title}
                 </h2>
@@ -222,7 +217,6 @@ export function LotusRiseHome() {
         <section className="benefit" id="principles" aria-labelledby="principles-title">
           <div className="container benefit-inner">
             <div className="benefit-copy reveal">
-              <p className="eyebrow">{principles.eyebrow}</p>
               <h2 id="principles-title">{principles.title}</h2>
               <p>{principles.body}</p>
               <div className="founder-quote">

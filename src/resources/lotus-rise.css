@@ -340,25 +340,6 @@ a {
   color: #fff;
 }
 
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 20px;
-  color: var(--emerald-dark);
-  font-size: 13px;
-  font-weight: 760;
-  line-height: 1.4;
-  text-transform: uppercase;
-}
-
-.eyebrow::before {
-  width: 28px;
-  height: 2px;
-  background: var(--gold);
-  content: "";
-}
-
 .hero {
   position: relative;
   min-height: 730px;
@@ -777,10 +758,6 @@ html[data-js="true"] .lotus-bloom-static.is-ready {
 
 .direction-connected .dark-section {
   padding-top: 84px;
-}
-
-.dark-section .eyebrow {
-  color: #b9ded2;
 }
 
 .dark-section .section-intro {
@@ -1232,10 +1209,6 @@ html[data-js="true"] .lotus-bloom-static.is-ready {
 .ai-system-section .container {
   position: relative;
   z-index: 1;
-}
-
-.ai-system-section .eyebrow {
-  color: #b9ded2;
 }
 
 .ai-system-section .section-intro {
@@ -2042,10 +2015,6 @@ html[data-js="true"] .reveal.is-visible {
   color: #fff;
 }
 
-.janus-path-band .eyebrow {
-  color: #d8e7df;
-}
-
 .janus-path-band .section-intro {
   color: #d2dfd8;
 }
@@ -2563,10 +2532,6 @@ html[data-js="true"] .reveal.is-visible {
   top: 112px;
 }
 
-.team-values .eyebrow {
-  color: #c2ddd1;
-}
-
 .team-values-copy h2 {
   max-width: 560px;
   margin: 0;
@@ -2735,10 +2700,6 @@ html[data-js="true"] .reveal.is-visible {
   grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
   gap: 100px;
   align-items: end;
-}
-
-.team-statement .eyebrow {
-  color: #b9ded2;
 }
 
 .team-statement h2 {
@@ -3386,10 +3347,6 @@ html[data-js="true"] .reveal.is-visible {
   .direction-connected .hero h1 {
     font-size: 38px;
     line-height: 1.02;
-  }
-
-  .direction-connected .hero .eyebrow {
-    font-size: 11px;
   }
 
   .direction-connected .hero-lead {

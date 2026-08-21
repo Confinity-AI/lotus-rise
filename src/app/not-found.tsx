@@ -7,7 +7,6 @@ export default function NotFound() {
       <SiteHeader currentPage="contact" />
       <main className="contact-main" id="main">
         <div className="container not-found">
-          <p className="eyebrow">Page not found</p>
           <h1>This page is not here.</h1>
           <p>Return to Lotus Rise and continue from the homepage.</p>
           <StaticLinkButton className="button button-primary" href="/">

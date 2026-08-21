@@ -20,7 +20,6 @@ export default function ContactPage() {
       <main className="contact-main" id="main">
         <div className="container contact-layout">
           <section className="contact-copy">
-            <p className="eyebrow">{contact.eyebrow}</p>
             <h1>{contact.title}</h1>
             <p>{contact.lead}</p>
             <div className="contact-note">

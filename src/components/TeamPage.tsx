@@ -15,7 +15,6 @@ export function TeamPage() {
         <section className="subpage-hero team-page-hero" aria-labelledby="team-title">
           <div className="container team-hero-inner">
             <div className="subpage-hero-copy reveal">
-              <p className="eyebrow">{team.hero.eyebrow}</p>
               <h1 id="team-title">{team.hero.title}</h1>
               <p>{team.hero.lead}</p>
               <div className="hero-actions">
@@ -50,7 +49,6 @@ export function TeamPage() {
         <section className="team-origin" id="story" aria-labelledby="team-origin-title">
           <div className="container team-origin-inner reveal">
             <div className="team-origin-heading">
-              <p className="eyebrow">{team.origin.eyebrow}</p>
               <h2 id="team-origin-title">{team.origin.title}</h2>
               <figure className="team-origin-quote">
                 <blockquote>{team.hero.quote}</blockquote>
@@ -88,7 +86,6 @@ export function TeamPage() {
         <section className="team-values" aria-labelledby="team-values-title">
           <div className="container team-values-inner">
             <div className="team-values-copy reveal">
-              <p className="eyebrow">{team.values.eyebrow}</p>
               <h2 id="team-values-title">{team.values.title}</h2>
               <p>{team.values.body}</p>
               <small>{team.values.note}</small>
@@ -109,7 +106,6 @@ export function TeamPage() {
           <div className="container">
             <div className="team-roster-head reveal">
               <div>
-                <p className="eyebrow">{team.roster.eyebrow}</p>
                 <h2 id="team-roster-title">{team.roster.title}</h2>
               </div>
               <p>{team.roster.body}</p>
@@ -145,7 +141,6 @@ export function TeamPage() {
         <section className="team-statement" aria-labelledby="team-statement-title">
           <div className="container team-statement-inner reveal">
             <div>
-              <p className="eyebrow">{team.statement.eyebrow}</p>
               <h2 id="team-statement-title">{team.statement.title}</h2>
             </div>
             <div>

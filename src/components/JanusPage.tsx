@@ -16,7 +16,6 @@ export function JanusPage() {
         <section className="subpage-hero janus-page-hero" aria-labelledby="janus-page-title">
           <div className="container subpage-hero-inner">
             <div className="subpage-hero-copy reveal">
-              <p className="eyebrow">{janusPage.hero.eyebrow}</p>
               <h1 id="janus-page-title">{janusPage.hero.title}</h1>
               <p>{janusPage.hero.lead}</p>
               <div className="hero-actions">
@@ -51,7 +50,6 @@ export function JanusPage() {
         <section className="janus-problem" aria-labelledby="janus-problem-title">
           <div className="container janus-problem-layout">
             <div className="janus-problem-copy reveal">
-              <p className="eyebrow">{janusPage.problem.eyebrow}</p>
               <h2 id="janus-problem-title">{janusPage.problem.title}</h2>
               <p>{janusPage.problem.body}</p>
             </div>
@@ -94,7 +92,6 @@ export function JanusPage() {
           <div className="container">
             <div className="section-head reveal">
               <div>
-                <p className="eyebrow">{janusPage.path.eyebrow}</p>
                 <h2 className="section-title" id="janus-path-title">
                   {janusPage.path.title}
                 </h2>
@@ -120,7 +117,6 @@ export function JanusPage() {
           <div className="container">
             <div className="section-head reveal">
               <div>
-                <p className="eyebrow">{janusPage.gallery.eyebrow}</p>
                 <h2 className="section-title" id="gallery-title">
                   {janusPage.gallery.title}
                 </h2>
@@ -135,7 +131,6 @@ export function JanusPage() {
           <div className="container">
             <div className="section-head reveal">
               <div>
-                <p className="eyebrow">{janusPage.humanReview.eyebrow}</p>
                 <h2 className="section-title" id="human-review-title">
                   {janusPage.humanReview.title}
                 </h2>
@@ -178,7 +173,6 @@ export function JanusPage() {
         <section className="section section-paper janus-lineage" aria-labelledby="lineage-title">
           <div className="container janus-lineage-layout">
             <div className="janus-lineage-copy reveal">
-              <p className="eyebrow">{janusPage.lineage.eyebrow}</p>
               <h2 className="section-title" id="lineage-title">
                 {janusPage.lineage.title}
               </h2>
@@ -205,7 +199,6 @@ export function JanusPage() {
           <div className="container">
             <div className="section-head reveal">
               <div>
-                <p className="eyebrow">{janusPage.modules.eyebrow}</p>
                 <h2 className="section-title" id="modules-title">
                   {janusPage.modules.title}
                 </h2>
