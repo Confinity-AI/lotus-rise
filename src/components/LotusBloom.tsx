@@ -19,6 +19,7 @@ export function LotusBloom() {
         width={1024}
         height={1024}
         sizes="(max-width: 640px) 236px, 430px"
+        loading="eager"
         fetchPriority="high"
         draggable={false}
         onLoad={() => setReady(true)}
