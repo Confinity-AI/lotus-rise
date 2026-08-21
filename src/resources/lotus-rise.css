@@ -428,182 +428,31 @@ a {
   margin: 0;
 }
 
-.lotus-bloom-3d {
-  contain: layout paint;
-  isolation: isolate;
+.lotus-bloom-static {
+  opacity: 1;
+  transform: none;
 }
 
-.lotus-bloom-canvas,
-.lotus-bloom-fallback,
-.lotus-bloom-photo,
-.lotus-photo-layer {
-  position: absolute;
-  inset: 0;
+html[data-js="true"] .lotus-bloom-static {
+  opacity: 0;
+  transform: translateY(8px) scale(0.975);
+  transition: opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1), transform 1400ms
+    cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html[data-js="true"] .lotus-bloom-static.is-ready {
+  opacity: 1;
+  transform: none;
+}
+
+.lotus-bloom-image {
   width: 100%;
   height: 100%;
   display: block;
-  pointer-events: none;
-}
-
-.lotus-bloom-canvas {
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 700ms ease;
-}
-
-.lotus-bloom-fallback {
-  opacity: 1;
-  overflow: visible;
-  transition: opacity 420ms ease;
-}
-
-.lotus-bloom-photo {
-  z-index: 2;
-  opacity: 0;
+  object-fit: contain;
   filter: saturate(0.72) contrast(0.96) brightness(1.015)
     drop-shadow(0 18px 28px rgba(16, 56, 47, 0.07));
   pointer-events: none;
-  transform: scale(0.92);
-  transform-origin: 50% 50%;
-}
-
-.lotus-photo-layer {
-  object-fit: contain;
-  transform-origin: 50% 50%;
-}
-
-.lotus-photo-outer {
-  -webkit-mask-image: radial-gradient(
-    circle,
-    transparent 0 53%,
-    rgba(0, 0, 0, 0.5) 60%,
-    #000 67% 100%
-  );
-  mask-image: radial-gradient(circle, transparent 0 53%, rgba(0, 0, 0, 0.5) 60%, #000 67% 100%);
-}
-
-.lotus-photo-middle {
-  -webkit-mask-image: radial-gradient(circle, transparent 0 27%, #000 37% 64%, transparent 73% 100%);
-  mask-image: radial-gradient(circle, transparent 0 27%, #000 37% 64%, transparent 73% 100%);
-}
-
-.lotus-photo-inner {
-  -webkit-mask-image: radial-gradient(circle, #000 0 43%, transparent 52% 100%);
-  mask-image: radial-gradient(circle, #000 0 43%, transparent 52% 100%);
-}
-
-.lotus-bloom-3d.is-rendered .lotus-bloom-canvas {
-  opacity: 1;
-}
-
-.lotus-bloom-3d.is-rendered.has-photo .lotus-bloom-canvas {
-  animation: lotus-canvas-settle 11.8s ease forwards;
-}
-
-.lotus-bloom-3d.is-rendered.has-photo .lotus-bloom-photo {
-  animation: lotus-photo-settle 11.8s ease forwards;
-}
-
-.lotus-bloom-3d.is-rendered.has-photo .lotus-photo-outer {
-  animation: lotus-photo-outer-breathe 8.8s ease-in-out 11.8s infinite alternate;
-}
-
-.lotus-bloom-3d.is-rendered.has-photo .lotus-photo-middle {
-  animation: lotus-photo-middle-breathe 7.2s ease-in-out 11.8s infinite alternate;
-}
-
-.lotus-bloom-3d.is-rendered.has-photo .lotus-photo-inner {
-  animation: lotus-photo-inner-breathe 6.4s ease-in-out 11.8s infinite alternate;
-}
-
-.lotus-bloom-3d.is-rendered .lotus-bloom-fallback {
-  opacity: 0;
-}
-
-.lotus-bloom-3d.has-photo:not(.is-rendered) .lotus-bloom-photo {
-  opacity: 1;
-}
-
-.lotus-bloom-3d.has-photo:not(.is-rendered) .lotus-bloom-fallback {
-  opacity: 0;
-}
-
-@keyframes lotus-canvas-settle {
-  0%,
-  82% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes lotus-photo-settle {
-  0%,
-  80% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes lotus-photo-outer-breathe {
-  from {
-    transform: scale(0.998) rotate(-0.08deg);
-  }
-  to {
-    transform: scale(1.003) rotate(0.08deg);
-  }
-}
-
-@keyframes lotus-photo-middle-breathe {
-  from {
-    transform: scale(1.002) rotate(0.07deg);
-  }
-  to {
-    transform: scale(0.998) rotate(-0.06deg);
-  }
-}
-
-@keyframes lotus-photo-inner-breathe {
-  from {
-    transform: scale(0.999);
-  }
-  to {
-    transform: scale(1.003);
-  }
-}
-
-.lotus-fallback-shadow {
-  fill: rgba(13, 89, 69, 0.06);
-  filter: blur(18px);
-}
-
-.lotus-fallback-outer path {
-  fill: #e8f0e7;
-  stroke: rgba(39, 96, 73, 0.22);
-  stroke-width: 0.75;
-}
-
-.lotus-fallback-middle path {
-  fill: #a8cbb6;
-  stroke: rgba(35, 88, 67, 0.22);
-  stroke-width: 0.75;
-}
-
-.lotus-fallback-inner path {
-  fill: #6da188;
-  stroke: rgba(29, 78, 59, 0.24);
-  stroke-width: 0.75;
-}
-
-.lotus-fallback-heart {
-  fill: rgba(229, 196, 77, 0.34);
-}
-
-.lotus-fallback-core {
-  fill: #c8a942;
 }
 
 .hero-product {
@@ -4238,21 +4087,11 @@ html[data-js="true"] .reveal.is-visible {
     transform: none;
   }
 
-  .lotus-bloom-canvas,
-  .lotus-bloom-fallback {
-    transition: none;
-  }
-
-  .lotus-bloom-3d.is-rendered.has-photo .lotus-bloom-canvas {
-    opacity: 0;
-  }
-
-  .lotus-bloom-3d.is-rendered.has-photo .lotus-bloom-photo {
+  .lotus-bloom-static,
+  html[data-js="true"] .lotus-bloom-static {
     opacity: 1;
-  }
-
-  .lotus-photo-layer {
-    transform: none !important;
+    transform: none;
+    transition: none;
   }
 
   .product-system.is-visible .product-system-signal,
