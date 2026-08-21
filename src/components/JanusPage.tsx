@@ -40,7 +40,8 @@ export function JanusPage() {
                 alt="Janus evaluation program path showing each stage of the workflow"
                 width={1905}
                 height={848}
-                priority
+                preload
+                loading="eager"
                 sizes="(max-width: 960px) calc(100vw - 32px), 1120px"
               />
             </figure>
@@ -69,16 +70,22 @@ export function JanusPage() {
               <span className="janus-record-connector" aria-hidden="true">
                 <HiArrowRight />
               </span>
-              <figure className="janus-connected-preview">
-                <figcaption>{janusPage.problem.bridge}</figcaption>
-                <Image
-                  src={sitePath("/lotus-rise/product/janus-evaluation-lineage-v2.webp")}
-                  alt="Real Janus lineage view connecting questions, measures, evidence and findings"
-                  width={1540}
-                  height={707}
-                  sizes="(max-width: 640px) calc(100vw - 32px), 520px"
-                />
-              </figure>
+              <div className="janus-connected-record">
+                <div className="janus-connected-record-head">
+                  <span>Janus</span>
+                  <small>One record</small>
+                </div>
+                <strong>{janusPage.problem.bridge}</strong>
+                <div className="janus-connected-chain" aria-hidden="true">
+                  {["Plan", "Evidence", "Finding", "Reviewed report"].map((step, index) => (
+                    <div key={step}>
+                      <span>{String(index + 1).padStart(2, "0")}</span>
+                      <b>{step}</b>
+                    </div>
+                  ))}
+                </div>
+                <p>Source trail visible at every step.</p>
+              </div>
             </div>
           </div>
         </section>

@@ -34,24 +34,15 @@ export function TeamPage() {
                   alt={team.members[0].alt}
                   width={1000}
                   height={1000}
-                  priority
-                  sizes="(max-width: 640px) 78vw, (max-width: 960px) 430px, 430px"
+                  preload
+                  loading="eager"
+                  sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 960px) 500px, 450px"
                 />
               </div>
               <figcaption>
                 <strong>Neeraj Vir</strong>
                 <span>Founder &amp; CEO</span>
               </figcaption>
-              <div className="team-hero-product-preview">
-                <span>Janus · Evaluation lineage</span>
-                <Image
-                  src={sitePath("/lotus-rise/product/janus-evaluation-lineage-v2.webp")}
-                  alt="Real Janus evaluation lineage view"
-                  width={1540}
-                  height={707}
-                  sizes="(max-width: 640px) 58vw, 300px"
-                />
-              </div>
             </figure>
           </div>
         </section>
