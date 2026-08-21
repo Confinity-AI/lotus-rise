@@ -54,22 +54,31 @@ export function JanusPage() {
               <h2 id="janus-problem-title">{janusPage.problem.title}</h2>
               <p>{janusPage.problem.body}</p>
             </div>
-            <div className="janus-record reveal" aria-label="The parts of an evaluation record">
-              <div className="janus-record-pieces">
+            <div
+              className="janus-problem-visual reveal"
+              aria-label="From separate files to one connected record"
+            >
+              <div className="janus-record-pieces" aria-label="Separate evaluation files">
                 {janusPage.problem.pieces.map((piece, index) => (
-                  <article key={piece.title}>
+                  <div key={piece}>
                     <span>{String(index + 1).padStart(2, "0")}</span>
-                    <div>
-                      <h3>{piece.title}</h3>
-                      <p>{piece.copy}</p>
-                    </div>
-                  </article>
+                    <strong>{piece}</strong>
+                  </div>
                 ))}
               </div>
-              <p className="janus-record-bridge">
-                <span aria-hidden="true" />
-                {janusPage.problem.bridge}
-              </p>
+              <span className="janus-record-connector" aria-hidden="true">
+                <HiArrowRight />
+              </span>
+              <figure className="janus-connected-preview">
+                <figcaption>{janusPage.problem.bridge}</figcaption>
+                <Image
+                  src={sitePath("/lotus-rise/product/janus-evaluation-lineage-v2.webp")}
+                  alt="Real Janus lineage view connecting questions, measures, evidence and findings"
+                  width={1540}
+                  height={707}
+                  sizes="(max-width: 640px) calc(100vw - 32px), 520px"
+                />
+              </figure>
             </div>
           </div>
         </section>
@@ -126,14 +135,31 @@ export function JanusPage() {
               </div>
               <p className="section-intro">{janusPage.humanReview.body}</p>
             </div>
-            <div className="janus-review-path reveal">
-              {janusPage.humanReview.steps.map((step, index) => (
-                <article key={step.title}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{step.title}</h3>
-                  <p>{step.copy}</p>
-                </article>
-              ))}
+            <div className="janus-review-layout">
+              <div className="janus-review-path reveal">
+                {janusPage.humanReview.steps.map((step, index) => (
+                  <article key={step.title}>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <div>
+                      <h3>{step.title}</h3>
+                      <p>{step.copy}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <figure className="janus-review-product reveal">
+                <figcaption>
+                  <span>Real Janus view</span>
+                  <strong>Reviewed report</strong>
+                </figcaption>
+                <Image
+                  src={sitePath("/lotus-rise/product/janus-reviewed-report.webp")}
+                  alt="Real Janus reviewed report ready for human approval"
+                  width={1540}
+                  height={707}
+                  sizes="(max-width: 960px) calc(100vw - 48px), 680px"
+                />
+              </figure>
             </div>
             <p className="janus-review-note reveal">
               <HiOutlineCheckCircle aria-hidden="true" />
@@ -150,17 +176,6 @@ export function JanusPage() {
                 {janusPage.lineage.title}
               </h2>
               <p className="section-intro">{janusPage.lineage.body}</p>
-              <div className="lineage-points">
-                {janusPage.lineage.points.map((point) => (
-                  <article key={point.title}>
-                    <HiOutlineCheckCircle aria-hidden="true" />
-                    <div>
-                      <h3>{point.title}</h3>
-                      <p>{point.copy}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
             </div>
             <figure className="lineage-product reveal">
               <figcaption>

@@ -18,31 +18,77 @@ export function TeamPage() {
               <p className="eyebrow">{team.hero.eyebrow}</p>
               <h1 id="team-title">{team.hero.title}</h1>
               <p>{team.hero.lead}</p>
+              <div className="hero-actions">
+                <StaticLinkButton className="button button-primary" href="/janus/">
+                  Explore Janus <HiArrowRight aria-hidden="true" />
+                </StaticLinkButton>
+                <a className="text-link" href="#story">
+                  Why we started <HiArrowRight aria-hidden="true" />
+                </a>
+              </div>
             </div>
-            <figure className="team-founder-note reveal">
-              <blockquote>{team.hero.quote}</blockquote>
-              <figcaption>{team.hero.quoteBy}</figcaption>
+            <figure className="team-hero-visual reveal">
+              <div className="team-hero-portrait">
+                <Image
+                  src={team.members[0].image}
+                  alt={team.members[0].alt}
+                  width={1000}
+                  height={1000}
+                  priority
+                  sizes="(max-width: 640px) 78vw, (max-width: 960px) 430px, 430px"
+                />
+              </div>
+              <figcaption>
+                <strong>Neeraj Vir</strong>
+                <span>Founder &amp; CEO</span>
+              </figcaption>
+              <div className="team-hero-product-preview">
+                <span>Janus · Evaluation lineage</span>
+                <Image
+                  src={sitePath("/lotus-rise/product/janus-evaluation-lineage-v2.webp")}
+                  alt="Real Janus evaluation lineage view"
+                  width={1540}
+                  height={707}
+                  sizes="(max-width: 640px) 58vw, 300px"
+                />
+              </div>
             </figure>
           </div>
         </section>
 
-        <section className="team-origin" aria-labelledby="team-origin-title">
+        <section className="team-origin" id="story" aria-labelledby="team-origin-title">
           <div className="container team-origin-inner reveal">
-            <div>
+            <div className="team-origin-heading">
               <p className="eyebrow">{team.origin.eyebrow}</p>
               <h2 id="team-origin-title">{team.origin.title}</h2>
+              <figure className="team-origin-quote">
+                <blockquote>{team.hero.quote}</blockquote>
+                <figcaption>{team.hero.quoteBy}</figcaption>
+              </figure>
             </div>
             <div className="team-origin-story">
               {team.origin.body.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
               <a className="team-origin-product" href={sitePath("/janus/")}>
-                <span>
-                  <small>{team.origin.product.eyebrow}</small>
-                  <strong>{team.origin.product.title}</strong>
-                </span>
-                <p>{team.origin.product.body}</p>
-                <HiArrowRight aria-hidden="true" />
+                <div className="team-origin-product-media">
+                  <span>Real Janus view</span>
+                  <Image
+                    src={sitePath("/lotus-rise/product/janus-program-path.webp")}
+                    alt="Janus program path showing the connected evaluation workflow"
+                    width={1905}
+                    height={848}
+                    sizes="(max-width: 960px) calc(100vw - 48px), 520px"
+                  />
+                </div>
+                <div className="team-origin-product-copy">
+                  <span>
+                    <small>{team.origin.product.eyebrow}</small>
+                    <strong>{team.origin.product.title}</strong>
+                  </span>
+                  <HiArrowRight aria-hidden="true" />
+                  <p>{team.origin.product.body}</p>
+                </div>
               </a>
             </div>
           </div>

@@ -151,18 +151,14 @@ export const siteContent = {
     hero: {
       eyebrow: "Janus · Evaluation in private preview",
       title: "Keep every step of an evaluation connected.",
-      lead: "Janus keeps the program plan, questions, measures, evidence, findings and report in one working record. That means less rebuilding and a clearer trail from source to decision.",
+      lead: "Janus keeps the plan, evidence, findings and report in one working record, with the source trail kept in view.",
     },
     problem: {
       eyebrow: "Why Janus",
       title: "The work is connected. The tools usually aren't.",
-      body: "A program plan starts in one file. Evidence lands somewhere else. By the time the report is written, the team is reconstructing how it reached the conclusion.",
-      pieces: [
-        { title: "Plan", copy: "What the program set out to do." },
-        { title: "Evidence", copy: "What happened and where it was recorded." },
-        { title: "Report", copy: "What the team can stand behind." },
-      ],
-      bridge: "Janus keeps them connected from the start.",
+      body: "Plans, evidence and reports often live in different places. At the end, teams have to rebuild how one led to the next.",
+      pieces: ["Plan", "Evidence", "Report"],
+      bridge: "One connected record from plan to reviewed report.",
     },
     path: {
       eyebrow: "One connected path",
@@ -178,15 +174,15 @@ export const siteContent = {
     humanReview: {
       eyebrow: "AI with a visible trail",
       title: "Let AI do the first pass. Keep the judgment with the team.",
-      body: "Janus can help organize source material and draft findings. People can check the evidence, change the work and approve what is ready to share.",
+      body: "Janus can prepare a first pass. People check the evidence, change the work and approve what is ready to share.",
       steps: [
         {
           title: "Source material",
-          copy: "Bring in the documents and data the team already trusts.",
+          copy: "Bring in the material the team already uses.",
         },
         {
           title: "First pass",
-          copy: "Use AI to organize the material and prepare a draft.",
+          copy: "Organize the material and prepare a draft.",
         },
         {
           title: "Review",
@@ -194,19 +190,14 @@ export const siteContent = {
         },
         {
           title: "Approval",
-          copy: "A person decides what is ready to share.",
+          copy: "A person decides what is ready.",
         },
       ],
     },
     lineage: {
       eyebrow: "Evidence stays attached",
       title: "A finding should never lose its source.",
-      body: "Janus keeps the trail visible from source material to reviewed output. When a question comes up, the team can see what supports the finding and who approved it.",
-      points: [
-        { title: "Source", copy: "Start with the material the team already trusts." },
-        { title: "Finding", copy: "Show the evidence behind each conclusion." },
-        { title: "Review", copy: "People approve what is ready to share." },
-      ],
+      body: "Each finding keeps its source close. When a question comes up, the team can see the evidence and the review behind it.",
     },
     modules: {
       eyebrow: "Built in a deliberate order",
@@ -239,7 +230,7 @@ export const siteContent = {
     hero: {
       eyebrow: "About Lotus Rise",
       title: "Technology should make good work easier.",
-      lead: "Lotus Rise grew out of years spent alongside foundations and nonprofits. We saw smart teams lose time to systems that did not fit the work, scattered records and reports rebuilt by hand.",
+      lead: "Lotus Rise builds AI tools around the way foundations and nonprofits actually work.",
       quote:
         "The work that foundations and nonprofits do benefits the whole planet. We have a responsibility to make their lives easier.",
       quoteBy: "Neeraj Vir, Founder & CEO",
@@ -248,8 +239,8 @@ export const siteContent = {
       eyebrow: "Why we started",
       title: "The mission should shape the technology.",
       body: [
-        "Foundations and nonprofits know their work. Too often, their software does not. It breaks one connected effort into separate systems, files and handoffs.",
-        "We started Lotus Rise to make the technology fit the mission. Our AI tools help teams keep the record connected, learn from it and spend more time on the people they serve.",
+        "Foundations and nonprofits know their work. Too often, their software does not. Plans, evidence and reports end up spread across systems and rebuilt by hand.",
+        "We started Lotus Rise to make the technology fit the mission, so people can spend less time managing systems and more time changing lives.",
       ],
       product: {
         eyebrow: "Our first product",
