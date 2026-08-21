@@ -10,12 +10,10 @@ export const siteContent = {
     { label: "About us", href: "/team/", page: "team" },
   ],
   hero: {
-    eyebrow: "AI tools for people who make a difference",
-    title: "Foundations and nonprofits: amplify your impact with the right technology.",
+    title: "We empower the social sector to amplify its impact with the right technology.",
     lead: "Lotus Rise builds AI tools for the work behind grants. Our first product, Janus, keeps plans, evidence, findings and reports connected, so teams can spend less time rebuilding the record and more time on the people they serve.",
   },
   janus: {
-    eyebrow: "Our first product",
     title: "Keep the whole evaluation in one place.",
     body: "Janus keeps the work together from program plan to reviewed report. Each finding stays linked to the questions, measures and evidence behind it.",
     statuses: ["Evaluation · private preview", "Grant reporting · next", "Strategy · later"],
@@ -58,7 +56,6 @@ export const siteContent = {
     organization: "John Templeton Foundation",
   },
   connectedWork: {
-    eyebrow: "Roadmap",
     title: "Start with evaluation and build from there.",
     body: "We are starting with evaluation. Grant reporting and strategy come next. Over time, connected evidence can reveal patterns across programs.",
     steps: [
@@ -85,7 +82,6 @@ export const siteContent = {
     ],
   },
   ai: {
-    eyebrow: "Practical AI for good",
     title: "Use AI to move faster. Keep people in control.",
     body: "Janus works with the material your team already has. Each finding points back to its source, and people decide what is ready to approve or share.",
     behaviors: [
@@ -96,7 +92,6 @@ export const siteContent = {
     ],
   },
   audiences: {
-    eyebrow: "Who it is for",
     title: "Built for foundations, nonprofits and evaluators.",
     body: "Foundations, nonprofits and evaluators can work from the same evidence without rebuilding it at every handoff.",
     items: [
@@ -118,7 +113,6 @@ export const siteContent = {
     ],
   },
   principles: {
-    eyebrow: "Our guiding principles",
     title: "Technology should help the people helping others.",
     body: "Lotus Rise is a public benefit corporation. We believe technology can change the world for the better when it makes life easier for people doing work that matters. These principles guide what we build and how we work.",
     founderQuote:
@@ -149,30 +143,25 @@ export const siteContent = {
   },
   janusPage: {
     hero: {
-      eyebrow: "Janus · Evaluation in private preview",
       title: "Keep every step of an evaluation connected.",
       lead: "Janus keeps the plan, evidence, findings and report in one working record, with the source trail kept in view.",
     },
     problem: {
-      eyebrow: "Why Janus",
       title: "The work is connected. The tools usually aren't.",
       body: "Plans, evidence and reports often live in different places. At the end, teams have to rebuild how one led to the next.",
       pieces: ["Plan", "Evidence", "Report"],
       bridge: "One connected record from plan to reviewed report.",
     },
     path: {
-      eyebrow: "One connected path",
       title: "Build the record as the work happens.",
       body: "Questions, measures, evidence and findings stay linked from setup to review. The report is the end of the path, not a fresh start.",
       steps: ["Program plan", "Questions + measures", "Evidence + findings", "Review + report"],
     },
     gallery: {
-      eyebrow: "Inside Janus",
       title: "See Janus as it is today.",
       body: "Every view below comes from the current private preview. No concept screens.",
     },
     humanReview: {
-      eyebrow: "AI with a visible trail",
       title: "Let AI do the first pass. Keep the judgment with the team.",
       body: "Janus can prepare a first pass. People check the evidence, change the work and approve what is ready to share.",
       steps: [
@@ -195,12 +184,10 @@ export const siteContent = {
       ],
     },
     lineage: {
-      eyebrow: "Evidence stays attached",
       title: "A finding should never lose its source.",
       body: "Each finding keeps its source close. When a question comes up, the team can see the evidence and the review behind it.",
     },
     modules: {
-      eyebrow: "Built in a deliberate order",
       title: "Start with evaluation. Carry the work forward.",
       body: "We are testing evaluation with real teams first. Grant reporting follows, then strategy.",
       items: [
@@ -228,7 +215,6 @@ export const siteContent = {
   },
   team: {
     hero: {
-      eyebrow: "About Lotus Rise",
       title: "Technology should make good work easier.",
       lead: "Lotus Rise builds AI tools around the way foundations and nonprofits actually work.",
       quote:
@@ -236,20 +222,17 @@ export const siteContent = {
       quoteBy: "Neeraj Vir, Founder & CEO",
     },
     origin: {
-      eyebrow: "Why we started",
       title: "The mission should shape the technology.",
       body: [
         "Foundations and nonprofits know their work. Too often, their software does not. Plans, evidence and reports end up spread across systems and rebuilt by hand.",
         "We started Lotus Rise to make the technology fit the mission, so people can spend less time managing systems and more time changing lives.",
       ],
       product: {
-        eyebrow: "Our first product",
         title: "Janus starts with evaluation.",
         body: "It keeps program plans, questions, measures, evidence, findings and reports in one working record.",
       },
     },
     values: {
-      eyebrow: "Our guiding principles",
       title: "What we come back to.",
       body: "Lotus Rise is a public benefit corporation. Our purpose is built into the company: help foundations and nonprofits amplify their impact with the right technology.",
       note: "Empowerment, innovation, integrity and community have guided Lotus Rise from the start.",
@@ -273,7 +256,6 @@ export const siteContent = {
       ],
     },
     roster: {
-      eyebrow: "The team",
       title: "Small by design. Close to the work.",
       body: "We are a small team, and everyone stays close to the product and the people using it.",
     },
@@ -312,13 +294,11 @@ export const siteContent = {
       },
     ],
     statement: {
-      eyebrow: "How we build",
       title: "Stay close to the people doing the work.",
       body: "We test Janus against real evaluations and change it when the product does not fit the work. People remain responsible for the final call.",
     },
   },
   contact: {
-    eyebrow: "Start a conversation",
     title: "Tell us what should be easier.",
     lead: "Tell us where your evaluation gets stuck and what your team needs next. We'll see whether Janus is a fit for the private preview.",
     next: "We'll read your note and reply with a clear next step.",

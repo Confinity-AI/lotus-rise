@@ -210,7 +210,6 @@ export function JanusTheatre() {
         <div className="product-dialog-shell">
           <div className="product-dialog-head">
             <div>
-              <span className="product-dialog-kicker">Janus private preview</span>
               <strong id="product-dialog-title">{active.title}</strong>
             </div>
             <button

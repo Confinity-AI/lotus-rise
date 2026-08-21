@@ -68,7 +68,6 @@ export function LotusRiseHome() {
 
         <section className="proof-band" aria-label="Published customer proof">
           <div className="container proof-inner reveal">
-            <div className="proof-kicker">In practice</div>
             <blockquote className="proof-quote">&ldquo;{proof.quote}&rdquo;</blockquote>
             <div className="proof-source">
               <strong>{proof.name}</strong>

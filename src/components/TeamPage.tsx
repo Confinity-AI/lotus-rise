@@ -72,7 +72,6 @@ export function TeamPage() {
                 </div>
                 <div className="team-origin-product-copy">
                   <span>
-                    <small>{team.origin.product.eyebrow}</small>
                     <strong>{team.origin.product.title}</strong>
                   </span>
                   <HiArrowRight aria-hidden="true" />

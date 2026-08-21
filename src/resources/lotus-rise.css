@@ -489,17 +489,10 @@ html[data-js="true"] .lotus-bloom-static.is-ready {
 
 .proof-inner {
   display: grid;
-  grid-template-columns: 130px 1fr 220px;
+  grid-template-columns: minmax(0, 1fr) 220px;
   align-items: center;
   gap: 34px;
   min-height: 238px;
-}
-
-.proof-kicker {
-  color: var(--emerald-dark);
-  font-size: 13px;
-  font-weight: 760;
-  text-transform: uppercase;
 }
 
 .proof-quote {
@@ -1145,13 +1138,6 @@ html[data-js="true"] .lotus-bloom-static.is-ready {
   gap: 1px;
 }
 
-.product-dialog-kicker {
-  color: #8eb4a7;
-  font-size: 11px;
-  font-weight: 720;
-  text-transform: uppercase;
-}
-
 .product-dialog-head strong {
   font-family: var(--display);
   font-size: 21px;
@@ -1738,7 +1724,7 @@ html[data-js="true"] .reveal.is-visible {
   line-height: 1.02;
 }
 
-.subpage-hero-copy > p:not(.eyebrow) {
+.subpage-hero-copy > p {
   max-width: 740px;
   margin: 26px 0 0;
   color: var(--muted);
@@ -1833,7 +1819,7 @@ html[data-js="true"] .reveal.is-visible {
   line-height: 1.06;
 }
 
-.janus-problem-copy > p:not(.eyebrow) {
+.janus-problem-copy > p {
   max-width: 600px;
   margin: 26px 0 0;
   color: var(--muted);
@@ -2288,7 +2274,7 @@ html[data-js="true"] .reveal.is-visible {
   font-size: 64px;
 }
 
-.team-page-hero .subpage-hero-copy > p:not(.eyebrow) {
+.team-page-hero .subpage-hero-copy > p {
   max-width: 560px;
   font-size: 19px;
 }
@@ -2479,17 +2465,8 @@ html[data-js="true"] .reveal.is-visible {
 }
 
 .team-origin-product-copy span,
-.team-origin-product-copy small,
 .team-origin-product-copy strong {
   display: block;
-}
-
-.team-origin-product-copy small {
-  margin-bottom: 5px;
-  color: var(--emerald-dark);
-  font-size: 10px;
-  font-weight: 780;
-  text-transform: uppercase;
 }
 
 .team-origin-product-copy strong {
@@ -2756,7 +2733,7 @@ html[data-js="true"] .reveal.is-visible {
   line-height: 1.03;
 }
 
-.not-found > p:not(.eyebrow) {
+.not-found > p {
   max-width: 520px;
   margin: 24px 0 30px;
   color: var(--muted);
@@ -3254,7 +3231,7 @@ html[data-js="true"] .reveal.is-visible {
     font-size: 50px;
   }
 
-  .team-page-hero .subpage-hero-copy > p:not(.eyebrow) {
+  .team-page-hero .subpage-hero-copy > p {
     font-size: 17px;
   }
 
@@ -3685,7 +3662,7 @@ html[data-js="true"] .reveal.is-visible {
     font-size: 44px;
   }
 
-  .subpage-hero-copy > p:not(.eyebrow) {
+  .subpage-hero-copy > p {
     margin-top: 20px;
     font-size: 17px;
   }
