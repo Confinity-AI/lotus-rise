@@ -410,20 +410,14 @@ a {
 }
 
 .lotus-bloom-static {
-  opacity: 1;
-  transform: none;
-}
-
-html[data-js="true"] .lotus-bloom-static {
   opacity: 0;
-  transform: translateY(8px) scale(0.975);
-  transition: opacity 1100ms cubic-bezier(0.22, 1, 0.36, 1), transform 1400ms
-    cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 1500ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity;
 }
 
-html[data-js="true"] .lotus-bloom-static.is-ready {
+.lotus-bloom-static.is-ready {
   opacity: 1;
-  transform: none;
+  will-change: auto;
 }
 
 .lotus-bloom-image {
@@ -4021,10 +4015,8 @@ html[data-js="true"] .reveal.is-visible {
     transform: none;
   }
 
-  .lotus-bloom-static,
-  html[data-js="true"] .lotus-bloom-static {
+  .lotus-bloom-static {
     opacity: 1;
-    transform: none;
     transition: none;
   }
 

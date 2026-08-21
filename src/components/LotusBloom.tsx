@@ -2,10 +2,18 @@
 
 import { sitePath } from "@/lib/site-path";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function LotusBloom() {
+  const [loaded, setLoaded] = useState(false);
   const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (!loaded) return;
+
+    const timer = window.setTimeout(() => setReady(true), 180);
+    return () => window.clearTimeout(timer);
+  }, [loaded]);
 
   return (
     <figure
@@ -22,7 +30,7 @@ export function LotusBloom() {
         loading="eager"
         fetchPriority="high"
         draggable={false}
-        onLoad={() => setReady(true)}
+        onLoad={() => setLoaded(true)}
       />
     </figure>
   );

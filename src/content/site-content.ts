@@ -3,15 +3,15 @@ import { sitePath } from "@/lib/site-path";
 export const siteContent = {
   brand: {
     name: "Lotus Rise",
-    descriptor: "A public benefit corporation building AI tools for foundations and nonprofits.",
+    descriptor: "A public benefit corporation building practical AI tools for the social sector.",
   },
   navigation: [
     { label: "Janus", href: "/janus/", page: "janus" },
     { label: "About us", href: "/team/", page: "team" },
   ],
   hero: {
-    title: "We empower the social sector to amplify its impact with the right technology.",
-    lead: "Lotus Rise builds AI tools for the work behind grants. Our first product, Janus, keeps plans, evidence, findings and reports connected, so teams can spend less time rebuilding the record and more time on the people they serve.",
+    title: "We help the social sector amplify its impact with the right technology.",
+    lead: "Lotus Rise builds practical AI tools for foundations and nonprofits. We make strategy, grantmaking, evaluation and reporting easier, so teams can focus on the people and causes they serve. Janus is our first product.",
   },
   janus: {
     title: "Keep the whole evaluation in one place.",
@@ -57,7 +57,7 @@ export const siteContent = {
   },
   connectedWork: {
     title: "Start with evaluation and build from there.",
-    body: "We are starting with evaluation. Grant reporting and strategy come next. Over time, connected evidence can reveal patterns across programs.",
+    body: "Janus starts with evaluation. Grant reporting and strategy follow. Over time, connected records can reveal patterns across programs and inform the next decision.",
     steps: [
       {
         title: "Evaluation",
@@ -216,7 +216,7 @@ export const siteContent = {
   team: {
     hero: {
       title: "Technology should make good work easier.",
-      lead: "Lotus Rise builds AI tools around the way foundations and nonprofits actually work.",
+      lead: "Lotus Rise builds practical AI tools around the real work of foundations and nonprofits.",
       quote:
         "The work that foundations and nonprofits do benefits the whole planet. We have a responsibility to make their lives easier.",
       quoteBy: "Neeraj Vir, Founder & CEO",
@@ -224,7 +224,7 @@ export const siteContent = {
     origin: {
       title: "The mission should shape the technology.",
       body: [
-        "Foundations and nonprofits know their work. Too often, their software does not. Plans, evidence and reports end up spread across systems and rebuilt by hand.",
+        "Foundations and nonprofits know their work. Too often, their software does not. Strategy, grantmaking, evaluation and reporting end up spread across systems and rebuilt by hand.",
         "We started Lotus Rise to make the technology fit the mission, so people can spend less time managing systems and more time changing lives.",
       ],
       product: {
@@ -234,7 +234,7 @@ export const siteContent = {
     },
     values: {
       title: "What we come back to.",
-      body: "Lotus Rise is a public benefit corporation. Our purpose is built into the company: help foundations and nonprofits amplify their impact with the right technology.",
+      body: "Lotus Rise is a public benefit corporation. Our purpose is built into the company: help the social sector amplify its impact with practical, trustworthy technology.",
       note: "Empowerment, innovation, integrity and community have guided Lotus Rise from the start.",
       items: [
         {
@@ -300,7 +300,7 @@ export const siteContent = {
   },
   contact: {
     title: "Tell us what should be easier.",
-    lead: "Tell us where your evaluation gets stuck and what your team needs next. We'll see whether Janus is a fit for the private preview.",
+    lead: "Tell us where strategy, grantmaking, evaluation or reporting slows your team down. We'll see whether Janus is a fit and learn what your team needs next.",
     next: "We'll read your note and reply with a clear next step.",
   },
 } as const;

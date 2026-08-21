@@ -20,7 +20,7 @@ const organizationSchema = {
   name: "Lotus Rise",
   url: canonicalURL,
   logo: new URL(sitePath("/lotus-rise/brand/lotus-rise-logo.svg"), baseURL).toString(),
-  description: "A public benefit corporation building AI tools for foundations and nonprofits.",
+  description: "A public benefit corporation building practical AI tools for the social sector.",
   founder: {
     "@type": "Person",
     name: "Neeraj Vir",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     template: "%s | Lotus Rise",
   },
   description:
-    "Lotus Rise is a public benefit corporation building AI tools for foundations and nonprofits. Explore Janus Evaluation, now in private preview.",
+    "Lotus Rise builds practical AI tools for strategy, grantmaking, evaluation and reporting. Explore Janus, now in private preview.",
   alternates: { canonical: sitePath("/") },
   openGraph: {
     type: "website",
@@ -44,13 +44,13 @@ export const metadata: Metadata = {
     siteName: "Lotus Rise",
     title: "Lotus Rise | Amplify your impact with the right technology",
     description:
-      "A public benefit corporation building AI tools for foundations and nonprofits. Janus Evaluation is now in private preview.",
+      "Practical AI tools for strategy, grantmaking, evaluation and reporting. Janus is now in private preview.",
     images: [
       {
         url: socialImage,
         width: 1200,
         height: 630,
-        alt: "Lotus Rise, a public benefit corporation building AI tools for foundations and nonprofits",
+        alt: "Lotus Rise, a public benefit corporation building practical AI tools for the social sector",
       },
     ],
   },
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Lotus Rise | Amplify your impact with the right technology",
     description:
-      "A public benefit corporation building AI tools for foundations and nonprofits. Janus is in private preview.",
+      "Practical AI tools for strategy, grantmaking, evaluation and reporting. Janus is in private preview.",
     images: [socialImage],
   },
   icons: {
