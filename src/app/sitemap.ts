@@ -27,6 +27,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: absoluteSiteURL("/janus/evaluation/"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
+      url: absoluteSiteURL("/janus/strategy/"),
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: absoluteSiteURL("/team/"),
       lastModified: new Date(),
       changeFrequency: "monthly",

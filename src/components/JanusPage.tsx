@@ -1,4 +1,3 @@
-import { JanusTheatre } from "@/components/JanusTheatre";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { StaticLinkButton } from "@/components/StaticLinkButton";
 import { siteContent } from "@/content/site-content";
@@ -7,10 +6,10 @@ import Image from "next/image";
 import { HiArrowRight, HiOutlineCheckCircle } from "react-icons/hi2";
 
 export function JanusPage() {
-  const { janusPage } = siteContent;
+  const { janus, janusPage } = siteContent;
 
   return (
-    <div className="subpage janus-page">
+    <div className="subpage janus-page janus-suite-page">
       <SiteHeader currentPage="janus" />
       <main id="main">
         <section className="subpage-hero janus-page-hero" aria-labelledby="janus-page-title">
@@ -19,12 +18,12 @@ export function JanusPage() {
               <h1 id="janus-page-title">{janusPage.hero.title}</h1>
               <p>{janusPage.hero.lead}</p>
               <div className="hero-actions">
-                <StaticLinkButton className="button button-primary" href="/contact/">
-                  Request a preview <HiArrowRight aria-hidden="true" />
-                </StaticLinkButton>
-                <a className="text-link" href="#product">
-                  See the product <HiArrowRight aria-hidden="true" />
+                <a className="button button-primary" href="#suite">
+                  Explore the suite <HiArrowRight aria-hidden="true" />
                 </a>
+                <StaticLinkButton className="text-link" href="/contact/">
+                  Register interest <HiArrowRight aria-hidden="true" />
+                </StaticLinkButton>
               </div>
             </div>
             <figure className="janus-hero-product reveal">
@@ -36,7 +35,7 @@ export function JanusPage() {
               </figcaption>
               <Image
                 src={sitePath("/lotus-rise/product/janus-program-path.webp")}
-                alt="Janus evaluation program path showing each stage of the workflow"
+                alt="Janus Evaluation program path showing each stage of the workflow"
                 width={1905}
                 height={848}
                 preload
@@ -47,176 +46,78 @@ export function JanusPage() {
           </div>
         </section>
 
-        <section className="janus-problem" aria-labelledby="janus-problem-title">
-          <div className="container janus-problem-layout">
-            <div className="janus-problem-copy reveal">
-              <h2 id="janus-problem-title">{janusPage.problem.title}</h2>
-              <p>{janusPage.problem.body}</p>
+        <section
+          className="section section-paper janus-suite-overview"
+          id="suite"
+          aria-labelledby="suite-title"
+        >
+          <div className="container">
+            <div className="suite-heading suite-heading-light reveal">
+              <h2 id="suite-title">{janusPage.suite.title}</h2>
+              <p>{janusPage.suite.body}</p>
             </div>
-            <div
-              className="janus-problem-visual reveal"
-              aria-label="From separate files to one connected record"
-            >
-              <div className="janus-record-pieces" aria-label="Separate evaluation files">
-                {janusPage.problem.pieces.map((piece, index) => (
-                  <div key={piece}>
+            <div className="suite-modules suite-modules-light reveal">
+              {janus.modules.map((module, index) => (
+                <article className="suite-module" key={module.title}>
+                  <div className="suite-module-meta">
                     <span>{String(index + 1).padStart(2, "0")}</span>
-                    <strong>{piece}</strong>
+                    <small>{module.status}</small>
                   </div>
-                ))}
-              </div>
-              <span className="janus-record-connector" aria-hidden="true">
-                <HiArrowRight />
-              </span>
-              <div className="janus-connected-record">
-                <div className="janus-connected-record-head">
-                  <span>Janus</span>
-                  <small>One record</small>
-                </div>
-                <strong>{janusPage.problem.bridge}</strong>
-                <div className="janus-connected-chain" aria-hidden="true">
-                  {["Plan", "Evidence", "Finding", "Reviewed report"].map((step, index) => (
-                    <div key={step}>
-                      <span>{String(index + 1).padStart(2, "0")}</span>
-                      <b>{step}</b>
-                    </div>
-                  ))}
-                </div>
-                <p>Source trail visible at every step.</p>
-              </div>
+                  <h3>{module.title}</h3>
+                  <p>{module.copy}</p>
+                  <StaticLinkButton className="suite-module-link" href={module.href}>
+                    {module.action} <HiArrowRight aria-hidden="true" />
+                  </StaticLinkButton>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
-        <section className="janus-path-band" aria-labelledby="janus-path-title">
-          <div className="container">
-            <div className="section-head reveal">
-              <div>
-                <h2 className="section-title" id="janus-path-title">
-                  {janusPage.path.title}
-                </h2>
-              </div>
-              <p className="section-intro">{janusPage.path.body}</p>
+        <section className="janus-shared-record" aria-labelledby="shared-record-title">
+          <div className="container janus-shared-record-inner">
+            <div className="janus-shared-record-copy reveal">
+              <h2 id="shared-record-title">The work should carry forward.</h2>
+              <p>
+                A strategic decision shapes what gets evaluated. Evaluation produces evidence.
+                Reporting shares what was learned. Janus is designed to keep that context connected.
+              </p>
             </div>
-            <div className="janus-path reveal" aria-label="Janus evaluation path">
-              {janusPage.path.steps.map((step, index) => (
-                <div className="janus-path-step" key={step}>
+            <div className="suite-connection reveal" aria-label="Connected Janus product suite">
+              {janus.modules.map((module, index) => (
+                <div key={module.title}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{step}</strong>
+                  <strong>{module.title}</strong>
+                  <small>{index === 0 ? "Available now" : "Coming soon"}</small>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section
-          className="janus-gallery dark-section"
-          id="product"
-          aria-labelledby="gallery-title"
-        >
-          <div className="container">
-            <div className="section-head reveal">
-              <div>
-                <h2 className="section-title" id="gallery-title">
-                  {janusPage.gallery.title}
-                </h2>
-              </div>
-              <p className="section-intro">{janusPage.gallery.body}</p>
+        <section className="section janus-suite-ai" aria-labelledby="janus-ai-title">
+          <div className="container janus-suite-ai-inner">
+            <div className="janus-suite-ai-copy reveal">
+              <h2 id="janus-ai-title">AI prepares the work. People make the call.</h2>
+              <p>
+                Janus helps organize material, surface gaps and prepare a useful first pass. The
+                team checks the evidence, changes the work and decides what is ready.
+              </p>
+              <p className="janus-suite-control">
+                <HiOutlineCheckCircle aria-hidden="true" /> Human review remains part of the
+                product.
+              </p>
             </div>
-            <JanusTheatre />
-          </div>
-        </section>
-
-        <section className="section janus-human-review" aria-labelledby="human-review-title">
-          <div className="container">
-            <div className="section-head reveal">
-              <div>
-                <h2 className="section-title" id="human-review-title">
-                  {janusPage.humanReview.title}
-                </h2>
-              </div>
-              <p className="section-intro">{janusPage.humanReview.body}</p>
-            </div>
-            <div className="janus-review-layout">
-              <div className="janus-review-path reveal">
-                {janusPage.humanReview.steps.map((step, index) => (
-                  <article key={step.title}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <div>
-                      <h3>{step.title}</h3>
-                      <p>{step.copy}</p>
-                    </div>
-                  </article>
-                ))}
-              </div>
-              <figure className="janus-review-product reveal">
-                <figcaption>
-                  <span>Real Janus view</span>
-                  <strong>Reviewed report</strong>
-                </figcaption>
-                <Image
-                  src={sitePath("/lotus-rise/product/janus-reviewed-report.webp")}
-                  alt="Real Janus reviewed report ready for human approval"
-                  width={1540}
-                  height={707}
-                  sizes="(max-width: 960px) calc(100vw - 48px), 680px"
-                />
-              </figure>
-            </div>
-            <p className="janus-review-note reveal">
-              <HiOutlineCheckCircle aria-hidden="true" />
-              People decide what is ready to share.
-            </p>
-          </div>
-        </section>
-
-        <section className="section section-paper janus-lineage" aria-labelledby="lineage-title">
-          <div className="container janus-lineage-layout">
-            <div className="janus-lineage-copy reveal">
-              <h2 className="section-title" id="lineage-title">
-                {janusPage.lineage.title}
-              </h2>
-              <p className="section-intro">{janusPage.lineage.body}</p>
-            </div>
-            <figure className="lineage-product reveal">
-              <figcaption>
-                <span>Source</span>
-                <span>Finding</span>
-                <span>Review</span>
-              </figcaption>
+            <figure className="janus-suite-proof reveal">
+              <figcaption>Real Janus view · Evaluation lineage</figcaption>
               <Image
                 src={sitePath("/lotus-rise/product/janus-evaluation-lineage-v2.webp")}
-                alt="Janus evaluation lineage showing how questions, measures, evidence and findings connect"
+                alt="Janus Evaluation lineage showing how evidence connects to findings"
                 width={1540}
                 height={707}
                 sizes="(max-width: 960px) calc(100vw - 32px), 620px"
               />
             </figure>
-          </div>
-        </section>
-
-        <section className="section section-mist janus-modules" aria-labelledby="modules-title">
-          <div className="container">
-            <div className="section-head reveal">
-              <div>
-                <h2 className="section-title" id="modules-title">
-                  {janusPage.modules.title}
-                </h2>
-              </div>
-              <p className="section-intro">{janusPage.modules.body}</p>
-            </div>
-            <div className="module-order reveal">
-              {janusPage.modules.items.map((item, index) => (
-                <article key={item.title}>
-                  <div className="module-order-meta">
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <small>{item.label}</small>
-                  </div>
-                  <h3>{item.title}</h3>
-                  <p>{item.copy}</p>
-                </article>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -227,7 +128,7 @@ export function JanusPage() {
               <p>{janusPage.closing.body}</p>
             </div>
             <StaticLinkButton className="button button-primary" href="/contact/">
-              Request a preview <HiArrowRight aria-hidden="true" />
+              Register interest <HiArrowRight aria-hidden="true" />
             </StaticLinkButton>
           </div>
         </section>

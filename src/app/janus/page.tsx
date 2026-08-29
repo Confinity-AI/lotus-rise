@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Janus",
   description:
-    "Janus keeps evaluation plans, evidence, findings and reports connected, with a visible trail from source to reviewed output.",
+    "Janus is an AI-powered product suite for strategy, evaluation and reporting in the social sector.",
   alternates: { canonical: sitePath("/janus/") },
 };
 

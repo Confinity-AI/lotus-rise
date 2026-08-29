@@ -3,7 +3,7 @@ import { sitePath } from "@/lib/site-path";
 export const siteContent = {
   brand: {
     name: "Lotus Rise",
-    descriptor: "A public benefit corporation building practical AI tools for the social sector.",
+    descriptor: "A public benefit corporation building AI-powered products for the social sector.",
   },
   navigation: [
     { label: "Janus", href: "/janus/", page: "janus" },
@@ -11,12 +11,34 @@ export const siteContent = {
   ],
   hero: {
     title: "We help the social sector amplify its impact with the right technology.",
-    lead: "Lotus Rise builds practical AI tools for foundations and nonprofits. We make strategy, grantmaking, evaluation and reporting easier, so teams can focus on the people and causes they serve. Janus is our first product.",
+    lead: "Lotus Rise builds AI-powered products for foundations and nonprofits. Our flagship product, Janus, makes strategy, evaluation and reporting easier, so teams can focus on the people and causes they serve.",
   },
   janus: {
-    title: "Keep the whole evaluation in one place.",
-    body: "Janus keeps the work together from program plan to reviewed report. Each finding stays linked to the questions, measures and evidence behind it.",
-    statuses: ["Evaluation · private preview", "Grant reporting · next", "Strategy · later"],
+    title: "Meet Janus.",
+    body: "Janus is an AI-powered product suite for strategy, evaluation and reporting. It keeps the work connected, helps teams move faster and leaves important decisions with the people closest to the work.",
+    modules: [
+      {
+        title: "Evaluation",
+        status: "Private preview",
+        copy: "Plan the evaluation, work with evidence and review the final report in one connected record.",
+        href: "/janus/evaluation/",
+        action: "Explore Evaluation",
+      },
+      {
+        title: "Strategy",
+        status: "Coming soon",
+        copy: "Bring evidence and past learning into the next program, funding or organizational decision.",
+        href: "/janus/strategy/",
+        action: "Explore Strategy",
+      },
+      {
+        title: "Reporting",
+        status: "Coming soon",
+        copy: "Turn reviewed work into clear updates without rebuilding the story from the beginning.",
+        href: "/contact/",
+        action: "Register interest",
+      },
+    ],
     note: "Screens from the current private preview. The interface may change.",
     views: [
       {
@@ -50,36 +72,11 @@ export const siteContent = {
   },
   proof: {
     quote:
-      "Partnering with Lotus Rise has helped us to streamline our team's evaluative workflows and to pilot new technologies in ways that consistently help us to better understand the impact of our funding and to learn how to improve our grantmaking.",
+      "Partnering with Lotus Rise has helped us to streamline our team's evaluative workflows and to pilot new technologies in ways that consistently help us to better understand the impact of our funding...",
     name: "Steve Fitzmier",
     title: "Director of Planning & Evaluation",
     organization: "John Templeton Foundation",
-  },
-  connectedWork: {
-    title: "Start with evaluation and build from there.",
-    body: "Janus starts with evaluation. Grant reporting and strategy follow. Over time, connected records can reveal patterns across programs and inform the next decision.",
-    steps: [
-      {
-        title: "Evaluation",
-        status: "Private preview",
-        copy: "Take one program from setup to an approved report.",
-      },
-      {
-        title: "Grant reporting",
-        status: "Next",
-        copy: "Turn approved findings and evidence into a grant report.",
-      },
-      {
-        title: "Strategy",
-        status: "Later",
-        copy: "Use past results when setting the next priorities.",
-      },
-      {
-        title: "Insights",
-        status: "Future",
-        copy: "Find patterns across programs once enough evidence exists.",
-      },
-    ],
+    image: sitePath("/lotus-rise/team/steve-fitzmier.png"),
   },
   ai: {
     title: "Use AI to move faster. Keep people in control.",
@@ -89,27 +86,6 @@ export const siteContent = {
       { title: "Build a draft", copy: "Turn that material into a useful first pass." },
       { title: "Check the evidence", copy: "Trace each finding back to its source." },
       { title: "Approve the output", copy: "People decide what is ready to share." },
-    ],
-  },
-  audiences: {
-    title: "Built for foundations, nonprofits and evaluators.",
-    body: "Foundations, nonprofits and evaluators can work from the same evidence without rebuilding it at every handoff.",
-    items: [
-      {
-        label: "Foundations",
-        title: "See what funding made possible.",
-        copy: "Carry evidence into the next decision without rebuilding the story.",
-      },
-      {
-        label: "Nonprofits",
-        title: "Report the work without starting over.",
-        copy: "Reuse what the team already produced during evaluation.",
-      },
-      {
-        label: "Evaluation teams",
-        title: "Keep the reasoning in view.",
-        copy: "Show how the questions, measures, evidence and findings connect.",
-      },
     ],
   },
   principles: {
@@ -138,13 +114,13 @@ export const siteContent = {
     ],
   },
   closing: {
-    title: "Tell us what should be easier.",
-    body: "Janus is opening to a small private preview group. Bring one real evaluation and show us where the work gets stuck.",
+    title: "See where Janus could help.",
+    body: "Explore the product suite or bring us one part of the work that takes too long. We will tell you plainly whether Janus is a useful fit.",
   },
   janusPage: {
     hero: {
-      title: "Keep every step of an evaluation connected.",
-      lead: "Janus keeps the plan, evidence, findings and report in one working record, with the source trail kept in view.",
+      title: "Strategy, evaluation and reporting. Connected.",
+      lead: "Janus is an AI-powered product suite that helps social-sector teams turn evidence into decisions and clear reporting without losing the thinking in between.",
     },
     problem: {
       title: "The work is connected. The tools usually aren't.",
@@ -187,36 +163,58 @@ export const siteContent = {
       title: "A finding should never lose its source.",
       body: "Each finding keeps its source close. When a question comes up, the team can see the evidence and the review behind it.",
     },
-    modules: {
-      title: "Start with evaluation. Carry the work forward.",
-      body: "We are testing evaluation with real teams first. Grant reporting follows, then strategy.",
-      items: [
-        {
-          label: "Now · private preview",
-          title: "Evaluation",
-          copy: "Build, review and approve one connected evaluation record.",
-        },
-        {
-          label: "Next",
-          title: "Grant reporting",
-          copy: "Turn approved findings and evidence into a grant report without starting over.",
-        },
-        {
-          label: "Later",
-          title: "Strategy",
-          copy: "Bring past results into the next funding or program decision.",
-        },
-      ],
+    suite: {
+      title: "One suite. Three parts of the work.",
+      body: "Each area is useful on its own. Together, they keep evidence, decisions and reporting connected.",
+    },
+    closing: {
+      title: "Start with the part that matters now.",
+      body: "Explore Evaluation, learn what is coming in Strategy or register your interest in Reporting.",
+    },
+  },
+  evaluationPage: {
+    hero: {
+      title: "Keep the whole evaluation connected.",
+      lead: "Janus Evaluation brings the program plan, questions, measures, evidence, findings and reviewed report into one working record.",
+    },
+    problem: {
+      title: "Build the record as the work happens.",
+      body: "The report should be the end of a clear path, not a reconstruction of work scattered across files.",
     },
     closing: {
       title: "Bring one real evaluation.",
-      body: "Show us where the work slows down. We will see whether Janus is a useful fit for your team.",
+      body: "Show us where the work slows down. We will see whether Janus Evaluation is a useful fit.",
+    },
+  },
+  strategyPage: {
+    hero: {
+      title: "Turn learning into the next decision.",
+      lead: "Janus Strategy will help teams bring evidence, past results and organizational context into the decisions that shape what comes next.",
+    },
+    status: "Coming soon",
+    areas: [
+      {
+        title: "Bring the context together",
+        copy: "Work from past evaluations, current priorities and the evidence the team already trusts.",
+      },
+      {
+        title: "Make choices visible",
+        copy: "Show what informed a priority, what was considered and where judgment entered the decision.",
+      },
+      {
+        title: "Carry the decision forward",
+        copy: "Keep the reasoning close when a strategy becomes a program, evaluation or report.",
+      },
+    ],
+    closing: {
+      title: "Help shape Janus Strategy.",
+      body: "Tell us how your team makes strategic decisions today and where the process becomes harder than it should be.",
     },
   },
   team: {
     hero: {
       title: "Technology should make good work easier.",
-      lead: "Lotus Rise builds practical AI tools around the real work of foundations and nonprofits.",
+      lead: "Lotus Rise builds AI-powered products around the real work of foundations and nonprofits.",
       quote:
         "The work that foundations and nonprofits do benefits the whole planet. We have a responsibility to make their lives easier.",
       quoteBy: "Neeraj Vir, Founder & CEO",
@@ -224,7 +222,7 @@ export const siteContent = {
     origin: {
       title: "The mission should shape the technology.",
       body: [
-        "Foundations and nonprofits know their work. Too often, their software does not. Strategy, grantmaking, evaluation and reporting end up spread across systems and rebuilt by hand.",
+        "Foundations and nonprofits know their work. Too often, their software does not. Strategy, evaluation and reporting end up spread across systems and rebuilt by hand.",
         "We started Lotus Rise to make the technology fit the mission, so people can spend less time managing systems and more time changing lives.",
       ],
       product: {
@@ -299,8 +297,8 @@ export const siteContent = {
     },
   },
   contact: {
-    title: "Tell us what should be easier.",
-    lead: "Tell us where strategy, grantmaking, evaluation or reporting slows your team down. We'll see whether Janus is a fit and learn what your team needs next.",
+    title: "What would you like to make easier?",
+    lead: "Tell us where strategy, evaluation or reporting slows your team down. We will see whether Janus is a fit and learn what your team needs next.",
     next: "We'll read your note and reply with a clear next step.",
   },
 } as const;

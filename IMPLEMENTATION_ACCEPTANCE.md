@@ -9,7 +9,7 @@
 - Keep a real Janus view visible in the first homepage product section and in the first viewport of the Janus page.
 - Preserve stable product-frame dimensions while tabs change.
 - Do not add gradient page backgrounds, floating decoration, generic AI imagery, or more flower photography. The single hero lotus is the exception; subtle tonal shading is reserved for its petals.
-- Do not invent screens for Grant Reporting, Strategy, or Insights.
+- Do not invent screens for Strategy or Reporting.
 
 ## Responsive behavior
 
@@ -34,7 +34,7 @@
 ## Product and claim controls
 
 - Confirm Evaluation private-preview status.
-- Confirm roadmap labels for Strategy and Grant reporting.
+- Confirm the public status labels for Strategy and Reporting.
 - Confirm safe demo data and current product version for all screenshots.
 - Confirm exact quote permission and attribution.
 - Confirm legal company wording.

@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About us",
   description:
-    "Why Lotus Rise exists, the principles that guide us and the team building practical AI tools for the social sector.",
+    "Why Lotus Rise exists, the team building its AI-powered products and the principles that guide the company.",
   alternates: { canonical: sitePath("/team/") },
 };
 

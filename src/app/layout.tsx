@@ -20,7 +20,7 @@ const organizationSchema = {
   name: "Lotus Rise",
   url: canonicalURL,
   logo: new URL(sitePath("/lotus-rise/brand/lotus-rise-logo.svg"), baseURL).toString(),
-  description: "A public benefit corporation building practical AI tools for the social sector.",
+  description: "A public benefit corporation building AI-powered products for the social sector.",
   founder: {
     "@type": "Person",
     name: "Neeraj Vir",
@@ -36,29 +36,27 @@ export const metadata: Metadata = {
     template: "%s | Lotus Rise",
   },
   description:
-    "Lotus Rise builds practical AI tools for strategy, grantmaking, evaluation and reporting. Explore Janus, now in private preview.",
+    "Lotus Rise builds AI-powered products for strategy, evaluation and reporting. Explore Janus.",
   alternates: { canonical: sitePath("/") },
   openGraph: {
     type: "website",
     url: sitePath("/"),
     siteName: "Lotus Rise",
     title: "Lotus Rise | Amplify your impact with the right technology",
-    description:
-      "Practical AI tools for strategy, grantmaking, evaluation and reporting. Janus is now in private preview.",
+    description: "AI-powered products for strategy, evaluation and reporting. Explore Janus.",
     images: [
       {
         url: socialImage,
         width: 1200,
         height: 630,
-        alt: "Lotus Rise, a public benefit corporation building practical AI tools for the social sector",
+        alt: "Lotus Rise, a public benefit corporation building AI-powered products for the social sector",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Lotus Rise | Amplify your impact with the right technology",
-    description:
-      "Practical AI tools for strategy, grantmaking, evaluation and reporting. Janus is in private preview.",
+    description: "AI-powered products for strategy, evaluation and reporting. Explore Janus.",
     images: [socialImage],
   },
   icons: {
