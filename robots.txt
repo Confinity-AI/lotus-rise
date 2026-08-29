@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://confinity-ai.github.io/lotus-rise/sitemap.xml

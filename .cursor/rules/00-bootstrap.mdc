@@ -1,0 +1,28 @@
+﻿---
+description: Per-repo bootstrap — read this first
+alwaysApply: true
+---
+
+# Bootstrap
+
+You are working in a single sub-repo of `AmalgamSites`. Defer to the workspace-root rules at `../../.cursor/rules/` for monorepo-wide conventions.
+
+## Read first
+
+1. This repo's `AGENTS.md` (if present) and `README.md`.
+2. Matching prompt in `../../prompts-and-agentic-strategy/prompts/` if applicable.
+
+## Package manager
+
+Use whatever is declared in `package.json` `packageManager`. If unset, prefer `npm` (which is what this repo's `package-lock.json` was built with).
+
+## Don't
+
+- Don't read or modify `node_modules/`, `.next*/`, `.npm-cache*/`, `dist/`, `out/`, `build/`, `coverage/`, lockfiles, or media binaries.
+- Don't reformat unrelated files.
+- Don't auto-commit on the user's behalf.
+
+## Do
+
+- Make the smallest correct change.
+- Use the project's existing patterns; don't introduce new libraries unless asked.

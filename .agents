@@ -1,0 +1,7 @@
+﻿# lotus-rise Project Context
+
+- This is a downstream site built from the Once UI workspace at C:\Users\ryana\Desktop\AmalgamSites\once-ui.
+- Read PROJECT_SOURCE.md, AGENTS.md, and docs/ONBOARDING.md before making large changes.
+- Start theme, color, border, scaling, surface, typography wiring, and chart styling changes in `src/resources/once-ui.config.js`.
+- Check `src/components/Providers.tsx`, `src/app/(main)/layout.tsx`, `src/resources/seo.js` before changing global system behavior.
+- Use the upstream Once UI docs and live sources as the reference layer.
