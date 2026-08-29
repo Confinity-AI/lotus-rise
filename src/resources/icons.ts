@@ -1,9 +1,18 @@
 import type { IconType } from "react-icons";
-
-import { HiOutlineRocketLaunch } from "react-icons/hi2";
+import {
+  HiArrowRight,
+  HiArrowsPointingOut,
+  HiChevronLeft,
+  HiChevronRight,
+  HiXMark,
+} from "react-icons/hi2";
 
 export const iconLibrary: Record<string, IconType> = {
-  rocket: HiOutlineRocketLaunch,
+  arrowRight: HiArrowRight,
+  expand: HiArrowsPointingOut,
+  chevronLeft: HiChevronLeft,
+  chevronRight: HiChevronRight,
+  close: HiXMark,
 };
 
 export type IconLibrary = typeof iconLibrary;

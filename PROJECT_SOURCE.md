@@ -1,14 +1,12 @@
-﻿# Project Source
+# Project source
 
-This project was created from the Once UI workspace.
+This is a standalone Lotus Rise website built with Next.js App Router and Once UI.
 
-- Source workspace: C:\Users\ryana\Desktop\AmalgamSites\once-ui
-- Template: magic-studio
-- Created: 2026-06-08 06:13:38
+- Foundation: Once UI `nextjs-starter` conventions
+- Implementation: custom Lotus Rise homepage, Janus, Team, and Contact pages
+- Public routes: `/`, `/janus`, `/team`, and `/contact`
+- Copy source: `src/content/site-content.ts`
+- Theme source: `src/resources/once-ui.config.ts`
+- Page composition and responsive source: `src/resources/lotus-rise.css`
 
-Rules:
-
-- Keep this project separate from the upstream Once UI workspace.
-- Read the template README first.
-- Use the official Once UI docs from the local AmalgamSites\once-ui workspace and Context7 when available.
-- Keep premium Once UI-derived source private.
+The shared Once UI workspace at `../../once-ui` is the private reference layer. Do not copy premium template surfaces or demo content into this repository.

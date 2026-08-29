@@ -22,6 +22,7 @@ coverage/
 # --- Local caches that should not ship ---
 .npm-cache*/
 .codex-tmp/
+.private/
 .tmp/
 .history/
 .vscode-test/
