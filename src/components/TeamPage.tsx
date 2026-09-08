@@ -88,7 +88,6 @@ export function TeamPage() {
               <div>
                 <h2 id="team-roster-title">{team.roster.title}</h2>
               </div>
-              <p>{team.roster.body}</p>
             </div>
             <div className="team-grid reveal">
               {team.members.map((member, index) => (
@@ -118,25 +117,6 @@ export function TeamPage() {
           </div>
         </section>
 
-        <section className="team-values" aria-labelledby="team-values-title">
-          <div className="container team-values-inner">
-            <div className="team-values-copy reveal">
-              <h2 id="team-values-title">{team.values.title}</h2>
-              <p>{team.values.body}</p>
-              <small>{team.values.note}</small>
-            </div>
-            <div className="team-values-list reveal">
-              {team.values.items.map((value, index) => (
-                <article key={value.title}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <h3>{value.title}</h3>
-                  <p>{value.copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="team-statement" aria-labelledby="team-statement-title">
           <div className="container team-statement-inner reveal">
             <div>
@@ -145,11 +125,8 @@ export function TeamPage() {
             <div>
               <p>{team.statement.body}</p>
               <div className="team-statement-actions">
-                <StaticLinkButton className="button button-product" href="/janus/">
-                  Explore Janus <HiArrowRight aria-hidden="true" />
-                </StaticLinkButton>
-                <StaticLinkButton className="button button-ghost-light" href="/contact/">
-                  Contact us
+                <StaticLinkButton className="button button-product" href="/contact/">
+                  Contact us <HiArrowRight aria-hidden="true" />
                 </StaticLinkButton>
               </div>
             </div>

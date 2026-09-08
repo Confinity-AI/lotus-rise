@@ -1,24 +1,14 @@
+import { JanusTheatre } from "@/components/JanusTheatre";
 import { LotusBloom } from "@/components/LotusBloom";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { StaticLinkButton } from "@/components/StaticLinkButton";
+import { ValuesGrowth } from "@/components/ValuesGrowth";
 import { siteContent } from "@/content/site-content";
 import Image from "next/image";
-import {
-  HiArrowRight,
-  HiOutlineCheckCircle,
-  HiOutlineDocumentText,
-  HiOutlineMagnifyingGlass,
-  HiOutlineSparkles,
-} from "react-icons/hi2";
+import { HiArrowRight } from "react-icons/hi2";
 
 export function LotusRiseHome() {
-  const { hero, janus, proof, ai, principles, closing } = siteContent;
-  const aiIcons = [
-    HiOutlineDocumentText,
-    HiOutlineSparkles,
-    HiOutlineMagnifyingGlass,
-    HiOutlineCheckCircle,
-  ];
+  const { hero, janus, proof, closing } = siteContent;
 
   return (
     <div className="direction-connected">
@@ -28,14 +18,14 @@ export function LotusRiseHome() {
           <div className="container hero-inner">
             <div className="hero-opening has-growth">
               <div className="hero-copy reveal">
+                <p className="hero-eyebrow">
+                  <span aria-hidden="true" /> AI tools for the social sector
+                </p>
                 <h1 id="hero-title">{hero.title}</h1>
                 <p className="hero-lead">{hero.lead}</p>
                 <div className="hero-actions">
                   <StaticLinkButton className="button button-primary" href="/janus/">
                     Explore Janus <HiArrowRight aria-hidden="true" />
-                  </StaticLinkButton>
-                  <StaticLinkButton className="button button-secondary" href="/contact/">
-                    Contact us
                   </StaticLinkButton>
                 </div>
               </div>
@@ -50,7 +40,8 @@ export function LotusRiseHome() {
               <h2 id="janus-title">{janus.title}</h2>
               <p>{janus.body}</p>
             </div>
-            <div className="suite-modules reveal">
+            <JanusTheatre />
+            <div className="suite-modules suite-modules-compact reveal">
               {janus.modules.map((module, index) => (
                 <article className="suite-module" key={module.title}>
                   <div className="suite-module-meta">
@@ -64,47 +55,6 @@ export function LotusRiseHome() {
                   </StaticLinkButton>
                 </article>
               ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section ai-system-section" aria-labelledby="behavior-title">
-          <div className="container">
-            <div className="section-head reveal">
-              <div>
-                <h2 className="section-title" id="behavior-title">
-                  {ai.title}
-                </h2>
-              </div>
-              <p className="section-intro">{ai.body}</p>
-            </div>
-            <div className="ai-flow reveal" data-ai-flow>
-              <span className="ai-flow-rail" aria-hidden="true">
-                <i />
-              </span>
-              {ai.behaviors.map((behavior, index) => {
-                const Icon = aiIcons[index];
-                return (
-                  <article
-                    className={`ai-flow-step ai-flow-step-${index + 1}`}
-                    key={behavior.title}
-                  >
-                    <span className="ai-flow-icon" aria-hidden="true">
-                      <Icon />
-                    </span>
-                    <span className="ai-flow-number" aria-hidden="true">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <h3>{behavior.title}</h3>
-                    <p>{behavior.copy}</p>
-                  </article>
-                );
-              })}
-            </div>
-            <div className="ai-review-note reveal">
-              <HiOutlineCheckCircle aria-hidden="true" />
-              <strong>People stay in control.</strong>
-              <span>Every finding can be checked before anything is approved.</span>
             </div>
           </div>
         </section>
@@ -130,28 +80,7 @@ export function LotusRiseHome() {
           </div>
         </section>
 
-        <section className="benefit" id="principles" aria-labelledby="principles-title">
-          <div className="container benefit-inner">
-            <div className="benefit-copy reveal">
-              <h2 id="principles-title">{principles.title}</h2>
-              <p>{principles.body}</p>
-              <div className="founder-quote">
-                <blockquote>
-                  <p>&ldquo;{principles.founderQuote}&rdquo;</p>
-                  <cite>{principles.founder}</cite>
-                </blockquote>
-              </div>
-            </div>
-            <div className="principles reveal">
-              {principles.items.map((principle) => (
-                <article className="principle" key={principle.title}>
-                  <h3>{principle.title}</h3>
-                  <p>{principle.copy}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ValuesGrowth />
 
         <section className="closing" aria-labelledby="closing-title">
           <div className="container closing-inner reveal">

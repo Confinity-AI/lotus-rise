@@ -14,8 +14,8 @@ export const siteContent = {
     lead: "Lotus Rise builds AI-powered products for foundations and nonprofits. Our flagship product, Janus, makes strategy, evaluation and reporting easier, so teams can focus on the people and causes they serve.",
   },
   janus: {
-    title: "Meet Janus.",
-    body: "Janus is an AI-powered product suite for strategy, evaluation and reporting. It keeps the work connected, helps teams move faster and leaves important decisions with the people closest to the work.",
+    title: "Meet Lotus Rise.",
+    body: "We build practical AI products for foundations and nonprofits. Our first product, Janus, connects strategy, evaluation and reporting while keeping important decisions with people.",
     modules: [
       {
         title: "Evaluation",
@@ -96,20 +96,20 @@ export const siteContent = {
     founder: "Neeraj Vir, Founder & CEO",
     items: [
       {
-        title: "Empowerment",
-        copy: "Give foundations and nonprofits the tools and control they need to reach their full potential.",
+        title: "Integrity",
+        copy: "Trust begins at the root: be honest, accountable and clear about what the technology can do.",
       },
       {
         title: "Innovation",
-        copy: "Use technology to solve real problems and help good work go further.",
+        copy: "Grow new ideas around real needs, using technology where it genuinely makes the work easier.",
       },
       {
-        title: "Integrity",
-        copy: "Take the long view. Build trust through transparency, honesty and accountability.",
+        title: "Empowerment",
+        copy: "Give people useful tools, clear evidence and the confidence to make the final call.",
       },
       {
-        title: "Community",
-        copy: "Help foundations and nonprofits connect, share what they learn and work together.",
+        title: "Commitment",
+        copy: "Stay close to the people doing the work and keep improving until the technology fits the mission.",
       },
     ],
   },
@@ -292,8 +292,8 @@ export const siteContent = {
       },
     ],
     statement: {
-      title: "Stay close to the people doing the work.",
-      body: "We test Janus against real evaluations and change it when the product does not fit the work. People remain responsible for the final call.",
+      title: "Contact us.",
+      body: "Tell us what your team is trying to make easier. We will reply with a clear next step.",
     },
   },
   contact: {
