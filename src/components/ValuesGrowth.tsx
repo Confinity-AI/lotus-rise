@@ -1,87 +1,56 @@
-"use client";
-
 import { siteContent } from "@/content/site-content";
 import { sitePath } from "@/lib/site-path";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import type { CSSProperties } from "react";
 
 const stages = siteContent.principles.items;
 const stageImages = [
-  "/lotus-rise/brand/lotus-growth-01-integrity.webp",
-  "/lotus-rise/brand/lotus-growth-02-innovation.webp",
-  "/lotus-rise/brand/lotus-growth-03-empowerment.webp",
-  "/lotus-rise/brand/lotus-growth-04-commitment.webp",
+  "/lotus-rise/brand/lotus-journey-01-integrity.png",
+  "/lotus-rise/brand/lotus-journey-02-innovation.png",
+  "/lotus-rise/brand/lotus-journey-03-empowerment.png",
+  "/lotus-rise/brand/lotus-journey-04-commitment.png",
 ];
 
 export function ValuesGrowth() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
-
-  useEffect(() => {
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (paused || reducedMotion) return;
-
-    const timer = window.setInterval(() => {
-      setActiveIndex((current) => (current + 1) % stages.length);
-    }, 3200);
-
-    return () => window.clearInterval(timer);
-  }, [paused]);
-
   return (
-    <section className="benefit values-growth" id="principles" aria-labelledby="principles-title">
-      <div className="container values-growth-inner">
-        <div className="values-growth-heading reveal">
-          <p className="values-growth-kicker">How we grow</p>
+    <section className="benefit values-journey" id="principles" aria-labelledby="principles-title">
+      <div className="container values-journey-inner">
+        <div className="values-journey-heading reveal">
+          <p className="values-journey-kicker">How we grow</p>
           <h2 id="principles-title">{siteContent.principles.title}</h2>
           <p>{siteContent.principles.body}</p>
         </div>
 
-        <div
-          className="values-growth-experience reveal"
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-          onFocusCapture={() => setPaused(true)}
-          onBlurCapture={(event) => {
-            if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false);
-          }}
-        >
-          <div className="values-growth-visual" role="tabpanel" aria-live="polite">
-            {stageImages.map((image, index) => (
-              <Image
-                key={image}
-                className={`values-growth-frame${activeIndex === index ? " is-active" : ""}`}
-                src={sitePath(image)}
-                alt={activeIndex === index ? `${stages[index].title}: ${stages[index].copy}` : ""}
-                width={1024}
-                height={1024}
-                sizes="(max-width: 760px) calc(100vw - 48px), 500px"
-              />
-            ))}
-            <div className="values-growth-counter">
-              <span>{String(activeIndex + 1).padStart(2, "0")}</span>
-              <small>of {String(stages.length).padStart(2, "0")}</small>
-            </div>
-          </div>
-
-          <div className="values-growth-stages" aria-label="Lotus Rise values">
+        <div className="values-journey-story reveal">
+          <span className="values-journey-line" aria-hidden="true" />
+          <ol className="values-journey-stages">
             {stages.map((stage, index) => (
-              <button
+              <li
+                className="values-journey-stage"
                 key={stage.title}
-                type="button"
-                aria-pressed={activeIndex === index}
-                className="values-growth-stage"
-                onClick={() => setActiveIndex(index)}
+                style={{ "--stage-index": index } as CSSProperties}
               >
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{stage.title}</strong>
-                <small>{stage.copy}</small>
-              </button>
+                <div className="values-journey-image" aria-hidden="true">
+                  <Image
+                    src={sitePath(stageImages[index])}
+                    alt=""
+                    width={512}
+                    height={768}
+                    sizes="(max-width: 700px) 70vw, 25vw"
+                  />
+                  <span className="values-journey-node" />
+                </div>
+                <div className="values-journey-copy">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{stage.title}</h3>
+                  <p>{stage.copy}</p>
+                </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
 
-        <figure className="values-growth-quote reveal">
+        <figure className="values-journey-quote reveal">
           <blockquote>&ldquo;{siteContent.principles.founderQuote}&rdquo;</blockquote>
           <figcaption>{siteContent.principles.founder}</figcaption>
         </figure>
