@@ -92,6 +92,7 @@ export function TeamPage() {
                         alt={member.alt}
                         width={1000}
                         height={1000}
+                        loading={index === 0 ? "eager" : "lazy"}
                         sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 960px) 45vw, 280px"
                       />
                     ) : (
