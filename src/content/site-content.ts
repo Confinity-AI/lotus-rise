@@ -227,7 +227,7 @@ export const siteContent = {
       ],
     },
     values: {
-      title: "What we come back to.",
+      title: "What drives us forward",
       body: "Lotus Rise is a public benefit corporation. Our purpose is built into the company: help the social sector amplify its impact with useful, trustworthy technology.",
       note: "Empowerment, innovation, integrity and community have guided Lotus Rise from the start.",
       items: [
