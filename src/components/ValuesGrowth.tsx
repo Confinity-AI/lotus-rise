@@ -16,7 +16,6 @@ export function ValuesGrowth() {
     <section className="benefit values-journey" id="principles" aria-labelledby="principles-title">
       <div className="container values-journey-inner">
         <div className="values-journey-heading reveal">
-          <p className="values-journey-kicker">How we grow</p>
           <h2 id="principles-title">{siteContent.principles.title}</h2>
           <p>{siteContent.principles.body}</p>
         </div>

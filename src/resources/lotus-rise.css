@@ -306,6 +306,11 @@ a {
 }
 
 .button svg {
+  position: relative;
+  top: 1px;
+  width: 1.05em;
+  height: 1.05em;
+  flex: 0 0 auto;
   transition: transform 180ms ease;
 }
 
@@ -404,9 +409,11 @@ a {
 
 .lotus-bloom {
   position: relative;
-  width: min(100%, 430px);
+  width: min(100%, 360px);
   aspect-ratio: 1;
   margin: 0;
+  justify-self: end;
+  transform: translateX(48px);
 }
 
 .lotus-bloom-static {
@@ -1737,6 +1744,11 @@ html[data-js="true"] .reveal.is-visible {
 }
 
 .text-link svg {
+  position: relative;
+  top: 1px;
+  width: 1.05em;
+  height: 1.05em;
+  flex: 0 0 auto;
   transition: transform 180ms ease;
 }
 
@@ -3005,6 +3017,7 @@ html[data-js="true"] .reveal.is-visible {
 
   .lotus-bloom {
     width: 190px;
+    transform: translateX(20px);
   }
 
   .proof-inner,
@@ -3345,6 +3358,7 @@ html[data-js="true"] .reveal.is-visible {
   .lotus-bloom {
     width: min(236px, 72vw);
     margin: 12px auto -28px;
+    transform: none;
   }
 
   .direction-connected .dark-section {
@@ -3998,8 +4012,8 @@ html[data-js="true"] .reveal.is-visible {
   position: absolute;
   z-index: 0;
   top: 50%;
-  right: clamp(-180px, -8vw, -80px);
-  width: clamp(680px, 61vw, 920px);
+  right: clamp(-300px, -17vw, -190px);
+  width: clamp(560px, 50vw, 740px);
   max-width: none;
   margin: 0;
   transform: translateY(-50%) rotate(-5deg);
@@ -4022,8 +4036,8 @@ html[data-js="true"] .reveal.is-visible {
   }
 
   .direction-connected .lotus-bloom {
-    right: -230px;
-    width: 700px;
+    right: -270px;
+    width: 610px;
   }
 }
 
@@ -4048,8 +4062,8 @@ html[data-js="true"] .reveal.is-visible {
 
   .direction-connected .lotus-bloom {
     top: 46%;
-    right: -280px;
-    width: 590px;
+    right: -315px;
+    width: 540px;
     margin: 0;
     transform: translateY(-50%) rotate(-7deg);
   }
@@ -4274,6 +4288,11 @@ html[data-js="true"] .reveal.is-visible {
 }
 
 .suite-module-link svg {
+  position: relative;
+  top: 1px;
+  width: 1.05em;
+  height: 1.05em;
+  flex: 0 0 auto;
   transition: transform 180ms ease;
 }
 
@@ -4289,11 +4308,10 @@ html[data-js="true"] .reveal.is-visible {
 
 .proof-portrait {
   width: 180px;
-  height: 180px;
-  aspect-ratio: 1;
-  object-fit: cover;
-  object-position: center 28%;
-  border-radius: 6px;
+  aspect-ratio: 440 / 464;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 999px;
   filter: grayscale(0.08);
 }
 
@@ -4971,7 +4989,6 @@ html[data-js="true"] .reveal.is-visible {
 
   .proof-portrait {
     width: 140px;
-    height: 140px;
     grid-row: 1 / 3;
   }
 
@@ -5044,7 +5061,6 @@ html[data-js="true"] .reveal.is-visible {
 
   .proof-portrait {
     width: 112px;
-    height: 112px;
     grid-row: auto;
   }
 

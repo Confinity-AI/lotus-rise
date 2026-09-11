@@ -3,7 +3,7 @@ import { sitePath } from "@/lib/site-path";
 export const siteContent = {
   brand: {
     name: "Lotus Rise",
-    descriptor: "A public benefit corporation building AI-powered products for the social sector.",
+    descriptor: "A public benefit corporation building software products for the social sector.",
   },
   navigation: [
     { label: "Janus", href: "/janus/", page: "janus" },
@@ -11,11 +11,11 @@ export const siteContent = {
   ],
   hero: {
     title: "We help the social sector amplify its impact with the right technology.",
-    lead: "Lotus Rise builds AI-powered products for foundations and nonprofits. Our flagship product, Janus, makes strategy, evaluation and reporting easier, so teams can focus on the people and causes they serve.",
+    lead: "Lotus Rise builds software products for foundations and nonprofits. Our flagship product, Janus, makes strategy, evaluation and reporting easier, so teams can focus on the people and causes they serve.",
   },
   janus: {
-    title: "Meet Lotus Rise.",
-    body: "We build practical AI products for foundations and nonprofits. Our first product, Janus, connects strategy, evaluation and reporting while keeping important decisions with people.",
+    title: "Meet Janus.",
+    body: "Janus is an AI-powered product suite for strategy, evaluation and reporting. It keeps the work connected while important decisions stay with people.",
     modules: [
       {
         title: "Evaluation",
@@ -97,25 +97,25 @@ export const siteContent = {
     items: [
       {
         title: "Integrity",
-        copy: "Trust begins at the root: be honest, accountable and clear about what the technology can do.",
+        copy: "We are honest and clear about what technology can do and how it can help you.",
       },
       {
         title: "Innovation",
-        copy: "Grow new ideas around real needs, using technology where it genuinely makes the work easier.",
+        copy: "We use technology where it can make the work easier.",
       },
       {
         title: "Empowerment",
-        copy: "Give people useful tools, clear evidence and the confidence to make the final call.",
+        copy: "We give people useful tools and the confidence to make good decisions.",
       },
       {
-        title: "Commitment",
-        copy: "Stay close to the people doing the work and keep improving until the technology fits the mission.",
+        title: "Community",
+        copy: "We stay close to the people doing the work and keep improving the process until the technology fits their mission.",
       },
     ],
   },
   closing: {
-    title: "See where Janus could help.",
-    body: "Explore the product suite or bring us one part of the work that takes too long. We will tell you plainly whether Janus is a useful fit.",
+    title: "See where Janus can help.",
+    body: "Explore the product suite or contact us. We will listen to what your team needs and tell you plainly where Janus may be a useful fit.",
   },
   janusPage: {
     hero: {
@@ -214,7 +214,7 @@ export const siteContent = {
   team: {
     hero: {
       title: "Technology should make good work easier.",
-      lead: "Lotus Rise builds AI-powered products around the real work of foundations and nonprofits.",
+      lead: "Lotus Rise builds software products for foundations and nonprofits.",
       quote:
         "The work that foundations and nonprofits do benefits the whole planet. We have a responsibility to make their lives easier.",
       quoteBy: "Neeraj Vir, Founder & CEO",
@@ -222,39 +222,35 @@ export const siteContent = {
     origin: {
       title: "The mission should shape the technology.",
       body: [
-        "Foundations and nonprofits know their work. Too often, their software does not. Strategy, evaluation and reporting end up spread across systems and rebuilt by hand.",
-        "We started Lotus Rise to make the technology fit the mission, so people can spend less time managing systems and more time changing lives.",
+        "Strategy, evaluation and reporting are spread across different systems and usually disconnected. Janus changes that.",
+        "We started Lotus Rise to make technology fit the mission, so people spend less time managing systems and more time changing lives.",
       ],
-      product: {
-        title: "Janus starts with evaluation.",
-        body: "It keeps program plans, questions, measures, evidence, findings and reports in one working record.",
-      },
     },
     values: {
       title: "What we come back to.",
-      body: "Lotus Rise is a public benefit corporation. Our purpose is built into the company: help the social sector amplify its impact with practical, trustworthy technology.",
+      body: "Lotus Rise is a public benefit corporation. Our purpose is built into the company: help the social sector amplify its impact with useful, trustworthy technology.",
       note: "Empowerment, innovation, integrity and community have guided Lotus Rise from the start.",
       items: [
         {
-          title: "Empowerment",
-          copy: "Give people useful tools, clear evidence and the final say.",
+          title: "Integrity",
+          copy: "We are honest and clear about what technology can do and how it can help you.",
         },
         {
           title: "Innovation",
-          copy: "Use new technology where it solves a real problem. Novelty on its own is not progress.",
+          copy: "We use technology where it can make the work easier.",
         },
         {
-          title: "Integrity",
-          copy: "Take the long view. Be honest about what the product can do, and make the work easy to check.",
+          title: "Empowerment",
+          copy: "We give people useful tools and the confidence to make good decisions.",
         },
         {
           title: "Community",
-          copy: "Build with foundations, nonprofits and evaluators. Share what works so good ideas travel.",
+          copy: "We stay close to the people doing the work and keep improving the process until the technology fits their mission.",
         },
       ],
     },
     roster: {
-      title: "Small by design. Close to the work.",
+      title: "Closer to the mission. Smaller by design.",
       body: "We are a small team, and everyone stays close to the product and the people using it.",
     },
     members: [
@@ -297,8 +293,8 @@ export const siteContent = {
     },
   },
   contact: {
-    title: "What would you like to make easier?",
-    lead: "Tell us where strategy, evaluation or reporting slows your team down. We will see whether Janus is a fit and learn what your team needs next.",
+    title: "What would you like to discuss with us?",
+    lead: "Tell us what your team is struggling with. We will support your mission with the right technology and tools.",
     next: "We'll read your note and reply with a clear next step.",
   },
 } as const;

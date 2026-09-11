@@ -7,7 +7,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Talk with Lotus Rise about Janus and AI-powered products for strategy, evaluation and reporting.",
+    "Talk with Lotus Rise about software for foundations, nonprofits and the wider social sector.",
   alternates: { canonical: sitePath("/contact/") },
 };
 

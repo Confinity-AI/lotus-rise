@@ -21,9 +21,6 @@ export function JanusPage() {
                 <a className="button button-primary" href="#suite">
                   Explore the suite <HiArrowRight aria-hidden="true" />
                 </a>
-                <StaticLinkButton className="text-link" href="/contact/">
-                  Register interest <HiArrowRight aria-hidden="true" />
-                </StaticLinkButton>
               </div>
             </div>
             <figure className="janus-hero-product reveal">
@@ -128,7 +125,7 @@ export function JanusPage() {
               <p>{janusPage.closing.body}</p>
             </div>
             <StaticLinkButton className="button button-primary" href="/contact/">
-              Register interest <HiArrowRight aria-hidden="true" />
+              Request a preview <HiArrowRight aria-hidden="true" />
             </StaticLinkButton>
           </div>
         </section>

@@ -70,13 +70,6 @@ export function TeamPage() {
                     sizes="(max-width: 960px) calc(100vw - 48px), 520px"
                   />
                 </div>
-                <div className="team-origin-product-copy">
-                  <span>
-                    <strong>{team.origin.product.title}</strong>
-                  </span>
-                  <HiArrowRight aria-hidden="true" />
-                  <p>{team.origin.product.body}</p>
-                </div>
               </a>
             </div>
           </div>
@@ -111,6 +104,25 @@ export function TeamPage() {
                   <h3>{member.name}</h3>
                   <p className="team-role">{member.role}</p>
                   <p className="team-bio">{member.bio}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="team-values" aria-labelledby="team-values-title">
+          <div className="container team-values-inner">
+            <div className="team-values-copy reveal">
+              <h2 id="team-values-title">{team.values.title}</h2>
+              <p>{team.values.body}</p>
+              <small>{team.values.note}</small>
+            </div>
+            <div className="team-values-list reveal">
+              {team.values.items.map((value, index) => (
+                <article key={value.title}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{value.title}</h3>
+                  <p>{value.copy}</p>
                 </article>
               ))}
             </div>

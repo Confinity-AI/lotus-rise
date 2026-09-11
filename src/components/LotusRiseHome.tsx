@@ -18,9 +18,6 @@ export function LotusRiseHome() {
           <div className="container hero-inner">
             <div className="hero-opening has-growth">
               <div className="hero-copy reveal">
-                <p className="hero-eyebrow">
-                  <span aria-hidden="true" /> AI tools for the social sector
-                </p>
                 <h1 id="hero-title">{hero.title}</h1>
                 <p className="hero-lead">{hero.lead}</p>
                 <div className="hero-actions">

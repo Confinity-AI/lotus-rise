@@ -111,7 +111,7 @@ export function ContactForm() {
         </div>
       </div>
       <div className="field">
-        <label htmlFor="message">What would you like to make easier?</label>
+        <label htmlFor="message">What would you like to discuss with us?</label>
         <textarea id="message" name="message" placeholder="A few sentences are enough." required />
       </div>
       {status === "error" && (
