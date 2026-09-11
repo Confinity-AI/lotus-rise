@@ -5,9 +5,9 @@ const result = spawnSync("npm", ["run", "build"], {
   shell: true,
   env: {
     ...process.env,
-    GITHUB_PAGES: "1",
+    GITHUB_PAGES: "0",
     NEXT_PUBLIC_SITE_URL:
-      process.env.NEXT_PUBLIC_SITE_URL || "https://confinity-ai.github.io"
+      process.env.NEXT_PUBLIC_SITE_URL || "https://www.lotusrise.org"
   }
 });
 
