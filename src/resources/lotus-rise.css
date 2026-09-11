@@ -4819,15 +4819,20 @@ html[data-js="true"] .reveal.is-visible {
   align-items: center;
 }
 
+.janus-suite-ai {
+  background: var(--brand-deep);
+  color: #fff;
+}
+
 .janus-suite-ai-copy > p {
-  color: var(--muted);
+  color: #c5d2cc;
 }
 
 .janus-suite-control {
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--emerald-dark) !important;
+  color: var(--signal) !important;
   font-weight: 720;
 }
 

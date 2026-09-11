@@ -71,27 +71,6 @@ export function JanusPage() {
           </div>
         </section>
 
-        <section className="janus-shared-record" aria-labelledby="shared-record-title">
-          <div className="container janus-shared-record-inner">
-            <div className="janus-shared-record-copy reveal">
-              <h2 id="shared-record-title">The work should carry forward.</h2>
-              <p>
-                A strategic decision shapes what gets evaluated. Evaluation produces evidence.
-                Reporting shares what was learned. Janus is designed to keep that context connected.
-              </p>
-            </div>
-            <div className="suite-connection reveal" aria-label="Connected Janus product suite">
-              {janus.modules.map((module, index) => (
-                <div key={module.title}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <strong>{module.title}</strong>
-                  <small>{index === 0 ? "Available now" : "Coming soon"}</small>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="section janus-suite-ai" aria-labelledby="janus-ai-title">
           <div className="container janus-suite-ai-inner">
             <div className="janus-suite-ai-copy reveal">
@@ -101,8 +80,7 @@ export function JanusPage() {
                 team checks the evidence, changes the work and decides what is ready.
               </p>
               <p className="janus-suite-control">
-                <HiOutlineCheckCircle aria-hidden="true" /> Human review remains part of the
-                product.
+                <HiOutlineCheckCircle aria-hidden="true" /> Human review is central to the product.
               </p>
             </div>
             <figure className="janus-suite-proof reveal">
