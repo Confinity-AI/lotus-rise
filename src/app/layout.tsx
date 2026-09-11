@@ -95,6 +95,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       )}
     >
       <head>
+        <meta
+          httpEquiv="Content-Security-Policy"
+          content="upgrade-insecure-requests; block-all-mixed-content"
+        />
         <Script id="lotus-motion-ready" strategy="beforeInteractive">
           {'document.documentElement.dataset.js="true";'}
         </Script>
