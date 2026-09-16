@@ -1000,9 +1000,10 @@ a {
 
 .tab-caption {
   display: grid;
-  grid-template-columns: 66px minmax(0, 1fr) auto;
+  grid-template-columns: 66px minmax(0, 1fr);
   gap: 20px;
   align-items: center;
+  min-height: 44px;
   margin-top: 18px;
   color: #b8c4be;
   font-size: 14px;
@@ -3592,7 +3593,7 @@ html[data-js="true"] .reveal.is-visible {
   }
 
   .tab-caption {
-    grid-template-columns: 55px minmax(0, 1fr) auto;
+    grid-template-columns: 55px minmax(0, 1fr);
     gap: 12px;
     align-items: start;
   }
@@ -4122,11 +4123,7 @@ html[data-js="true"] .reveal.is-visible {
   }
 
   .tab-caption {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-
-  .tab-caption .product-progress {
-    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .footer-meta {

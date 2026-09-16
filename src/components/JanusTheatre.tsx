@@ -1,6 +1,7 @@
 "use client";
 
 import { siteContent } from "@/content/site-content";
+import { track } from "@/lib/analytics";
 import Image from "next/image";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import { useRef, useState } from "react";
@@ -8,65 +9,77 @@ import { HiArrowsPointingOut, HiChevronLeft, HiChevronRight, HiXMark } from "rea
 
 const views = siteContent.janus.views;
 
+type Direction = "forward" | "backward";
+type Method = "click" | "keyboard" | "swipe";
+
 export function JanusTheatre() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState<"forward" | "backward">("forward");
+  const [direction, setDirection] = useState<Direction>("forward");
   const [dialogOpen, setDialogOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const openerRef = useRef<HTMLButtonElement | null>(null);
+  const expandRef = useRef<HTMLButtonElement>(null);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const swipeStartRef = useRef<{ pointerId: number; x: number; y: number } | null>(null);
-  const suppressImageClickRef = useRef(false);
+  const pointerStartRef = useRef<{
+    pointerId: number;
+    type: string;
+    x: number;
+    y: number;
+    onImage: boolean;
+  } | null>(null);
   const active = views[activeIndex];
 
-  const activate = (
-    index: number,
-    focus = false,
-    nextDirection: "forward" | "backward" = index >= activeIndex ? "forward" : "backward",
-  ) => {
+  const activate = (index: number, method: Method, focus = false) => {
     const next = (index + views.length) % views.length;
-    if (next !== activeIndex) setDirection(nextDirection);
+    if (next === activeIndex) return;
+    setDirection(index > activeIndex ? "forward" : "backward");
     setActiveIndex(next);
+    track("janus_tab_change", { index: next, method });
     if (focus) requestAnimationFrame(() => tabRefs.current[next]?.focus());
   };
 
-  const startSwipe = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (event.pointerType !== "touch") return;
-    swipeStartRef.current = {
+  // One pointer gesture handler: a horizontal touch swipe changes the view, a still
+  // press on the image opens the dialog. The expand button is the only focusable opener.
+  const startPointer = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.button !== 0) return;
+    pointerStartRef.current = {
       pointerId: event.pointerId,
+      type: event.pointerType,
       x: event.clientX,
       y: event.clientY,
+      onImage: Boolean((event.target as Element).closest(".product-image-button")),
     };
   };
 
-  const finishSwipe = (event: ReactPointerEvent<HTMLDivElement>) => {
-    const start = swipeStartRef.current;
-    swipeStartRef.current = null;
+  const finishPointer = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const start = pointerStartRef.current;
+    pointerStartRef.current = null;
     if (!start || start.pointerId !== event.pointerId) return;
 
     const deltaX = event.clientX - start.x;
     const deltaY = event.clientY - start.y;
-    if (Math.abs(deltaX) < 48 || Math.abs(deltaX) <= Math.abs(deltaY) * 1.2) return;
+    const swiped = Math.abs(deltaX) >= 48 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2;
 
-    suppressImageClickRef.current = true;
-    const movingForward = deltaX < 0;
-    activate(activeIndex + (movingForward ? 1 : -1), false, movingForward ? "forward" : "backward");
-    window.setTimeout(() => {
-      suppressImageClickRef.current = false;
-    }, 400);
+    if (start.type === "touch" && swiped) {
+      activate(activeIndex + (deltaX < 0 ? 1 : -1), "swipe");
+      return;
+    }
+    if (start.onImage && Math.abs(deltaX) < 8 && Math.abs(deltaY) < 8) openDialog();
   };
 
-  const openDialog = (button: HTMLButtonElement) => {
-    openerRef.current = button;
+  const openDialog = () => {
     setDialogOpen(true);
     dialogRef.current?.showModal();
+    track("janus_dialog_open", { index: activeIndex });
   };
 
   const closeDialog = () => {
     dialogRef.current?.close();
     setDialogOpen(false);
-    requestAnimationFrame(() => openerRef.current?.focus());
+    track("janus_dialog_close", { index: activeIndex });
+    requestAnimationFrame(() => expandRef.current?.focus());
   };
+
+  const progress = `${String(activeIndex + 1).padStart(2, "0")} / ${String(views.length).padStart(2, "0")}`;
 
   return (
     <>
@@ -85,18 +98,13 @@ export function JanusTheatre() {
               aria-controls="janus-panel"
               aria-selected={index === activeIndex}
               tabIndex={index === activeIndex ? 0 : -1}
-              onClick={() => activate(index, false, index >= activeIndex ? "forward" : "backward")}
+              onClick={() => activate(index, "click")}
               onKeyDown={(event) => {
                 if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
                 event.preventDefault();
-                if (event.key === "Home") return activate(0, true, "backward");
-                if (event.key === "End") return activate(views.length - 1, true, "forward");
-                const movingForward = event.key === "ArrowRight";
-                activate(
-                  index + (movingForward ? 1 : -1),
-                  true,
-                  movingForward ? "forward" : "backward",
-                );
+                if (event.key === "Home") return activate(0, "keyboard", true);
+                if (event.key === "End") return activate(views.length - 1, "keyboard", true);
+                activate(index + (event.key === "ArrowRight" ? 1 : -1), "keyboard", true);
               }}
             >
               <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
@@ -113,10 +121,10 @@ export function JanusTheatre() {
           aria-labelledby={`janus-tab-${activeIndex + 1}`}
           data-direction={direction}
           data-swipeable="true"
-          onPointerDown={startSwipe}
-          onPointerUp={finishSwipe}
+          onPointerDown={startPointer}
+          onPointerUp={finishPointer}
           onPointerCancel={() => {
-            swipeStartRef.current = null;
+            pointerStartRef.current = null;
           }}
         >
           <div className="product-frame">
@@ -127,25 +135,15 @@ export function JanusTheatre() {
               <button
                 className="icon-button product-expand"
                 type="button"
+                ref={expandRef}
                 aria-label={`Open ${active.title} full screen`}
                 title="Open full screen"
-                onClick={(event) => openDialog(event.currentTarget)}
+                onClick={openDialog}
               >
                 <HiArrowsPointingOut aria-hidden="true" />
               </button>
             </div>
-            <button
-              className="product-image-button"
-              type="button"
-              aria-label={`Open ${active.title} full screen`}
-              onClick={(event) => {
-                if (suppressImageClickRef.current) {
-                  event.preventDefault();
-                  return;
-                }
-                openDialog(event.currentTarget);
-              }}
-            >
+            <div className="product-image-button">
               <Image
                 key={active.image}
                 className="product-view-image"
@@ -156,36 +154,14 @@ export function JanusTheatre() {
                 sizes="(max-width: 960px) calc(100vw - 32px), 760px"
                 loading="eager"
               />
-            </button>
+            </div>
           </div>
 
           <div className="tab-caption" aria-live="polite" aria-atomic="true">
-            <span className="product-progress">
-              {String(activeIndex + 1).padStart(2, "0")} / {String(views.length).padStart(2, "0")}
-            </span>
+            <span className="product-progress">{progress}</span>
             <div className="product-caption-copy" key={active.title}>
               <strong>{active.title}</strong>
               <span>{active.copy}</span>
-            </div>
-            <div className="product-controls" aria-label="Janus view controls">
-              <button
-                className="icon-button"
-                type="button"
-                aria-label="Previous Janus view"
-                title="Previous view"
-                onClick={() => activate(activeIndex - 1, false, "backward")}
-              >
-                <HiChevronLeft aria-hidden="true" />
-              </button>
-              <button
-                className="icon-button"
-                type="button"
-                aria-label="Next Janus view"
-                title="Next view"
-                onClick={() => activate(activeIndex + 1, false, "forward")}
-              >
-                <HiChevronRight aria-hidden="true" />
-              </button>
             </div>
           </div>
           <div className="product-progress-line" aria-hidden="true">
@@ -243,19 +219,17 @@ export function JanusTheatre() {
                 type="button"
                 aria-label="Previous Janus view"
                 title="Previous view"
-                onClick={() => activate(activeIndex - 1, false, "backward")}
+                onClick={() => activate(activeIndex - 1, "click")}
               >
                 <HiChevronLeft aria-hidden="true" />
               </button>
-              <span>
-                {String(activeIndex + 1).padStart(2, "0")} / {String(views.length).padStart(2, "0")}
-              </span>
+              <span data-dialog-progress>{progress}</span>
               <button
                 className="icon-button"
                 type="button"
                 aria-label="Next Janus view"
                 title="Next view"
-                onClick={() => activate(activeIndex + 1, false, "forward")}
+                onClick={() => activate(activeIndex + 1, "click")}
               >
                 <HiChevronRight aria-hidden="true" />
               </button>
