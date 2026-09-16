@@ -8,19 +8,22 @@ import { type FormEvent, useEffect, useRef, useState } from "react";
 import { HiArrowRight } from "react-icons/hi2";
 
 type Status = "idle" | "sending" | "sent" | "error";
+type FieldName = keyof typeof copy.fieldErrors;
 
 const endpoint = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT || "";
 const configured = endpoint.length > 0;
 const { form: copy } = siteContent.contact;
 const { actions } = siteContent;
+const fieldOrder: FieldName[] = ["name", "email", "organization", "role", "message"];
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
+  const [invalid, setInvalid] = useState<Partial<Record<FieldName, boolean>>>({});
+  const [sentTo, setSentTo] = useState("");
   const successRef = useRef<HTMLOutputElement>(null);
   const startedRef = useRef(false);
   const sendingRef = useRef(false);
-  const invalidAtRef = useRef(0);
 
   useEffect(() => {
     if (!configured) track("contact_configuration_error");
@@ -32,13 +35,21 @@ export function ContactForm() {
     track("contact_start");
   }
 
-  // Native validation cancels the submit event, so the browser's `invalid` event is the
-  // only hook. Several fields can fail in one attempt; report the attempt once.
-  function noteInvalid() {
-    const now = Date.now();
-    if (now - invalidAtRef.current < 500) return;
-    invalidAtRef.current = now;
-    track("contact_validation_error");
+  /** Persistent per-field messages; the browser bubble alone disappears on the next keypress. */
+  function reportInvalidFields(form: HTMLFormElement) {
+    const next: Partial<Record<FieldName, boolean>> = {};
+    for (const name of fieldOrder) {
+      const field = form.elements.namedItem(name) as HTMLInputElement | null;
+      if (field && !field.checkValidity()) next[name] = true;
+    }
+    setInvalid(next);
+    track("contact_validation_error", { fields: Object.keys(next).join(",") });
+    const first = fieldOrder.find((name) => next[name]);
+    if (first) (form.elements.namedItem(first) as HTMLInputElement | null)?.focus();
+  }
+
+  function clearInvalid(name: FieldName) {
+    setInvalid((current) => (current[name] ? { ...current, [name]: false } : current));
   }
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -46,8 +57,12 @@ export function ContactForm() {
     const form = event.currentTarget;
     if (!configured || sendingRef.current) return;
 
-    if (!form.reportValidity()) return;
+    if (!form.checkValidity()) {
+      reportInvalidFields(form);
+      return;
+    }
 
+    setInvalid({});
     sendingRef.current = true;
     setStatus("sending");
     setError("");
@@ -62,6 +77,7 @@ export function ContactForm() {
       });
 
       if (!response.ok) throw new Error(`Contact endpoint returned ${response.status}`);
+      setSentTo(String(payload.email ?? ""));
       setStatus("sent");
       track("contact_complete");
       requestAnimationFrame(() => successRef.current?.focus());
@@ -74,11 +90,27 @@ export function ContactForm() {
     }
   }
 
+  function fieldProps(name: FieldName) {
+    return {
+      id: name,
+      name,
+      required: true,
+      "aria-invalid": invalid[name] ? true : undefined,
+      "aria-describedby": invalid[name] ? `${name}-error` : undefined,
+      onInput: () => clearInvalid(name),
+    };
+  }
+
   if (status === "sent") {
     return (
       <output className="form-success is-visible" aria-live="polite" tabIndex={-1} ref={successRef}>
         <h2>{copy.successTitle}</h2>
         <p>{copy.successBody}</p>
+        {sentTo && (
+          <p className="form-success-reply">
+            {copy.successReply} <strong>{sentTo}</strong>.
+          </p>
+        )}
         <StaticLinkButton
           className="button button-secondary"
           href="/"
@@ -94,31 +126,47 @@ export function ContactForm() {
     <form
       className="contact-form"
       method="post"
+      noValidate
       onSubmit={submit}
-      onInvalid={noteInvalid}
       onFocus={noteStart}
       aria-busy={status === "sending"}
       data-configured={configured}
     >
       {!configured && <output className="form-status">{copy.configuration}</output>}
+      <p className="form-required">{copy.required}</p>
       <div className="form-row">
         <div className="field">
           <label htmlFor="name">Name</label>
-          <input id="name" name="name" autoComplete="name" required />
+          <input {...fieldProps("name")} autoComplete="name" />
+          {invalid.name && (
+            <p className="field-error" id="name-error">
+              {copy.fieldErrors.name}
+            </p>
+          )}
         </div>
         <div className="field">
           <label htmlFor="email">Work email</label>
-          <input id="email" name="email" type="email" autoComplete="email" required />
+          <input {...fieldProps("email")} type="email" autoComplete="email" />
+          {invalid.email && (
+            <p className="field-error" id="email-error">
+              {copy.fieldErrors.email}
+            </p>
+          )}
         </div>
       </div>
       <div className="form-row">
         <div className="field">
           <label htmlFor="organization">Organization</label>
-          <input id="organization" name="organization" autoComplete="organization" required />
+          <input {...fieldProps("organization")} autoComplete="organization" />
+          {invalid.organization && (
+            <p className="field-error" id="organization-error">
+              {copy.fieldErrors.organization}
+            </p>
+          )}
         </div>
         <div className="field">
           <label htmlFor="role">Organization type</label>
-          <select id="role" name="role" required defaultValue="">
+          <select {...fieldProps("role")} defaultValue="">
             <option value="" disabled>
               Select one
             </option>
@@ -127,11 +175,21 @@ export function ContactForm() {
             <option>Evaluation team</option>
             <option>Other mission-led organization</option>
           </select>
+          {invalid.role && (
+            <p className="field-error" id="role-error">
+              {copy.fieldErrors.role}
+            </p>
+          )}
         </div>
       </div>
       <div className="field">
-        <label htmlFor="message">{siteContent.contact.title}</label>
-        <textarea id="message" name="message" placeholder="A few sentences are enough." required />
+        <label htmlFor="message">{copy.messageLabel}</label>
+        <textarea {...fieldProps("message")} placeholder={copy.messagePlaceholder} />
+        {invalid.message && (
+          <p className="field-error" id="message-error">
+            {copy.fieldErrors.message}
+          </p>
+        )}
       </div>
       {status === "error" && (
         <p className="form-error" role="alert">

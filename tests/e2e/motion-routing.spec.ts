@@ -86,4 +86,31 @@ test.describe("routing and export integrity", () => {
       await expect(img).toHaveAttribute("loading", "eager");
     }
   });
+
+  test("the hub and the module do not open on the same capture", async ({ page }) => {
+    const heroSources: string[] = [];
+    const heroCaptions: string[] = [];
+    for (const route of ["/janus/", "/janus/evaluation/"]) {
+      await page.goto(route);
+      const figure = page.locator(".subpage-hero .janus-hero-product");
+      heroSources.push((await figure.locator("img").getAttribute("src")) ?? "");
+      heroCaptions.push((await figure.locator("figcaption strong").textContent())?.trim() ?? "");
+    }
+    expect(heroSources[0]).not.toBe(heroSources[1]);
+    expect(heroCaptions[0]).not.toBe(heroCaptions[1]);
+  });
+
+  test("no capture repeats inside one section of the module page", async ({ page }) => {
+    await page.goto("/janus/evaluation/");
+    const perSection = await page.evaluate(() =>
+      Array.from(document.querySelectorAll("main > section")).map((section) =>
+        Array.from(section.querySelectorAll("img"))
+          .map((image) => new URL((image as HTMLImageElement).src).pathname)
+          .filter((path) => path.includes("/product/")),
+      ),
+    );
+    for (const section of perSection) {
+      expect(new Set(section).size).toBe(section.length);
+    }
+  });
 });

@@ -133,14 +133,14 @@ export function JanusTheatre() {
                 <i /> Real Janus view
               </span>
               <button
-                className="icon-button product-expand"
+                className="product-expand"
                 type="button"
                 ref={expandRef}
                 aria-label={`Open ${active.title} full screen`}
-                title="Open full screen"
                 onClick={openDialog}
               >
                 <HiArrowsPointingOut aria-hidden="true" />
+                <span>{siteContent.actions.fullScreen}</span>
               </button>
             </div>
             <div className="product-image-button">
@@ -168,7 +168,6 @@ export function JanusTheatre() {
             <span style={{ width: `${((activeIndex + 1) / views.length) * 100}%` }} />
           </div>
         </div>
-        <p className="product-note">{siteContent.janus.note}</p>
       </div>
 
       <dialog
@@ -178,6 +177,11 @@ export function JanusTheatre() {
         onCancel={(event) => {
           event.preventDefault();
           closeDialog();
+        }}
+        onKeyDown={(event) => {
+          if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+          event.preventDefault();
+          activate(activeIndex + (event.key === "ArrowRight" ? 1 : -1), "keyboard");
         }}
         onPointerDown={(event) => {
           if (event.currentTarget === event.target) closeDialog();

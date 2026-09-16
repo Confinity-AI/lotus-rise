@@ -27,7 +27,7 @@ test.describe("contact failure states", () => {
     await expect(alert).toHaveText(copy.submitError);
     await expect(page.getByRole("button", { name: actions.send })).toBeEnabled();
     await expect(page.getByLabel("Name")).toHaveValue(contactFixture.name);
-    await expect(page.getByLabel(content.contact.title)).toHaveValue(contactFixture.message);
+    await expect(page.getByLabel(copy.messageLabel)).toHaveValue(contactFixture.message);
     expect((await readAnalytics(page)).map((event) => event.name)).toEqual([
       "contact_start",
       "contact_submit",
@@ -68,19 +68,47 @@ test.describe("contact failure states", () => {
       return route.fulfill({ status: 200, body: "{}" });
     });
     await page.goto("/contact/");
+    await expect(page.locator(".form-required")).toHaveText(copy.required);
     await page.getByLabel("Name").fill(contactFixture.name);
     await page.getByRole("button", { name: actions.send }).click();
-    const invalid = await page.evaluate(() => {
-      const form = document.querySelector<HTMLFormElement>("form.contact-form");
-      return form ? !form.checkValidity() : null;
-    });
-    expect(invalid).toBe(true);
-    await expect(page.getByLabel("Work email")).toBeFocused();
+
+    // Nothing is sent, and each unfilled field keeps a message the visitor can read.
     expect(requests).toBe(0);
+    await expect(page.locator(".field-error")).toHaveCount(4);
+    for (const [field, message] of Object.entries(copy.fieldErrors)) {
+      if (field === "name") continue;
+      const error = page.locator(`#${field}-error`);
+      await expect(error).toHaveText(message);
+      const input = page.locator(`#${field}`);
+      await expect(input).toHaveAttribute("aria-invalid", "true");
+      await expect(input).toHaveAttribute("aria-describedby", `${field}-error`);
+    }
+    await expect(page.locator("#name")).not.toHaveAttribute("aria-invalid", "true");
+    await expect(page.getByLabel("Work email")).toBeFocused();
+
+    // Typing clears that field's message only.
+    await page.getByLabel("Work email").fill(contactFixture.email);
+    await expect(page.locator("#email-error")).toHaveCount(0);
+    await expect(page.locator("#organization-error")).toHaveCount(1);
+
     expect((await readAnalytics(page)).map((event) => event.name)).toEqual([
       "contact_start",
       "contact_validation_error",
     ]);
+  });
+
+  test("success state confirms the address the reply goes to", async ({ page }) => {
+    await page.route(MOCK_ENDPOINT, (route) =>
+      route.fulfill({ status: 200, contentType: "application/json", body: "{}" }),
+    );
+    await page.goto("/contact/");
+    await fillContactForm(page);
+    await page.getByRole("button", { name: actions.send }).click();
+    const success = page.locator("output.form-success");
+    await expect(success).toBeVisible();
+    await expect(success.locator("h2")).toHaveText(copy.successTitle);
+    await expect(success.locator(".form-success-reply")).toContainText(contactFixture.email);
+    await expect(success.getByRole("link", { name: actions.returnHome })).toBeVisible();
   });
 
   test("sending state disables the button and marks the form busy", async ({ page }) => {

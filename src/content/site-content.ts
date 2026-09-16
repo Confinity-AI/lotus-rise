@@ -11,6 +11,7 @@ export const siteContent = {
   ],
   actions: {
     exploreJanus: "Explore Janus",
+    fullScreen: "Full screen",
     exploreEvaluation: "Explore Evaluation",
     requestPreview: "Request a preview",
     registerInterest: "Register interest",
@@ -145,7 +146,7 @@ export const siteContent = {
     hero: {
       title: "Keep the whole evaluation connected.",
       lead: "Janus Evaluation brings the program plan, questions, measures, evidence, findings and reviewed report into one working record.",
-      caption: "Evaluation program path",
+      caption: "Reviewed report",
     },
     path: {
       title: "Build the record as the work happens.",
@@ -298,13 +299,24 @@ export const siteContent = {
     nextTitle: "What happens next",
     next: "We'll read your note and reply with a clear next step.",
     form: {
+      required: "Every field is required.",
+      messageLabel: "What are you trying to make easier?",
+      messagePlaceholder: "A few sentences are enough.",
       help: "We'll only use these details to reply to your request.",
+      fieldErrors: {
+        name: "Enter the name we should use when we reply.",
+        email: "Enter a work email address, like name@organization.org.",
+        organization: "Enter the organization you work with.",
+        role: "Select the option that fits your organization.",
+        message: "Tell us in a sentence or two what you are working on.",
+      },
       configuration:
         "This form is not connected yet, so requests cannot be sent from this page. Please check back soon.",
       submitError:
         "We could not send your request. Your details are still here, so please try again in a moment.",
       successTitle: "Thank you.",
       successBody: "We'll read your note and reply with a clear next step.",
+      successReply: "We'll reply to",
       noscript: "This form needs JavaScript to send your request.",
     },
   },

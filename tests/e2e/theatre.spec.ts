@@ -144,6 +144,53 @@ test.describe("Janus theatre", () => {
     await expect(dialog).toHaveJSProperty("open", false);
   });
 
+  test("the full-screen control is labelled, not icon-only", async ({ page }) => {
+    const { expand } = await openTheatre(page);
+    await expect(expand).toContainText(content.actions.fullScreen);
+    const box = await expand.boundingBox();
+    expect(box?.height ?? 0).toBeGreaterThanOrEqual(44);
+  });
+
+  test("arrow keys move between views inside the dialog", async ({ page }) => {
+    await captureAnalytics(page);
+    const { dialog, expand } = await openTheatre(page);
+    await expand.click();
+    const counter = dialog.locator("[data-dialog-progress]");
+    await page.keyboard.press("ArrowRight");
+    await expect(counter).toHaveText("02 / 03");
+    await expect(dialog.locator("#product-dialog-title")).toHaveText(views[1].title);
+    await page.keyboard.press("ArrowLeft");
+    await expect(counter).toHaveText("01 / 03");
+    await expect(dialog).toHaveJSProperty("open", true);
+    expect((await readAnalytics(page)).map((event) => event.name)).toEqual([
+      "janus_dialog_open",
+      "janus_tab_change",
+      "janus_tab_change",
+    ]);
+  });
+
+  test("full screen renders the capture at a readable width", async ({ page }) => {
+    const { dialog, expand } = await openTheatre(page);
+    await expand.click();
+    const image = dialog.locator("img");
+    await expect(image).toHaveJSProperty("complete", true);
+    const width = await image.evaluate((node) => node.getBoundingClientRect().width);
+    // Legibility floor: the inline frame is ~370px wide on mobile, which cannot be read.
+    expect(width).toBeGreaterThanOrEqual(880);
+    const scrollable = await dialog
+      .locator(".product-dialog-media")
+      .evaluate((node) => node.scrollWidth > node.clientWidth || node.clientWidth >= 880);
+    expect(scrollable).toBe(true);
+  });
+
+  test("the private-preview note appears once per section", async ({ page }) => {
+    await page.goto(EVALUATION);
+    await expect(page.locator(".product-note")).toHaveCount(0);
+    await expect(page.locator(".janus-gallery .section-intro")).toHaveCount(1);
+    await page.goto("/");
+    await expect(page.locator(".janus-home-note")).toHaveCount(1);
+  });
+
   test("dialog prev/next update the counter and title", async ({ page }) => {
     const { dialog, expand } = await openTheatre(page);
     await expand.click();

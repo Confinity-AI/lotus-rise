@@ -61,5 +61,5 @@ export async function fillContactForm(page: Page) {
   await page.getByLabel("Work email").fill(contactFixture.email);
   await page.getByLabel("Organization", { exact: true }).fill(contactFixture.organization);
   await page.getByLabel("Organization type").selectOption(contactFixture.role);
-  await page.getByLabel(siteContent.contact.title).fill(contactFixture.message);
+  await page.getByLabel(siteContent.contact.form.messageLabel).fill(contactFixture.message);
 }

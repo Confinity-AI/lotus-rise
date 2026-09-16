@@ -5,7 +5,7 @@ import { siteContent } from "@/content/site-content";
 import Image from "next/image";
 import { HiArrowRight, HiOutlineCheckCircle } from "react-icons/hi2";
 
-const [programPath, lineage] = siteContent.janus.views;
+const [, lineage, reviewedReport] = siteContent.janus.views;
 
 export function EvaluationPage() {
   const { evaluationPage, actions } = siteContent;
@@ -40,10 +40,10 @@ export function EvaluationPage() {
                 <strong>{evaluationPage.hero.caption}</strong>
               </figcaption>
               <Image
-                src={programPath.image}
-                alt="Janus Evaluation program path showing each stage of the workflow"
-                width={programPath.width}
-                height={programPath.height}
+                src={reviewedReport.image}
+                alt="Janus Evaluation reviewed report ready for human approval"
+                width={reviewedReport.width}
+                height={reviewedReport.height}
                 loading="eager"
                 fetchPriority="high"
                 sizes="(max-width: 960px) calc(100vw - 32px), 1120px"
