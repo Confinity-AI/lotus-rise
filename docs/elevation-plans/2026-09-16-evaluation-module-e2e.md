@@ -249,7 +249,9 @@ The three hero links are the breadcrumb "Janus" (`EvaluationPage.tsx:19`), "Requ
 | T-08 | `9d5e872 fix(contact): failure states and honest endpoint degrade` | contact spec 12/12 | Found while testing: `contact_validation_error` never fired on the live site because native validation cancels `submit` before `reportValidity()` runs (`ContactForm.tsx:30-33` at `38b3795`); now tracked from the form's `invalid` event once per attempt. |
 | T-09 | `8674c5b feat(analytics): consent-aware listener for lotus:analytics` | analytics 6/6 · journey 2/2 | Journey spec from T-02 passes for the first time here. |
 | T-10 | `cc36bd6 test(e2e): full evaluation journey, a11y, visual, failure states` | 113 passed · 5 skipped | Found while testing: axe `color-contrast` (serious) on `/janus/` module links: Once UI `Button` default `variant="primary"` paints `--brand-solid-medium` behind `.suite-module-link`, and the light variant sets dark text on it (1.4:1). Fixed in TSX with `variant="tertiary"` (the CSS was written as a text link). Also D-08 via `src/lib/page-metadata.ts`. |
-| T-11 | this commit | typecheck 0 · lint 0 · build 0 · build:pages 0 · e2e 113 passed / 5 skipped | `git stash pop` → "No stash entries found" (no fenced edits existed at start). |
+| R2-a | `4ae68d9 refine(evaluation): readable product views and clearer contact validation` | typecheck 0 · lint 0 · 127 passed | R2-02 … R2-09. |
+| R2-b | `3413319 fix(ui): restore suite link contrast and harden e2e fixtures` | typecheck 0 · lint 0 · 141 passed | R2-01, R2-10, disabled-label contrast, `contrast.spec.ts`, dedicated `.e2e/out-mock` + `.e2e/out-unset` fixtures, smoke fixture guard. |
+| T-11 | earlier commit | typecheck 0 · lint 0 · build 0 · build:pages 0 · e2e 113 passed / 5 skipped | `git stash pop` → "No stash entries found" (no fenced edits existed at start). |
 
 Skipped tests are intentional: touch swipe runs only on `mobile` (1), the 44 px sweep runs only on `mobile` (4).
 
@@ -281,7 +283,19 @@ Suite after round 2: **127 passed, 5 skipped** (36 → 41 cases × 2 projects). 
 
 ### Result
 
-Green: `npm run typecheck`, `npm run lint`, `npm run build`, `npm run build:pages`, `npm run test:e2e` (113 passed, 5 intentionally skipped, 36 test cases × 2 projects, Chromium, reduced motion, against `out/` and `.e2e/out-unset/`). Eleven Conventional Commits on `feat/evaluation-journey-e2e` from `38b3795`. 50 files changed (+1706 / −419), of which `lotus-rise.css` is −17 net lines inside `.janus-*`, `.tab*`, `.product-*`, `.form-*`, `.module-*` selectors only.
+Green in this order, and now order-independent: `npm run typecheck`, `npm run lint`, `npm run build`, `npm run build:pages`, `npm run test:e2e` — **141 passed, 5 intentionally skipped** (46 test cases × 2 projects, Chromium, reduced motion, against two real static exports in `.e2e/out-mock/` and `.e2e/out-unset/`). The Playwright HTML report is written to `playwright-report/index.html` (~600 KB, self-contained) on every run, alongside the `list` reporter output.
+
+Fourteen Conventional Commits on `feat/evaluation-journey-e2e` from `38b3795`, in two rounds: the planned T-01…T-11, then a UX/UI sweep of the executed flow (round 2 above).
+
+Harness note: the first verification attempt of round 2 failed twelve specs because `npm run build:pages` leaves `out/` built **without** the contact endpoint, and `reuseExistingServer: true` let a stale server keep serving it — so the contact specs silently ran against the degrade branch. `tests/e2e/server.mjs` now exports into its own `.e2e/out-mock/` and `.e2e/out-unset/` directories and the smoke spec asserts each server is serving the export it is meant to serve, so a wrong fixture fails immediately with a clear message instead of cascading.
+
+### On "do the reports generate"
+
+Three readings, all checked:
+
+1. **The reviewed report in the product story.** The journey now ends on the generated artifact rather than burying it: `/janus/evaluation/` opens with the reviewed-report capture ("Review-ready narrative, ready to ship", "Regenerate report"), the theatre's third tab shows the same screen full size, and `/janus/` uses it for "AI prepares the work. People make the call." The path band's fourth step is "Review + report".
+2. **Report generation in the app.** Not in this repository. The site is a static export with no backend; nothing here generates a report. The captures are the only evidence, and they are real.
+3. **Test reports.** `playwright-report/index.html` is generated on every run and is git-ignored; `npx playwright show-report` opens it. Traces are retained on failure (`playwright.config.ts:20`).
 
 ### Journey after the change
 
@@ -291,8 +305,13 @@ Decisions on the path: **34 → 22 (−35 %)**. Removed: home theatre controls (
 
 ### Defects fixed (beyond the plan's D-series)
 
-- `contact_validation_error` never fired (native validation cancels `submit`); now emitted from `invalid`.
+- `contact_validation_error` never fired (native validation cancels `submit`); now emitted from the invalid-field path.
 - `/janus/` module links were dark text on a dark Once UI primary background (axe serious); pre-existing on the live site.
+- Round 2: R2-01 (1.20:1 suite links on `/`, a regression from the previous fix), R2-02 (mobile "full screen" was unreadable), R2-03 (hub and module opened on the same capture), R2-04 (transient validation only), R2-10 (4.49:1 tab numbers), plus the disabled submit label at 4.23:1 in the shipped endpoint-unset state.
+
+### Why the visual baselines did not catch R2-01
+
+`toHaveScreenshot` locks in whatever exists when the baseline is written, and the T-10 baselines were written from a build that already had the dark-on-dark links. axe classified the same element as `incomplete` rather than a violation, and the a11y spec only fails on violations. The lesson is encoded as `contrast.spec.ts`: it measures computed colour against composited backgrounds for every element carrying its own text, and it was verified to fail when the fix is reverted.
 
 ### Telemetry now firing (each asserted by a spec)
 
@@ -305,13 +324,14 @@ None. No file was reverted.
 ### Launch blockers and follow-ups (owner-controlled or outside this pass)
 
 1. **Contact endpoint** (#1). Production ships with `NEXT_PUBLIC_CONTACT_ENDPOINT` unset; `/contact/` now says so before the visitor types. Provide the endpoint at build time (`.env.example:2`) plus server-side validation and bot protection (`IMPLEMENTATION_ACCEPTANCE.md:47-48`). Payload keys: `name`, `email`, `organization`, `role`, `message`.
-2. **CI wiring** (R3 out of scope). Add a workflow that runs `npm run typecheck && npm run lint && npm run test:e2e` with `npx playwright install --with-deps chromium`. Visual baselines are Linux/Chromium; regenerate with `npx playwright test tests/e2e/visual.spec.ts --update-snapshots` when copy or layout changes intentionally.
-3. **Analytics sink.** `window.__lotusAnalytics` and `window.__lotusConsent` are the integration points; the consent UI and provider are not in this repo.
-4. **Header/footer targets** (C9). Inline nav and footer links are under 44 px tall; they sit outside R6 selectors and under the WCAG 2.5.8 inline exception. `<summary aria-label="Open navigation">` never reads "Close" (AX-08). `not-found.tsx` header CTA duplicates its body button (RT-03).
-5. **Dead CSS outside R6**: `.lineage-product*` (`lotus-rise.css`, after the removed `.janus-lineage-*` rules) and `.janus-problem-*` rules no longer have markup.
-6. **Reduced motion `.reveal`**: settled state is an identity matrix (`translateY(0)` from `.reveal.is-visible` outranks the reduced-motion `transform: none`); visually equivalent, asserted as identity-or-none. Making it literally `none` needs one extra selector on `.reveal`, which is outside R6.
-7. Cross-browser (WebKit/Firefox) and Lighthouse runs.
-8. Reconfirm legal wording and quote permission before launch (`AGENTS.md:29`); unchanged by this work.
+2. **Re-export `janus-program-path.webp`** (R2-11). The current file shows development billing UI and a "MODE - NOT PRODUCTION" badge in the bottom-left, fully legible in the full-screen dialog. It appears on `/`, `/janus/` and theatre tab 1. Needs a re-export with safe demo state; cropping it would remove the "Five-step path" panel that the caption promises, and retouching an approved capture is out of bounds.
+3. **CI wiring** (R3 out of scope). Add a workflow that runs `npm run typecheck && npm run lint && npm run test:e2e` with `npx playwright install --with-deps chromium`. Visual baselines are Linux/Chromium; regenerate with `npx playwright test tests/e2e/visual.spec.ts --update-snapshots` when copy or layout changes intentionally.
+4. **Analytics sink.** `window.__lotusAnalytics` and `window.__lotusConsent` are the integration points; the consent UI and provider are not in this repo.
+5. **Header/footer targets** (C9). Footer links measure 44 px tall but 36-50 px wide, and header nav links are 44x44 or narrower; they sit outside R6 selectors and under the WCAG 2.5.8 inline exception. `<summary aria-label="Open navigation">` never reads "Close" (AX-08). `not-found.tsx` header CTA duplicates its body button (RT-03).
+6. **Dead CSS outside R6**: `.lineage-product*` (`lotus-rise.css`, after the removed `.janus-lineage-*` rules) and `.janus-problem-*` rules no longer have markup.
+7. **Reduced motion `.reveal`**: settled state is an identity matrix (`translateY(0)` from `.reveal.is-visible` outranks the reduced-motion `transform: none`); visually equivalent, asserted as identity-or-none. Making it literally `none` needs one extra selector on `.reveal`, which is outside R6.
+8. Cross-browser (WebKit/Firefox) and Lighthouse runs.
+9. Reconfirm legal wording and quote permission before launch (`AGENTS.md:29`); unchanged by this work.
 
 ### Deviation from R1
 
