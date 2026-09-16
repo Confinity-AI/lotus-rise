@@ -186,6 +186,7 @@ export const siteContent = {
     },
   },
   strategyPage: {
+    product: "Janus Strategy",
     hero: {
       title: "Turn learning into the next decision.",
       lead: "Janus Strategy will help teams bring evidence, past results and organizational context into the decisions that shape what comes next.",

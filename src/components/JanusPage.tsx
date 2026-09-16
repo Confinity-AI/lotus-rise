@@ -7,7 +7,7 @@ import { HiArrowRight, HiOutlineCheckCircle } from "react-icons/hi2";
 const [programPath, , reviewedReport] = siteContent.janus.views;
 
 export function JanusPage() {
-  const { janus, janusPage } = siteContent;
+  const { janus, janusPage, actions } = siteContent;
 
   return (
     <div className="subpage janus-page janus-suite-page">
@@ -19,9 +19,13 @@ export function JanusPage() {
               <h1 id="janus-page-title">{janusPage.hero.title}</h1>
               <p>{janusPage.hero.lead}</p>
               <div className="hero-actions">
-                <a className="button button-primary" href="#suite">
-                  Explore the suite <HiArrowRight aria-hidden="true" />
-                </a>
+                <StaticLinkButton
+                  className="button button-primary"
+                  href={janus.modules[0].href}
+                  data-cta={actions.exploreEvaluation}
+                >
+                  {actions.exploreEvaluation} <HiArrowRight aria-hidden="true" />
+                </StaticLinkButton>
               </div>
             </div>
             <figure className="janus-hero-product reveal">
@@ -63,7 +67,11 @@ export function JanusPage() {
                   </div>
                   <h3>{module.title}</h3>
                   <p>{module.copy}</p>
-                  <StaticLinkButton className="suite-module-link" href={module.href}>
+                  <StaticLinkButton
+                    className="suite-module-link"
+                    href={module.href}
+                    data-cta={module.action}
+                  >
                     {module.action} <HiArrowRight aria-hidden="true" />
                   </StaticLinkButton>
                 </article>
@@ -100,8 +108,12 @@ export function JanusPage() {
               <h2 id="janus-closing-title">{janusPage.closing.title}</h2>
               <p>{janusPage.closing.body}</p>
             </div>
-            <StaticLinkButton className="button button-primary" href="/contact/">
-              Request a preview <HiArrowRight aria-hidden="true" />
+            <StaticLinkButton
+              className="button button-primary"
+              href="/contact/"
+              data-cta={actions.requestPreview}
+            >
+              {actions.requestPreview} <HiArrowRight aria-hidden="true" />
             </StaticLinkButton>
           </div>
         </section>

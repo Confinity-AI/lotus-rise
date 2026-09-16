@@ -4,7 +4,7 @@ import { siteContent } from "@/content/site-content";
 import { HiArrowRight } from "react-icons/hi2";
 
 export function StrategyPage() {
-  const { strategyPage } = siteContent;
+  const { strategyPage, actions } = siteContent;
 
   return (
     <div className="subpage janus-page module-page strategy-page">
@@ -12,17 +12,18 @@ export function StrategyPage() {
       <main id="main">
         <section className="strategy-hero" aria-labelledby="strategy-title">
           <div className="container strategy-hero-inner">
-            <div className="module-breadcrumb reveal">
-              <StaticLinkButton href="/janus/">Janus</StaticLinkButton>
-              <span aria-hidden="true">/</span>
-              <span>Strategy</span>
-            </div>
             <div className="strategy-hero-copy reveal">
-              <span className="module-status">{strategyPage.status}</span>
+              <p className="module-status">
+                {strategyPage.product} · {strategyPage.status}
+              </p>
               <h1 id="strategy-title">{strategyPage.hero.title}</h1>
               <p>{strategyPage.hero.lead}</p>
-              <StaticLinkButton className="button button-primary" href="/contact/">
-                Register interest <HiArrowRight aria-hidden="true" />
+              <StaticLinkButton
+                className="button button-primary"
+                href="/contact/"
+                data-cta={actions.registerInterest}
+              >
+                {actions.registerInterest} <HiArrowRight aria-hidden="true" />
               </StaticLinkButton>
             </div>
             <div
@@ -61,8 +62,12 @@ export function StrategyPage() {
               <h2 id="strategy-closing-title">{strategyPage.closing.title}</h2>
               <p>{strategyPage.closing.body}</p>
             </div>
-            <StaticLinkButton className="button button-primary" href="/contact/">
-              Register interest <HiArrowRight aria-hidden="true" />
+            <StaticLinkButton
+              className="button button-primary"
+              href="/contact/"
+              data-cta={actions.registerInterest}
+            >
+              {actions.registerInterest} <HiArrowRight aria-hidden="true" />
             </StaticLinkButton>
           </div>
         </section>

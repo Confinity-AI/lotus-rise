@@ -4864,20 +4864,6 @@ html[data-js="true"] .reveal.is-visible {
   height: auto;
 }
 
-.module-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin-bottom: 34px;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 720;
-}
-
-.module-breadcrumb a:hover {
-  color: var(--emerald-dark);
-}
-
 .module-status {
   display: block;
   margin-bottom: 20px;
@@ -4898,11 +4884,6 @@ html[data-js="true"] .reveal.is-visible {
   grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.15fr);
   gap: clamp(56px, 8vw, 112px);
   align-items: center;
-}
-
-.strategy-hero-inner .module-breadcrumb {
-  grid-column: 1 / -1;
-  margin-bottom: -10px;
 }
 
 .strategy-hero-copy h1 {
@@ -5007,11 +4988,6 @@ html[data-js="true"] .reveal.is-visible {
   .strategy-hero-inner,
   .strategy-principle-inner {
     grid-template-columns: 1fr;
-  }
-
-  .strategy-hero-inner .module-breadcrumb {
-    grid-column: auto;
-    margin-bottom: -24px;
   }
 
   .strategy-decision-path {
