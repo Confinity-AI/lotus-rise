@@ -9,7 +9,7 @@
 
 ## Public scope
 
-- Keep the public experience to `/` and `/contact`.
+- Public routes are `/`, `/janus/`, `/janus/evaluation/`, `/janus/strategy/`, `/team/`, and `/contact/`. Add no others; keep `src/app/sitemap.ts` equal to this list.
 - Use only approved real Janus captures. Never fabricate product UI.
 - Keep one botanical gesture in the hero; the rest of the visual language should read as technology.
 - Do not add generic AI imagery, decorative gradients, floating blobs, or template demo content.

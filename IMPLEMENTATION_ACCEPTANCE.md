@@ -48,5 +48,7 @@
 - Add bot protection and rate limiting appropriate to the chosen host.
 - Add consent-aware analytics for CTA, Janus tab, dialog, form start, validation, and completion events.
 - Confirm metadata, canonical URLs, sitemap, robots rules, Open Graph image, and organization schema.
+- Public routes are `/`, `/janus/`, `/janus/evaluation/`, `/janus/strategy/`, `/team/`, and `/contact/`; `sitemap.xml` lists exactly these, and every link inside `main` and `header` resolves from `out/`.
+- Pass `npm run test:e2e` (Playwright against the static export, mobile and desktop, reduced motion).
 - Run Lighthouse, axe, keyboard, reduced-motion, screen-reader smoke, and cross-browser checks.
 - Pass `npm run typecheck` and `npm run build`.

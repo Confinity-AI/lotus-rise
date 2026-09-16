@@ -1,11 +1,13 @@
 # Lotus Rise website
 
-The production website for Lotus Rise. It is a focused Next.js and Once UI build with four public routes:
+The production website for Lotus Rise. It is a focused Next.js and Once UI build with six public routes:
 
 - `/` for the product-led homepage
-- `/janus` for the full Janus product story
-- `/team` for the Lotus Rise story and current four-person team
-- `/contact` for Janus preview requests
+- `/janus/` for the Janus suite hub
+- `/janus/evaluation/` for the Evaluation module (private preview, real captures)
+- `/janus/strategy/` for the Strategy module (coming soon, no screens)
+- `/team/` for the Lotus Rise story and current four-person team
+- `/contact/` for Janus preview requests
 
 The site presents Lotus Rise as a public benefit corporation building AI tools for foundations and nonprofits. The homepage uses a slow, top-down 3D lotus bloom that settles into a realistic botanical final frame, with natural ivory, blush, green and gold detail inside an evergreen, green and white system. Janus is shown only with approved, real product captures. Roadmap modules remain clearly labeled as future work.
 
@@ -25,7 +27,10 @@ npm run typecheck
 npm run lint
 npm run build
 npm run build:pages
+npm run test:e2e
 ```
+
+`npm run test:e2e` builds the static export twice (mock contact endpoint, endpoint unset), serves both from `out/` and `.e2e/out-unset/`, and runs the Playwright suite in `tests/e2e/` on mobile and desktop projects with reduced motion.
 
 ## Architecture
 

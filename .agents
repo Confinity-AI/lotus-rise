@@ -2,7 +2,7 @@
 
 - Read PROJECT_SOURCE.md, AGENTS.md, and IMPLEMENTATION_ACCEPTANCE.md.
 - Use ../../once-ui as the private Once UI reference workspace.
-- Keep public scope to the homepage and contact page.
+- Public routes are /, /janus/, /janus/evaluation/, /janus/strategy/, /team/, and /contact/.
 - Keep public copy in src/content/site-content.ts.
 - Keep theme decisions in src/resources/once-ui.config.ts.
 - Never commit or deploy .private/.
