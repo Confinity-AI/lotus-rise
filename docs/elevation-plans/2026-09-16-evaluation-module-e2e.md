@@ -221,7 +221,18 @@ Grades (first pass): specificity 9 · decision reduction 8 · testability 9 · c
 
 ## Baseline red (T-02)
 
-_Filled during execution._
+Run against `38b3795` content with the T-01 server (mock endpoint build), both projects:
+
+```
+✘ [mobile]  evaluation-journey.spec.ts:12:5 › home → Evaluation → theatre → dialog → contact → sent → home (10.6s)
+✘ [desktop] evaluation-journey.spec.ts:12:5 › home → Evaluation → theatre → dialog → contact → sent → home (10.7s)
+Error: expect(locator).toHaveCount(expected) failed
+Locator:  locator('.subpage-hero').getByRole('link')
+Expected: 1
+Received: 3
+```
+
+The three hero links are the breadcrumb "Janus" (`EvaluationPage.tsx:19`), "Request a preview" (`:28`) and "See the product" (`:31`): FL-01 and FL-02. The later assertions (analytics order, focus return) are unreachable until the hero is fixed; they are exercised again in T-10.
 
 ## Execution log
 
