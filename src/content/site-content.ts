@@ -9,6 +9,17 @@ export const siteContent = {
     { label: "Janus", href: "/janus/", page: "janus" },
     { label: "About us", href: "/team/", page: "team" },
   ],
+  actions: {
+    exploreJanus: "Explore Janus",
+    exploreEvaluation: "Explore Evaluation",
+    requestPreview: "Request a preview",
+    registerInterest: "Register interest",
+    contactUs: "Contact us",
+    backHome: "Back to homepage",
+    returnHome: "Return to the homepage",
+    send: "Send request",
+    sending: "Sending",
+  },
   hero: {
     title: "We help the social sector amplify its impact with the right technology.",
     lead: "Lotus Rise builds software products for foundations and nonprofits. Our flagship product, Janus, makes strategy, evaluation and reporting easier, so teams can focus on the people and causes they serve.",
@@ -105,7 +116,7 @@ export const siteContent = {
   },
   closing: {
     title: "See where Janus can help.",
-    body: "Explore the product suite or contact us. We will listen to what your team needs and tell you plainly where Janus may be a useful fit.",
+    body: "Tell us what your team is working on. We will listen and tell you plainly where Janus may be a useful fit.",
   },
   janusPage: {
     hero: {
@@ -125,7 +136,7 @@ export const siteContent = {
     },
     closing: {
       title: "Start with the part that matters now.",
-      body: "Explore Evaluation, learn what is coming in Strategy or register your interest in Reporting.",
+      body: "Evaluation is in private preview now. Tell us about one real evaluation and we will say plainly whether Janus is a useful fit.",
     },
   },
   evaluationPage: {
@@ -147,7 +158,7 @@ export const siteContent = {
     },
     review: {
       title: "Let AI do the first pass. Keep the judgment with the team.",
-      body: "Janus can prepare a first pass. People check the evidence, change the work and approve what is ready to share.",
+      body: "Janus can prepare a first pass. People check each finding against its source, change the work and approve what is ready to share.",
       steps: [
         {
           title: "Source material",
@@ -282,8 +293,19 @@ export const siteContent = {
   },
   contact: {
     title: "What would you like to discuss with us?",
-    lead: "Tell us what your team is struggling with. We will support your mission with the right technology and tools.",
+    lead: "Tell us what your team is trying to make easier and where the work slows down.",
+    nextTitle: "What happens next",
     next: "We'll read your note and reply with a clear next step.",
+    form: {
+      help: "We'll only use these details to reply to your request.",
+      configuration:
+        "This form is not connected yet, so requests cannot be sent from this page. Please check back soon.",
+      submitError:
+        "We could not send your request. Your details are still here, so please try again in a moment.",
+      successTitle: "Thank you.",
+      successBody: "We'll read your note and reply with a clear next step.",
+      noscript: "This form needs JavaScript to send your request.",
+    },
   },
 } as const;
 
