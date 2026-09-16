@@ -1,21 +1,30 @@
 "use client";
 
 import { StaticLinkButton } from "@/components/StaticLinkButton";
+import { siteContent } from "@/content/site-content";
+import { track } from "@/lib/analytics";
 import { Button } from "@once-ui-system/core";
-import { type FormEvent, useRef, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 import { HiArrowRight } from "react-icons/hi2";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
-function track(name: string, detail: Record<string, unknown> = {}) {
-  window.dispatchEvent(new CustomEvent("lotus:analytics", { detail: { name, ...detail } }));
-}
+const endpoint = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT || "";
+const configured = endpoint.length > 0;
+const { form: copy } = siteContent.contact;
+const { actions } = siteContent;
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
   const successRef = useRef<HTMLOutputElement>(null);
   const startedRef = useRef(false);
+  const sendingRef = useRef(false);
+  const invalidAtRef = useRef(0);
+
+  useEffect(() => {
+    if (!configured) track("contact_configuration_error");
+  }, []);
 
   function noteStart() {
     if (startedRef.current) return;
@@ -23,23 +32,23 @@ export function ContactForm() {
     track("contact_start");
   }
 
+  // Native validation cancels the submit event, so the browser's `invalid` event is the
+  // only hook. Several fields can fail in one attempt; report the attempt once.
+  function noteInvalid() {
+    const now = Date.now();
+    if (now - invalidAtRef.current < 500) return;
+    invalidAtRef.current = now;
+    track("contact_validation_error");
+  }
+
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
+    if (!configured || sendingRef.current) return;
 
-    if (!form.reportValidity()) {
-      track("contact_validation_error");
-      return;
-    }
+    if (!form.reportValidity()) return;
 
-    const endpoint = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT;
-    if (!endpoint) {
-      setError("The contact form is not connected yet. Please try again later.");
-      setStatus("error");
-      track("contact_configuration_error");
-      return;
-    }
-
+    sendingRef.current = true;
     setStatus("sending");
     setError("");
     track("contact_submit");
@@ -57,19 +66,25 @@ export function ContactForm() {
       track("contact_complete");
       requestAnimationFrame(() => successRef.current?.focus());
     } catch {
-      setError("We could not send your request. Please try again in a moment.");
+      setError(copy.submitError);
       setStatus("error");
       track("contact_submit_error");
+    } finally {
+      sendingRef.current = false;
     }
   }
 
   if (status === "sent") {
     return (
       <output className="form-success is-visible" aria-live="polite" tabIndex={-1} ref={successRef}>
-        <h2>Thank you.</h2>
-        <p>We'll be in touch.</p>
-        <StaticLinkButton className="button button-secondary" href="/">
-          Return to the homepage
+        <h2>{copy.successTitle}</h2>
+        <p>{copy.successBody}</p>
+        <StaticLinkButton
+          className="button button-secondary"
+          href="/"
+          data-cta={actions.returnHome}
+        >
+          {actions.returnHome}
         </StaticLinkButton>
       </output>
     );
@@ -78,10 +93,14 @@ export function ContactForm() {
   return (
     <form
       className="contact-form"
+      method="post"
       onSubmit={submit}
+      onInvalid={noteInvalid}
       onFocus={noteStart}
       aria-busy={status === "sending"}
+      data-configured={configured}
     >
+      {!configured && <output className="form-status">{copy.configuration}</output>}
       <div className="form-row">
         <div className="field">
           <label htmlFor="name">Name</label>
@@ -111,7 +130,7 @@ export function ContactForm() {
         </div>
       </div>
       <div className="field">
-        <label htmlFor="message">What would you like to discuss with us?</label>
+        <label htmlFor="message">{siteContent.contact.title}</label>
         <textarea id="message" name="message" placeholder="A few sentences are enough." required />
       </div>
       {status === "error" && (
@@ -119,10 +138,17 @@ export function ContactForm() {
           {error}
         </p>
       )}
-      <Button className="button button-primary" type="submit" disabled={status === "sending"}>
-        {status === "sending" ? "Sending" : "Send request"} <HiArrowRight aria-hidden="true" />
+      <Button
+        className="button button-primary"
+        type="submit"
+        disabled={!configured || status === "sending"}
+      >
+        {status === "sending" ? actions.sending : actions.send} <HiArrowRight aria-hidden="true" />
       </Button>
-      <p className="form-help">We'll only use these details to reply to your request.</p>
+      <p className="form-help">{copy.help}</p>
+      <noscript>
+        <p className="form-help">{copy.noscript}</p>
+      </noscript>
     </form>
   );
 }

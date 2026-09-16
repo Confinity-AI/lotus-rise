@@ -23,7 +23,7 @@ export default function ContactPage() {
             <h1>{contact.title}</h1>
             <p>{contact.lead}</p>
             <div className="contact-note">
-              <strong>What happens next</strong>
+              <strong>{contact.nextTitle}</strong>
               <br />
               {contact.next}
             </div>
