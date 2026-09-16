@@ -1,13 +1,13 @@
 import { JanusPage } from "@/components/JanusPage";
-import { sitePath } from "@/lib/site-path";
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Janus",
   description:
     "Janus is an AI-powered product suite for strategy, evaluation and reporting in the social sector.",
-  alternates: { canonical: sitePath("/janus/") },
-};
+  path: "/janus/",
+});
 
 export default function JanusRoute() {
   return <JanusPage />;

@@ -4,6 +4,7 @@ import "@/resources/custom.css";
 import "@/resources/lotus-rise.css";
 
 import { Providers } from "@/components/Providers";
+import { pageMetadata, siteDescription, siteTitle } from "@/lib/page-metadata";
 import { sitePath } from "@/lib/site-path";
 import { dataStyle, fonts, style } from "@/resources/once-ui.config";
 import classNames from "classnames";
@@ -11,7 +12,6 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 
 const baseURL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.lotusrise.org";
-const socialImage = sitePath("/lotus-rise/brand/og-home.png");
 const canonicalURL = new URL(sitePath("/"), baseURL).toString();
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -32,32 +32,10 @@ const organizationSchemaJSON = JSON.stringify(organizationSchema).replace(/</g, 
 export const metadata: Metadata = {
   metadataBase: new URL(baseURL),
   title: {
-    default: "Lotus Rise | Amplify your impact with the right technology",
+    default: siteTitle,
     template: "%s | Lotus Rise",
   },
-  description: "Lotus Rise builds software products for foundations and nonprofits. Explore Janus.",
-  alternates: { canonical: sitePath("/") },
-  openGraph: {
-    type: "website",
-    url: sitePath("/"),
-    siteName: "Lotus Rise",
-    title: "Lotus Rise | Amplify your impact with the right technology",
-    description: "Software products for foundations and nonprofits. Explore Janus.",
-    images: [
-      {
-        url: socialImage,
-        width: 1200,
-        height: 630,
-        alt: "Lotus Rise, a public benefit corporation building software products for the social sector",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Lotus Rise | Amplify your impact with the right technology",
-    description: "Software products for foundations and nonprofits. Explore Janus.",
-    images: [socialImage],
-  },
+  ...pageMetadata({ description: siteDescription, path: "/" }),
   icons: {
     icon: [{ url: sitePath("/lotus-rise/brand/lotus-rise-favicon.png"), type: "image/png" }],
   },

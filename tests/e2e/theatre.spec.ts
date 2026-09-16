@@ -158,10 +158,7 @@ test.describe("Janus theatre", () => {
     await expect(dialog.locator("#product-dialog-title")).toHaveText(views[2].title);
   });
 
-  test("touch swipe changes the view without opening the dialog", async ({
-    page,
-    isMobile,
-  }) => {
+  test("touch swipe changes the view without opening the dialog", async ({ page, isMobile }) => {
     test.skip(!isMobile, "touch emulation only on the mobile project");
     await captureAnalytics(page);
     const { panel, tabs, dialog, image } = await openTheatre(page);

@@ -8,6 +8,7 @@ import {
 } from "./helpers";
 
 const views = content.janus.views;
+const { actions } = content;
 
 test("home → Evaluation → theatre → dialog → contact → sent → home", async ({ page }) => {
   await captureAnalytics(page);
@@ -25,11 +26,14 @@ test("home → Evaluation → theatre → dialog → contact → sent → home",
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     content.evaluationPage.hero.title,
   );
+  await expect(page.locator(".module-status")).toHaveText(
+    `${content.evaluationPage.product} · ${content.evaluationPage.status}`,
+  );
 
   // One primary action in the hero viewport.
   const hero = page.locator(".subpage-hero");
   await expect(hero.getByRole("link")).toHaveCount(1);
-  const heroPrimary = hero.getByRole("link", { name: "Request a preview" });
+  const heroPrimary = hero.getByRole("link", { name: actions.requestPreview });
   await expect(heroPrimary).toBeVisible();
 
   // Roving tabindex: Tab from the hero CTA lands on the selected tab.
@@ -67,18 +71,19 @@ test("home → Evaluation → theatre → dialog → contact → sent → home",
   // Closing viewport: one primary action.
   const closing = page.locator("main .closing");
   await expect(closing.getByRole("link")).toHaveCount(1);
-  await closing.getByRole("link", { name: "Request a preview" }).click();
+  await closing.getByRole("link", { name: actions.requestPreview }).click();
   await expect(page).toHaveURL(/\/contact\/$/);
 
   await fillContactForm(page);
-  await page.getByRole("button", { name: "Send request" }).click();
+  await page.getByRole("button", { name: actions.send }).click();
 
   const output = page.locator("output.form-success");
   await expect(output).toBeVisible();
   await expect(output).toBeFocused();
-  await expect(output).toContainText("Thank you.");
+  await expect(output).toContainText(content.contact.form.successTitle);
+  await expect(output.locator("h2")).toHaveText(content.contact.form.successTitle);
 
-  await output.getByRole("link", { name: "Return to the homepage" }).click();
+  await output.getByRole("link", { name: actions.returnHome }).click();
   await expect(page).toHaveURL("http://localhost:3010/");
 
   const events = await readAnalytics(page);
@@ -98,6 +103,6 @@ test("home → Evaluation → theatre → dialog → contact → sent → home",
   expect(events[1]).toMatchObject({ index: 1, method: "keyboard" });
   expect(events[2]).toMatchObject({ index: 2, method: "keyboard" });
   expect(events[3]).toMatchObject({ index: 2 });
-  expect(events[5]).toMatchObject({ page: "/janus/evaluation/", label: "Request a preview" });
-  expect(events[9]).toMatchObject({ page: "/contact/" });
+  expect(events[5]).toMatchObject({ page: "/janus/evaluation/", label: actions.requestPreview });
+  expect(events[9]).toMatchObject({ page: "/contact/", label: actions.returnHome });
 });

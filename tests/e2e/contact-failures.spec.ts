@@ -60,9 +60,7 @@ test.describe("contact failure states", () => {
     expect(requests).toBe(1);
   });
 
-  test("missing required field blocks submit and reports a validation error", async ({
-    page,
-  }) => {
+  test("missing required field blocks submit and reports a validation error", async ({ page }) => {
     await captureAnalytics(page);
     let requests = 0;
     await page.route(MOCK_ENDPOINT, (route) => {

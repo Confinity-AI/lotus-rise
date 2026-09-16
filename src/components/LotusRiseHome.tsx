@@ -69,6 +69,7 @@ export function LotusRiseHome() {
                   <p>{module.copy}</p>
                   <StaticLinkButton
                     className="suite-module-link"
+                    variant="tertiary"
                     href={module.href}
                     data-cta={module.action}
                   >

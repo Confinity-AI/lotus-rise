@@ -1,15 +1,15 @@
 import { ContactForm } from "@/components/ContactForm";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { siteContent } from "@/content/site-content";
-import { sitePath } from "@/lib/site-path";
+import { pageMetadata } from "@/lib/page-metadata";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description:
     "Talk with Lotus Rise about software for foundations, nonprofits and the wider social sector.",
-  alternates: { canonical: sitePath("/contact/") },
-};
+  path: "/contact/",
+});
 
 export default function ContactPage() {
   const { contact } = siteContent;
