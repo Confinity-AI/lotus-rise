@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { journeyRoutes, path, routes } from "./helpers";
+import { path, journeyRoutes, routes } from "./helpers";
 
 test.describe("reduced motion", () => {
   test("reveal blocks carry no transform and the lotus renders settled", async ({ page }) => {

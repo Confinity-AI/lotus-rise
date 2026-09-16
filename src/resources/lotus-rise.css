@@ -854,7 +854,7 @@ a {
 .tab span {
   display: inline-block;
   width: 27px;
-  color: #7f9188;
+  color: #8b9e94;
   font-size: 11px;
 }
 
@@ -2843,6 +2843,12 @@ html[data-js="true"] .reveal.is-visible {
   font-size: 13px;
 }
 
+/* The endpoint-unset state ships with this button permanently disabled, so its label
+   has to stay readable rather than fade out. */
+.contact-form button[disabled] {
+  color: #4a5952;
+}
+
 .form-required {
   margin: 0 0 20px;
   color: var(--muted);
@@ -4348,9 +4354,14 @@ html[data-js="true"] .reveal.is-visible {
   gap: 8px;
   margin-top: auto;
   padding-top: 28px;
-  color: var(--brand-pale);
   font-size: 14px;
   font-weight: 740;
+}
+
+/* Scoped so the link colour beats the design-system button variant regardless of
+   stylesheet order: on the dark suite band it must stay pale. */
+.suite-modules .suite-module-link {
+  color: var(--brand-pale);
 }
 
 .suite-module-link svg {
@@ -4807,7 +4818,7 @@ html[data-js="true"] .reveal.is-visible {
   color: var(--muted);
 }
 
-.suite-modules-light .suite-module-link {
+.suite-modules.suite-modules-light .suite-module-link {
   color: var(--emerald-dark);
 }
 

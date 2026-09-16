@@ -1,7 +1,19 @@
 import { expect, test } from "@playwright/test";
-import { path, routes } from "./helpers";
+import { path, UNSET_BASE, routes } from "./helpers";
 
 test.describe("static export smoke", () => {
+  // Fails loudly if a stale server is serving the wrong export, instead of letting every
+  // contact spec fail later with a confusing degrade-branch symptom.
+  test("each server serves the export it is meant to serve", async ({ page }) => {
+    await page.goto("/contact/");
+    await expect(page.locator("form.contact-form")).toHaveAttribute("data-configured", "true");
+    await expect(page.locator("output.form-status")).toHaveCount(0);
+
+    await page.goto(`${UNSET_BASE}/contact/`);
+    await expect(page.locator("form.contact-form")).toHaveAttribute("data-configured", "false");
+    await expect(page.locator("output.form-status")).toHaveCount(1);
+  });
+
   for (const route of routes) {
     test(`${route} serves from out/ with one h1`, async ({ page }) => {
       const response = await page.goto(path(route));

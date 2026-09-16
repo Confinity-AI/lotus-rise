@@ -30,7 +30,7 @@ npm run build:pages
 npm run test:e2e
 ```
 
-`npm run test:e2e` builds the static export twice (mock contact endpoint, endpoint unset), serves both from `out/` and `.e2e/out-unset/`, and runs the Playwright suite in `tests/e2e/` on mobile and desktop projects with reduced motion.
+`npm run test:e2e` builds the static export twice (mock contact endpoint, endpoint unset), copies each build to `.e2e/out-mock/` and `.e2e/out-unset/`, serves both, and runs the Playwright suite in `tests/e2e/` on mobile and desktop projects with reduced motion. It never reads whatever `out/` happens to contain, so it can run in any order relative to the other checks. Pass `E2E_SKIP_BUILD=1` to reuse the existing exports while iterating on specs.
 
 ## Architecture
 
