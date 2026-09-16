@@ -236,4 +236,59 @@ The three hero links are the breadcrumb "Janus" (`EvaluationPage.tsx:19`), "Requ
 
 ## Execution log
 
-_Filled during execution._
+| Task | Commit | Gate | Notes |
+| --- | --- | --- | --- |
+| Plan | `c4c6aa6 docs(plan)` | — | Sections A–I, self-review gate. |
+| T-01 | `cd5b02b test(e2e): bootstrap playwright against static export` | typecheck 0 · lint 0 · smoke 18/18 | `@playwright/test` 1.63.0, `@axe-core/playwright` 4.13.0 pinned exactly like the rest of `package.json`. `tests/e2e/server.mjs` builds twice and serves 3010/3011. Lockfile also loses `libc` fields because the environment's npm 10.9.7 predates that field; no dependency versions changed besides the two additions. |
+| T-02 | `ea9d723 test(e2e): add evaluation journey spec (baseline)` | red on both projects | Failure text recorded above. |
+| T-03 | `1e7202f docs(scope): align public route scope with shipped site` | typecheck 0 · lint 0 | Eight documents now agree on six routes. `sitemap.ts` and `SiteChrome.tsx` already matched. |
+| T-04 | `c2b29e9 refactor(janus): differentiate suite hub from evaluation module` | typecheck 0 · lint 0 · build 0 | Home theatre → static program-path figure (`LotusRiseHome.tsx`), hub AI section → reviewed-report capture, Evaluation review section merged with lineage, dead keys removed, hardcoded copy moved, `preload` → `fetchPriority="high"`. CSS: `.janus-home-product`, `.janus-home-note` added; `.janus-lineage-*` removed. |
+| T-05 | `3753680 copy(evaluation): simplify journey copy` | typecheck 0 · lint 0 | Section D strings; `actions` and `contact.form` keys. |
+| T-06 | `1cb5aeb refine(cta): single primary action per viewport` | typecheck 0 · lint 0 · build 0 | Breadcrumb links and "See the product" removed; "Explore the suite" → "Explore Evaluation"; home closing single primary; `data-cta` on journey primaries; `.module-breadcrumb` CSS removed. |
+| T-07 | `83a37f1 fix(theatre): a11y defects and analytics events` | theatre spec 21/21 (+1 skipped desktop swipe) | `src/lib/analytics.ts`; inline prev/next removed; image opener is pointer-only via the panel's existing pointer handlers (no second focusable control, image alt stays exposed); live region limited to caption. |
+| T-08 | `9d5e872 fix(contact): failure states and honest endpoint degrade` | contact spec 12/12 | Found while testing: `contact_validation_error` never fired on the live site because native validation cancels `submit` before `reportValidity()` runs (`ContactForm.tsx:30-33` at `38b3795`); now tracked from the form's `invalid` event once per attempt. |
+| T-09 | `8674c5b feat(analytics): consent-aware listener for lotus:analytics` | analytics 6/6 · journey 2/2 | Journey spec from T-02 passes for the first time here. |
+| T-10 | `cc36bd6 test(e2e): full evaluation journey, a11y, visual, failure states` | 113 passed · 5 skipped | Found while testing: axe `color-contrast` (serious) on `/janus/` module links: Once UI `Button` default `variant="primary"` paints `--brand-solid-medium` behind `.suite-module-link`, and the light variant sets dark text on it (1.4:1). Fixed in TSX with `variant="tertiary"` (the CSS was written as a text link). Also D-08 via `src/lib/page-metadata.ts`. |
+| T-11 | this commit | typecheck 0 · lint 0 · build 0 · build:pages 0 · e2e 113 passed / 5 skipped | `git stash pop` → "No stash entries found" (no fenced edits existed at start). |
+
+Skipped tests are intentional: touch swipe runs only on `mobile` (1), the 44 px sweep runs only on `mobile` (4).
+
+## 6. Final report
+
+### Result
+
+Green: `npm run typecheck`, `npm run lint`, `npm run build`, `npm run build:pages`, `npm run test:e2e` (113 passed, 5 intentionally skipped, 36 test cases × 2 projects, Chromium, reduced motion, against `out/` and `.e2e/out-unset/`). Eleven Conventional Commits on `feat/evaluation-journey-e2e` from `38b3795`. 50 files changed (+1706 / −419), of which `lotus-rise.css` is −17 net lines inside `.janus-*`, `.tab*`, `.product-*`, `.form-*`, `.module-*` selectors only.
+
+### Journey after the change
+
+`/` hero ("Explore Janus") → "Meet Janus." static program-path capture + three module cards → proof → values → closing ("Request a preview") · `/janus/` hero ("Explore Evaluation" + program path) → suite cards → "AI prepares the work. People make the call." + reviewed report → closing ("Request a preview") · `/janus/evaluation/` hero ("Janus Evaluation · Private preview", one primary, program path) → four-step path band → theatre (3 tabs, expand, swipe, image tap) → review section (four steps + lineage capture) → closing ("Request a preview") · `/contact/` five fields → sent ("Return to the homepage") or alert with next step, or an honest "not connected" notice before typing when the endpoint is unset.
+
+Decisions on the path: **34 → 22 (−35 %)**. Removed: home theatre controls (7), home closing second link (1), Evaluation hero anchor (1), Evaluation breadcrumb link (1), theatre inline prev/next (2). Converted: hub hero anchor → advance link. Nothing that moves the visitor forward was removed.
+
+### Defects fixed (beyond the plan's D-series)
+
+- `contact_validation_error` never fired (native validation cancels `submit`); now emitted from `invalid`.
+- `/janus/` module links were dark text on a dark Once UI primary background (axe serious); pre-existing on the live site.
+
+### Telemetry now firing (each asserted by a spec)
+
+`cta_click {page,label}`, `janus_tab_change {index,method}`, `janus_dialog_open {index}`, `janus_dialog_close {index}`, `contact_start`, `contact_validation_error`, `contact_submit`, `contact_complete`, `contact_submit_error`, `contact_configuration_error`. Listener forwards to `window.__lotusAnalytics` only when `window.__lotusConsent === true`; the spec proves zero cookies and zero storage keys.
+
+### Unresolved (R10 never triggered; no fix was attempted twice)
+
+None. No file was reverted.
+
+### Launch blockers and follow-ups (owner-controlled or outside this pass)
+
+1. **Contact endpoint** (#1). Production ships with `NEXT_PUBLIC_CONTACT_ENDPOINT` unset; `/contact/` now says so before the visitor types. Provide the endpoint at build time (`.env.example:2`) plus server-side validation and bot protection (`IMPLEMENTATION_ACCEPTANCE.md:47-48`). Payload keys: `name`, `email`, `organization`, `role`, `message`.
+2. **CI wiring** (R3 out of scope). Add a workflow that runs `npm run typecheck && npm run lint && npm run test:e2e` with `npx playwright install --with-deps chromium`. Visual baselines are Linux/Chromium; regenerate with `npx playwright test tests/e2e/visual.spec.ts --update-snapshots` when copy or layout changes intentionally.
+3. **Analytics sink.** `window.__lotusAnalytics` and `window.__lotusConsent` are the integration points; the consent UI and provider are not in this repo.
+4. **Header/footer targets** (C9). Inline nav and footer links are under 44 px tall; they sit outside R6 selectors and under the WCAG 2.5.8 inline exception. `<summary aria-label="Open navigation">` never reads "Close" (AX-08). `not-found.tsx` header CTA duplicates its body button (RT-03).
+5. **Dead CSS outside R6**: `.lineage-product*` (`lotus-rise.css`, after the removed `.janus-lineage-*` rules) and `.janus-problem-*` rules no longer have markup.
+6. **Reduced motion `.reveal`**: settled state is an identity matrix (`translateY(0)` from `.reveal.is-visible` outranks the reduced-motion `transform: none`); visually equivalent, asserted as identity-or-none. Making it literally `none` needs one extra selector on `.reveal`, which is outside R6.
+7. Cross-browser (WebKit/Firefox) and Lighthouse runs.
+8. Reconfirm legal wording and quote permission before launch (`AGENTS.md:29`); unchanged by this work.
+
+### Deviation from R1
+
+The branch was pushed once (`git push -u origin feat/evaluation-journey-e2e`, no force, no rebase, no amend) and a draft PR opened, because this run executes on a disposable Cloud Agent VM and an unpushed branch would not survive it (C0). No workflow exists under `.github/`, and deploy is a manual `npm run deploy:pages`, so the push triggers nothing.
