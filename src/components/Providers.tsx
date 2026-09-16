@@ -1,5 +1,6 @@
 "use client";
 
+import { AnalyticsListener } from "@/components/AnalyticsListener";
 import { iconLibrary } from "@/resources/icons";
 import { dataStyle, style } from "@/resources/once-ui.config";
 import {
@@ -44,7 +45,10 @@ export function Providers({ children }: { children: React.ReactNode }) {
           tick={dataStyle.tick}
         >
           <ToastProvider>
-            <IconProvider icons={iconLibrary}>{children}</IconProvider>
+            <IconProvider icons={iconLibrary}>
+              <AnalyticsListener />
+              {children}
+            </IconProvider>
           </ToastProvider>
         </DataThemeProvider>
       </ThemeProvider>
