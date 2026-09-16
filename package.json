@@ -16,7 +16,8 @@
     "format": "biome check --write src",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:a11y": "playwright test tests/e2e/a11y.spec.ts"
+    "test:a11y": "playwright test tests/e2e/a11y.spec.ts",
+    "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
     "@once-ui-system/core": "1.8.2",

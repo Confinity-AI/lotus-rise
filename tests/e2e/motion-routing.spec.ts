@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { path, journeyRoutes, routes } from "./helpers";
+import { content, journeyRoutes, path, routes } from "./helpers";
 
 test.describe("reduced motion", () => {
   test("reveal blocks carry no transform and the lotus renders settled", async ({ page }) => {
@@ -78,12 +78,70 @@ test.describe("routing and export integrity", () => {
     });
   }
 
+  for (const route of journeyRoutes) {
+    test(`${route}: export emits complete document metadata and stable image boxes`, async ({
+      page,
+    }) => {
+      await page.goto(route);
+      await expect(page.locator("html")).toHaveAttribute("lang", "en");
+      await expect(page.locator('meta[name="viewport"]')).toHaveAttribute(
+        "content",
+        /width=device-width/,
+      );
+      await expect(page.locator('meta[name="theme-color"]')).toHaveCount(1);
+      await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /.{40,}/);
+      expect(await page.title()).toMatch(/Lotus Rise/);
+
+      const schema = await page.locator('script[type="application/ld+json"]').textContent();
+      const parsed = JSON.parse(schema ?? "{}");
+      expect(parsed["@type"]).toBe("Corporation");
+      expect(parsed.name).toBe("Lotus Rise");
+      expect(parsed.url).toBe("https://www.lotusrise.org/");
+      expect(parsed.logo).toMatch(/^https:\/\/www\.lotusrise\.org\/.+\.svg$/);
+
+      // Every image reserves its box, so captures cannot shift copy while they load.
+      const unsized = await page
+        .locator("main img, header img, footer img")
+        .evaluateAll((nodes) =>
+          nodes
+            .filter((node) => !node.getAttribute("width") || !node.getAttribute("height"))
+            .map((node) => node.getAttribute("src")),
+        );
+      expect(unsized).toEqual([]);
+    });
+  }
+
   test("hero captures load eagerly with high fetch priority", async ({ page }) => {
     for (const route of ["/janus/", "/janus/evaluation/"]) {
       await page.goto(route);
       const img = page.locator(".subpage-hero .janus-hero-product img");
       await expect(img).toHaveAttribute("fetchpriority", "high");
       await expect(img).toHaveAttribute("loading", "eager");
+    }
+  });
+
+  test("every Janus page states module status above its H1", async ({ page }) => {
+    const expected: Array<[string, string]> = [
+      ["/janus/", content.janusPage.status],
+      [
+        "/janus/evaluation/",
+        `${content.evaluationPage.product} · ${content.evaluationPage.status}`,
+      ],
+      ["/janus/strategy/", `${content.strategyPage.product} · ${content.strategyPage.status}`],
+    ];
+    for (const [route, text] of expected) {
+      await page.goto(route);
+      const status = page.locator("main .module-status");
+      await expect(status).toHaveText(text);
+      // The status precedes the H1 in reading order.
+      const before = await page.evaluate(() => {
+        const status = document.querySelector("main .module-status");
+        const heading = document.querySelector("h1");
+        return status && heading
+          ? Boolean(status.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING)
+          : null;
+      });
+      expect(before).toBe(true);
     }
   });
 

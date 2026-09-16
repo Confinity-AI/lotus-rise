@@ -279,13 +279,32 @@ Measurement notes: the contrast helper composites `rgba` bands over their ancest
 
 Suite after round 2: **127 passed, 5 skipped** (36 → 41 cases × 2 projects). Visual baselines regenerated, since R2-01, R2-03, R2-04, R2-09 and R2-10 all change pixels; the previous baselines had captured the R2-01 defect as correct, which is why the measured-contrast spec exists rather than relying on screenshots.
 
+## Round 3: does the story make complete sense, and are the outputs right
+
+Method: read every string on the four pages in reading order as a first-time program officer, asking at each step "what did I just click, and does this page acknowledge it?"; then tested the artefacts the site actually emits rather than only what it shows.
+
+| ID | Sev | Where | Observation | Fix | Test |
+| --- | :-: | --- | --- | --- | --- |
+| R3-01 | P1 | `site-content.ts` `contact.next` | The visitor clicks "Request a preview" up to three times along the path and lands on a page that never mentions a preview. Nothing tells them what to write. | "What happens next" now says: if you are asking for the Janus Evaluation preview, mention one real evaluation you have in mind. No process or timing claims. | visual baseline; copy imported from content in specs. |
+| R3-02 | P1 | `site-content.ts` `janusPage.status` (new), `JanusPage.tsx` | The hub hero promises "Strategy, evaluation and reporting. Connected." while two of the three are "Coming soon"; the reader only learns that two sections later. Module pages already carry a status line above the H1; the hub did not. | "Janus · Evaluation in private preview" above the hub H1, same `.module-status` pattern. | routing: "every Janus page states module status above its H1" (text and reading order, all three pages). |
+| R3-03 | P2 | `site-content.ts` `closing.body` (home) | The home closing asked for a preview without saying of what. | "Evaluation is in private preview. Tell us what your team is working on…" | visual baseline. |
+| R3-04 | P2 | `LotusRiseHome.tsx` figure caption | Home capture was captioned with the internal view name "Program path" before the visitor knows what that is. | "Janus Evaluation · Program path" (`janus.captureCaption`). | theatre: "only Evaluation renders the theatre" asserts the caption. |
+| R3-05 | P2 | `site-content.ts` `janus.note` | "Screens from the current private preview" beside a single screen. | "From the current private preview. The interface may change." | same. |
+| R3-06 | P2 | `ContactForm.tsx` success | "We'll read your note… We'll reply to…" — two consecutive sentences starting "We'll". | "Your note is with us. We'll reply to *address* with a clear next step." | contact: exact success text. |
+| R3-07 | — | `ContactForm.tsx` payload | **Output tested for the first time**: the request the endpoint receives. | None needed. | contact: asserts `POST`, `application/json`, and a body of exactly `{name, email, organization, role, message}` with the entered values. |
+| R3-08 | — | export HTML | **Outputs tested**: `lang="en"`, viewport, theme-color, description length, `<title>`, JSON-LD (`@type` Corporation, name, url, logo), and that every `img` in header/main/footer carries width and height so captures cannot shift copy while loading. | None needed. | routing: "export emits complete document metadata and stable image boxes" (×4 routes). |
+| R3-09 | P2 (fixture) | `playwright.config.ts:34` | `reuseExistingServer: true` twice let a stale server serve the wrong export in this session. | `false`: an occupied port now fails the run immediately instead of silently reusing stale content. | — |
+| R3-10 | Owner question | `evaluationPage.path.steps` vs `janus-program-path.webp` | The path band names four stages (Program plan → Questions + measures → Evidence + findings → Review + report) while the capture beneath it shows the product's own five (Profile, Design, Fieldwork, Analysis, Deliverables). A careful reader will notice two vocabularies for one path. | **Not changed.** The site vocabulary reads better for a foundation audience and is the owner's positioning; aligning it is a content decision. Flagged. | — |
+
+Suite after round 3: **151 passed, 5 skipped** (46 → 51 cases × 2 projects). `npm run test:e2e:report` opens the HTML report.
+
 ## 6. Final report
 
 ### Result
 
-Green in this order, and now order-independent: `npm run typecheck`, `npm run lint`, `npm run build`, `npm run build:pages`, `npm run test:e2e` — **141 passed, 5 intentionally skipped** (46 test cases × 2 projects, Chromium, reduced motion, against two real static exports in `.e2e/out-mock/` and `.e2e/out-unset/`). The Playwright HTML report is written to `playwright-report/index.html` (~600 KB, self-contained) on every run, alongside the `list` reporter output.
+Green in this order, and now order-independent: `npm run typecheck`, `npm run lint`, `npm run build`, `npm run build:pages`, `npm run test:e2e` — **151 passed, 5 intentionally skipped** (51 test cases × 2 projects, Chromium, reduced motion, against two real static exports in `.e2e/out-mock/` and `.e2e/out-unset/`). The Playwright HTML report is written to `playwright-report/index.html` (~600 KB, self-contained) on every run, alongside the `list` reporter output.
 
-Fourteen Conventional Commits on `feat/evaluation-journey-e2e` from `38b3795`, in two rounds: the planned T-01…T-11, then a UX/UI sweep of the executed flow (round 2 above).
+Seventeen Conventional Commits on `feat/evaluation-journey-e2e` from `38b3795`, in three rounds: the planned T-01…T-11, a UX/UI sweep of the executed flow (round 2), and a sense-and-outputs pass (round 3).
 
 Harness note: the first verification attempt of round 2 failed twelve specs because `npm run build:pages` leaves `out/` built **without** the contact endpoint, and `reuseExistingServer: true` let a stale server keep serving it — so the contact specs silently ran against the degrade branch. `tests/e2e/server.mjs` now exports into its own `.e2e/out-mock/` and `.e2e/out-unset/` directories and the smoke spec asserts each server is serving the export it is meant to serve, so a wrong fixture fails immediately with a clear message instead of cascading.
 
@@ -325,13 +344,14 @@ None. No file was reverted.
 
 1. **Contact endpoint** (#1). Production ships with `NEXT_PUBLIC_CONTACT_ENDPOINT` unset; `/contact/` now says so before the visitor types. Provide the endpoint at build time (`.env.example:2`) plus server-side validation and bot protection (`IMPLEMENTATION_ACCEPTANCE.md:47-48`). Payload keys: `name`, `email`, `organization`, `role`, `message`.
 2. **Re-export `janus-program-path.webp`** (R2-11). The current file shows development billing UI and a "MODE - NOT PRODUCTION" badge in the bottom-left, fully legible in the full-screen dialog. It appears on `/`, `/janus/` and theatre tab 1. Needs a re-export with safe demo state; cropping it would remove the "Five-step path" panel that the caption promises, and retouching an approved capture is out of bounds.
-3. **CI wiring** (R3 out of scope). Add a workflow that runs `npm run typecheck && npm run lint && npm run test:e2e` with `npx playwright install --with-deps chromium`. Visual baselines are Linux/Chromium; regenerate with `npx playwright test tests/e2e/visual.spec.ts --update-snapshots` when copy or layout changes intentionally.
-4. **Analytics sink.** `window.__lotusAnalytics` and `window.__lotusConsent` are the integration points; the consent UI and provider are not in this repo.
-5. **Header/footer targets** (C9). Footer links measure 44 px tall but 36-50 px wide, and header nav links are 44x44 or narrower; they sit outside R6 selectors and under the WCAG 2.5.8 inline exception. `<summary aria-label="Open navigation">` never reads "Close" (AX-08). `not-found.tsx` header CTA duplicates its body button (RT-03).
-6. **Dead CSS outside R6**: `.lineage-product*` (`lotus-rise.css`, after the removed `.janus-lineage-*` rules) and `.janus-problem-*` rules no longer have markup.
-7. **Reduced motion `.reveal`**: settled state is an identity matrix (`translateY(0)` from `.reveal.is-visible` outranks the reduced-motion `transform: none`); visually equivalent, asserted as identity-or-none. Making it literally `none` needs one extra selector on `.reveal`, which is outside R6.
-8. Cross-browser (WebKit/Firefox) and Lighthouse runs.
-9. Reconfirm legal wording and quote permission before launch (`AGENTS.md:29`); unchanged by this work.
+3. **Path vocabulary** (R3-10). Decide whether the four-step path band should adopt the product's own stage names shown in the capture beneath it, or stay in audience language.
+4. **CI wiring** (R3 out of scope). Add a workflow that runs `npm run typecheck && npm run lint && npm run test:e2e` with `npx playwright install --with-deps chromium`. Visual baselines are Linux/Chromium; regenerate with `npx playwright test tests/e2e/visual.spec.ts --update-snapshots` when copy or layout changes intentionally.
+5. **Analytics sink.** `window.__lotusAnalytics` and `window.__lotusConsent` are the integration points; the consent UI and provider are not in this repo.
+6. **Header/footer targets** (C9). Footer links measure 44 px tall but 36-50 px wide, and header nav links are 44x44 or narrower; they sit outside R6 selectors and under the WCAG 2.5.8 inline exception. `<summary aria-label="Open navigation">` never reads "Close" (AX-08). `not-found.tsx` header CTA duplicates its body button (RT-03).
+7. **Dead CSS outside R6**: `.lineage-product*` (`lotus-rise.css`, after the removed `.janus-lineage-*` rules) and `.janus-problem-*` rules no longer have markup.
+8. **Reduced motion `.reveal`**: settled state is an identity matrix (`translateY(0)` from `.reveal.is-visible` outranks the reduced-motion `transform: none`); visually equivalent, asserted as identity-or-none. Making it literally `none` needs one extra selector on `.reveal`, which is outside R6.
+9. Cross-browser (WebKit/Firefox) and Lighthouse runs.
+10. Reconfirm legal wording and quote permission before launch (`AGENTS.md:29`); unchanged by this work.
 
 ### Deviation from R1
 

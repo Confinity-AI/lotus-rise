@@ -97,17 +97,41 @@ test.describe("contact failure states", () => {
     ]);
   });
 
-  test("success state confirms the address the reply goes to", async ({ page }) => {
-    await page.route(MOCK_ENDPOINT, (route) =>
-      route.fulfill({ status: 200, contentType: "application/json", body: "{}" }),
-    );
+  test("the endpoint receives exactly the five fields as JSON, and success echoes the address", async ({
+    page,
+  }) => {
+    let received: { method: string; contentType: string | undefined; body: unknown } | null = null;
+    await page.route(MOCK_ENDPOINT, (route) => {
+      const request = route.request();
+      received = {
+        method: request.method(),
+        contentType: request.headers()["content-type"],
+        body: request.postDataJSON(),
+      };
+      return route.fulfill({ status: 200, contentType: "application/json", body: "{}" });
+    });
     await page.goto("/contact/");
     await fillContactForm(page);
     await page.getByRole("button", { name: actions.send }).click();
+
     const success = page.locator("output.form-success");
     await expect(success).toBeVisible();
+    expect(received).toEqual({
+      method: "POST",
+      contentType: "application/json",
+      body: {
+        name: contactFixture.name,
+        email: contactFixture.email,
+        organization: contactFixture.organization,
+        role: contactFixture.role,
+        message: contactFixture.message,
+      },
+    });
+
     await expect(success.locator("h2")).toHaveText(copy.successTitle);
-    await expect(success.locator(".form-success-reply")).toContainText(contactFixture.email);
+    await expect(success.locator(".form-success-reply")).toHaveText(
+      `${copy.successReply} ${contactFixture.email} ${copy.successReplyTail}`,
+    );
     await expect(success.getByRole("link", { name: actions.returnHome })).toBeVisible();
   });
 

@@ -23,6 +23,10 @@ test.describe("Janus theatre", () => {
     await page.goto("/");
     await expect(page.getByRole("tablist")).toHaveCount(0);
     await expect(page.locator(".janus-home-product img")).toBeVisible();
+    await expect(page.locator(".janus-home-product figcaption strong")).toHaveText(
+      content.janus.captureCaption,
+    );
+    await expect(page.locator(".janus-home-note")).toHaveText(content.janus.note);
     await page.goto("/janus/");
     await expect(page.getByRole("tablist")).toHaveCount(0);
     await page.goto(EVALUATION);

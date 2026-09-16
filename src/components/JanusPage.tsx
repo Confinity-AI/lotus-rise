@@ -16,6 +16,7 @@ export function JanusPage() {
         <section className="subpage-hero janus-page-hero" aria-labelledby="janus-page-title">
           <div className="container subpage-hero-inner">
             <div className="subpage-hero-copy reveal">
+              <p className="module-status">{janusPage.status}</p>
               <h1 id="janus-page-title">{janusPage.hero.title}</h1>
               <p>{janusPage.hero.lead}</p>
               <div className="hero-actions">

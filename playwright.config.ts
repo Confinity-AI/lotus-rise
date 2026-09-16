@@ -31,7 +31,7 @@ export default defineConfig({
   webServer: {
     command: "node tests/e2e/server.mjs",
     url: PRIMARY_URL,
-    reuseExistingServer: true,
+    reuseExistingServer: false,
     timeout: 300_000,
     stdout: "pipe",
     stderr: "pipe",

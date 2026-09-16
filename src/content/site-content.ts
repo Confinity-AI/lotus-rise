@@ -51,7 +51,8 @@ export const siteContent = {
         action: "Register interest",
       },
     ],
-    note: "Screens from the current private preview. The interface may change.",
+    note: "From the current private preview. The interface may change.",
+    captureCaption: "Janus Evaluation · Program path",
     views: [
       {
         title: "Program path",
@@ -117,9 +118,10 @@ export const siteContent = {
   },
   closing: {
     title: "See where Janus can help.",
-    body: "Tell us what your team is working on. We will listen and tell you plainly where Janus may be a useful fit.",
+    body: "Evaluation is in private preview. Tell us what your team is working on and we will say plainly where Janus may be a useful fit.",
   },
   janusPage: {
+    status: "Janus · Evaluation in private preview",
     hero: {
       title: "Strategy, evaluation and reporting. Connected.",
       lead: "Janus is an AI-powered product suite that helps social-sector teams turn evidence into decisions and clear reporting without losing the thinking in between.",
@@ -297,7 +299,7 @@ export const siteContent = {
     title: "What would you like to discuss with us?",
     lead: "Tell us what your team is trying to make easier and where the work slows down.",
     nextTitle: "What happens next",
-    next: "We'll read your note and reply with a clear next step.",
+    next: "We'll read your note and reply with a clear next step. If you are asking for the Janus Evaluation preview, mention one real evaluation you have in mind.",
     form: {
       required: "Every field is required.",
       messageLabel: "What are you trying to make easier?",
@@ -315,8 +317,9 @@ export const siteContent = {
       submitError:
         "We could not send your request. Your details are still here, so please try again in a moment.",
       successTitle: "Thank you.",
-      successBody: "We'll read your note and reply with a clear next step.",
+      successBody: "Your note is with us.",
       successReply: "We'll reply to",
+      successReplyTail: "with a clear next step.",
       noscript: "This form needs JavaScript to send your request.",
     },
   },

@@ -108,7 +108,7 @@ export function ContactForm() {
         <p>{copy.successBody}</p>
         {sentTo && (
           <p className="form-success-reply">
-            {copy.successReply} <strong>{sentTo}</strong>.
+            {copy.successReply} <strong>{sentTo}</strong> {copy.successReplyTail}
           </p>
         )}
         <StaticLinkButton

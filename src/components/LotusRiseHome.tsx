@@ -47,7 +47,7 @@ export function LotusRiseHome() {
                 <span>
                   <i /> Real Janus view
                 </span>
-                <strong>{programPath.title}</strong>
+                <strong>{janus.captureCaption}</strong>
               </figcaption>
               <Image
                 src={programPath.image}
