@@ -2164,15 +2164,16 @@ html[data-js="true"] .reveal.is-visible {
   height: 21px;
 }
 
-.janus-lineage-layout {
-  display: grid;
-  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1.28fr);
-  gap: clamp(56px, 8vw, 110px);
-  align-items: center;
+.janus-hero-product.janus-home-product {
+  width: min(1040px, 100%);
+  margin: 0 auto;
+  border-color: rgba(228, 255, 209, 0.28);
+  box-shadow: 0 28px 74px rgba(0, 0, 0, 0.34);
 }
 
-.janus-lineage-copy .section-intro {
-  margin-top: 26px;
+.product-note.janus-home-note {
+  width: min(1040px, 100%);
+  margin: 12px auto 58px;
 }
 
 .lineage-product {
@@ -3141,7 +3142,6 @@ html[data-js="true"] .reveal.is-visible {
     display: none;
   }
 
-  .janus-lineage-layout,
   .janus-problem-layout,
   .team-hero-inner,
   .team-origin-inner,
@@ -3151,8 +3151,7 @@ html[data-js="true"] .reveal.is-visible {
     grid-template-columns: 1fr;
   }
 
-  .janus-problem-layout,
-  .janus-lineage-layout {
+  .janus-problem-layout {
     gap: 54px;
   }
 
@@ -4558,7 +4557,8 @@ html[data-js="true"] .reveal.is-visible {
 }
 
 @media (max-width: 700px) {
-  .suite-intro .product-stage {
+  .suite-intro .product-stage,
+  .product-note.janus-home-note {
     margin-bottom: 46px;
   }
 

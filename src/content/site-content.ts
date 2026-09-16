@@ -78,16 +78,6 @@ export const siteContent = {
     organization: "John Templeton Foundation",
     image: sitePath("/lotus-rise/team/steve-fitzmier.png"),
   },
-  ai: {
-    title: "Use AI to move faster. Keep people in control.",
-    body: "Janus works with the material your team already has. Each finding points back to its source, and people decide what is ready to approve or share.",
-    behaviors: [
-      { title: "Bring in sources", copy: "Use the documents and data the team already has." },
-      { title: "Build a draft", copy: "Turn that material into a useful first pass." },
-      { title: "Check the evidence", copy: "Trace each finding back to its source." },
-      { title: "Approve the output", copy: "People decide what is ready to share." },
-    ],
-  },
   principles: {
     title: "Technology should help the people helping others.",
     body: "Lotus Rise is a public benefit corporation. We believe technology can change the world for the better when it makes life easier for people doing work that matters. These principles guide what we build and how we work.",
@@ -121,12 +111,30 @@ export const siteContent = {
     hero: {
       title: "Strategy, evaluation and reporting. Connected.",
       lead: "Janus is an AI-powered product suite that helps social-sector teams turn evidence into decisions and clear reporting without losing the thinking in between.",
+      caption: "Evaluation program path",
     },
-    problem: {
-      title: "The work is connected. The tools usually aren't.",
-      body: "Plans, evidence and reports often live in different places. At the end, teams have to rebuild how one led to the next.",
-      pieces: ["Plan", "Evidence", "Report"],
-      bridge: "One connected record from plan to reviewed report.",
+    suite: {
+      title: "One suite. Three parts of the work.",
+      body: "Each area is useful on its own. Together, they keep evidence, decisions and reporting connected.",
+    },
+    ai: {
+      title: "AI prepares the work. People make the call.",
+      body: "Janus helps organize material, surface gaps and prepare a useful first pass. The team checks the evidence, changes the work and decides what is ready.",
+      control: "Human review is central to the product.",
+      caption: "Reviewed report",
+    },
+    closing: {
+      title: "Start with the part that matters now.",
+      body: "Explore Evaluation, learn what is coming in Strategy or register your interest in Reporting.",
+    },
+  },
+  evaluationPage: {
+    product: "Janus Evaluation",
+    status: "Private preview",
+    hero: {
+      title: "Keep the whole evaluation connected.",
+      lead: "Janus Evaluation brings the program plan, questions, measures, evidence, findings and reviewed report into one working record.",
+      caption: "Evaluation program path",
     },
     path: {
       title: "Build the record as the work happens.",
@@ -134,10 +142,10 @@ export const siteContent = {
       steps: ["Program plan", "Questions + measures", "Evidence + findings", "Review + report"],
     },
     gallery: {
-      title: "See Janus as it is today.",
+      title: "See Evaluation as it is today.",
       body: "Every view below comes from the current private preview. No concept screens.",
     },
-    humanReview: {
+    review: {
       title: "Let AI do the first pass. Keep the judgment with the team.",
       body: "Janus can prepare a first pass. People check the evidence, change the work and approve what is ready to share.",
       steps: [
@@ -158,28 +166,8 @@ export const siteContent = {
           copy: "A person decides what is ready.",
         },
       ],
-    },
-    lineage: {
-      title: "A finding should never lose its source.",
-      body: "Each finding keeps its source close. When a question comes up, the team can see the evidence and the review behind it.",
-    },
-    suite: {
-      title: "One suite. Three parts of the work.",
-      body: "Each area is useful on its own. Together, they keep evidence, decisions and reporting connected.",
-    },
-    closing: {
-      title: "Start with the part that matters now.",
-      body: "Explore Evaluation, learn what is coming in Strategy or register your interest in Reporting.",
-    },
-  },
-  evaluationPage: {
-    hero: {
-      title: "Keep the whole evaluation connected.",
-      lead: "Janus Evaluation brings the program plan, questions, measures, evidence, findings and reviewed report into one working record.",
-    },
-    problem: {
-      title: "Build the record as the work happens.",
-      body: "The report should be the end of a clear path, not a reconstruction of work scattered across files.",
+      caption: "Evaluation lineage",
+      note: "People decide what is ready to share.",
     },
     closing: {
       title: "Bring one real evaluation.",

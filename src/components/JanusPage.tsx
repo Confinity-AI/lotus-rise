@@ -1,9 +1,10 @@
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { StaticLinkButton } from "@/components/StaticLinkButton";
 import { siteContent } from "@/content/site-content";
-import { sitePath } from "@/lib/site-path";
 import Image from "next/image";
 import { HiArrowRight, HiOutlineCheckCircle } from "react-icons/hi2";
+
+const [programPath, , reviewedReport] = siteContent.janus.views;
 
 export function JanusPage() {
   const { janus, janusPage } = siteContent;
@@ -28,15 +29,15 @@ export function JanusPage() {
                 <span>
                   <i /> Real Janus view
                 </span>
-                <strong>Evaluation program path</strong>
+                <strong>{janusPage.hero.caption}</strong>
               </figcaption>
               <Image
-                src={sitePath("/lotus-rise/product/janus-program-path.webp")}
+                src={programPath.image}
                 alt="Janus Evaluation program path showing each stage of the workflow"
-                width={1905}
-                height={848}
-                preload
+                width={programPath.width}
+                height={programPath.height}
                 loading="eager"
+                fetchPriority="high"
                 sizes="(max-width: 960px) calc(100vw - 32px), 1120px"
               />
             </figure>
@@ -74,22 +75,19 @@ export function JanusPage() {
         <section className="section janus-suite-ai" aria-labelledby="janus-ai-title">
           <div className="container janus-suite-ai-inner">
             <div className="janus-suite-ai-copy reveal">
-              <h2 id="janus-ai-title">AI prepares the work. People make the call.</h2>
-              <p>
-                Janus helps organize material, surface gaps and prepare a useful first pass. The
-                team checks the evidence, changes the work and decides what is ready.
-              </p>
+              <h2 id="janus-ai-title">{janusPage.ai.title}</h2>
+              <p>{janusPage.ai.body}</p>
               <p className="janus-suite-control">
-                <HiOutlineCheckCircle aria-hidden="true" /> Human review is central to the product.
+                <HiOutlineCheckCircle aria-hidden="true" /> {janusPage.ai.control}
               </p>
             </div>
             <figure className="janus-suite-proof reveal">
-              <figcaption>Real Janus view · Evaluation lineage</figcaption>
+              <figcaption>Real Janus view · {janusPage.ai.caption}</figcaption>
               <Image
-                src={sitePath("/lotus-rise/product/janus-evaluation-lineage-v2.webp")}
-                alt="Janus Evaluation lineage showing how evidence connects to findings"
-                width={1540}
-                height={707}
+                src={reviewedReport.image}
+                alt={reviewedReport.alt}
+                width={reviewedReport.width}
+                height={reviewedReport.height}
                 sizes="(max-width: 960px) calc(100vw - 32px), 620px"
               />
             </figure>

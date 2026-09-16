@@ -1,4 +1,3 @@
-import { JanusTheatre } from "@/components/JanusTheatre";
 import { LotusBloom } from "@/components/LotusBloom";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { StaticLinkButton } from "@/components/StaticLinkButton";
@@ -6,6 +5,8 @@ import { ValuesGrowth } from "@/components/ValuesGrowth";
 import { siteContent } from "@/content/site-content";
 import Image from "next/image";
 import { HiArrowRight } from "react-icons/hi2";
+
+const [programPath] = siteContent.janus.views;
 
 export function LotusRiseHome() {
   const { hero, janus, proof, closing } = siteContent;
@@ -37,7 +38,22 @@ export function LotusRiseHome() {
               <h2 id="janus-title">{janus.title}</h2>
               <p>{janus.body}</p>
             </div>
-            <JanusTheatre />
+            <figure className="janus-hero-product janus-home-product reveal">
+              <figcaption>
+                <span>
+                  <i /> Real Janus view
+                </span>
+                <strong>{programPath.title}</strong>
+              </figcaption>
+              <Image
+                src={programPath.image}
+                alt={programPath.alt}
+                width={programPath.width}
+                height={programPath.height}
+                sizes="(max-width: 960px) calc(100vw - 32px), 1040px"
+              />
+            </figure>
+            <p className="product-note janus-home-note reveal">{janus.note}</p>
             <div className="suite-modules suite-modules-compact reveal">
               {janus.modules.map((module, index) => (
                 <article className="suite-module" key={module.title}>

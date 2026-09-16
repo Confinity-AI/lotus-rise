@@ -2,12 +2,13 @@ import { JanusTheatre } from "@/components/JanusTheatre";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { StaticLinkButton } from "@/components/StaticLinkButton";
 import { siteContent } from "@/content/site-content";
-import { sitePath } from "@/lib/site-path";
 import Image from "next/image";
 import { HiArrowRight, HiOutlineCheckCircle } from "react-icons/hi2";
 
+const [programPath, lineage] = siteContent.janus.views;
+
 export function EvaluationPage() {
-  const { evaluationPage, janusPage } = siteContent;
+  const { evaluationPage } = siteContent;
 
   return (
     <div className="subpage janus-page module-page evaluation-page">
@@ -21,7 +22,7 @@ export function EvaluationPage() {
               <span>Evaluation</span>
             </div>
             <div className="subpage-hero-copy reveal">
-              <span className="module-status">Private preview</span>
+              <span className="module-status">{evaluationPage.status}</span>
               <h1 id="evaluation-title">{evaluationPage.hero.title}</h1>
               <p>{evaluationPage.hero.lead}</p>
               <div className="hero-actions">
@@ -38,15 +39,15 @@ export function EvaluationPage() {
                 <span>
                   <i /> Real Janus view
                 </span>
-                <strong>Evaluation program path</strong>
+                <strong>{evaluationPage.hero.caption}</strong>
               </figcaption>
               <Image
-                src={sitePath("/lotus-rise/product/janus-program-path.webp")}
+                src={programPath.image}
                 alt="Janus Evaluation program path showing each stage of the workflow"
-                width={1905}
-                height={848}
-                preload
+                width={programPath.width}
+                height={programPath.height}
                 loading="eager"
+                fetchPriority="high"
                 sizes="(max-width: 960px) calc(100vw - 32px), 1120px"
               />
             </figure>
@@ -57,12 +58,12 @@ export function EvaluationPage() {
           <div className="container">
             <div className="section-head reveal">
               <h2 className="section-title" id="evaluation-path-title">
-                {evaluationPage.problem.title}
+                {evaluationPage.path.title}
               </h2>
-              <p className="section-intro">{evaluationPage.problem.body}</p>
+              <p className="section-intro">{evaluationPage.path.body}</p>
             </div>
             <div className="janus-path reveal" aria-label="Janus Evaluation path">
-              {janusPage.path.steps.map((step, index) => (
+              {evaluationPage.path.steps.map((step, index) => (
                 <div className="janus-path-step" key={step}>
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   <strong>{step}</strong>
@@ -80,11 +81,9 @@ export function EvaluationPage() {
           <div className="container">
             <div className="section-head reveal">
               <h2 className="section-title" id="gallery-title">
-                See Evaluation as it is today.
+                {evaluationPage.gallery.title}
               </h2>
-              <p className="section-intro">
-                Every view below comes from the current private preview. No concept screens.
-              </p>
+              <p className="section-intro">{evaluationPage.gallery.body}</p>
             </div>
             <JanusTheatre />
           </div>
@@ -94,13 +93,13 @@ export function EvaluationPage() {
           <div className="container">
             <div className="section-head reveal">
               <h2 className="section-title" id="human-review-title">
-                {janusPage.humanReview.title}
+                {evaluationPage.review.title}
               </h2>
-              <p className="section-intro">{janusPage.humanReview.body}</p>
+              <p className="section-intro">{evaluationPage.review.body}</p>
             </div>
             <div className="janus-review-layout">
               <div className="janus-review-path reveal">
-                {janusPage.humanReview.steps.map((step, index) => (
+                {evaluationPage.review.steps.map((step, index) => (
                   <article key={step.title}>
                     <span>{String(index + 1).padStart(2, "0")}</span>
                     <div>
@@ -113,45 +112,20 @@ export function EvaluationPage() {
               <figure className="janus-review-product reveal">
                 <figcaption>
                   <span>Real Janus view</span>
-                  <strong>Reviewed report</strong>
+                  <strong>{evaluationPage.review.caption}</strong>
                 </figcaption>
                 <Image
-                  src={sitePath("/lotus-rise/product/janus-reviewed-report.webp")}
-                  alt="Real Janus reviewed report ready for human approval"
-                  width={1540}
-                  height={707}
+                  src={lineage.image}
+                  alt="Janus Evaluation lineage connecting evidence, findings and review"
+                  width={lineage.width}
+                  height={lineage.height}
                   sizes="(max-width: 960px) calc(100vw - 48px), 680px"
                 />
               </figure>
             </div>
             <p className="janus-review-note reveal">
-              <HiOutlineCheckCircle aria-hidden="true" /> People decide what is ready to share.
+              <HiOutlineCheckCircle aria-hidden="true" /> {evaluationPage.review.note}
             </p>
-          </div>
-        </section>
-
-        <section className="section section-paper janus-lineage" aria-labelledby="lineage-title">
-          <div className="container janus-lineage-layout">
-            <div className="janus-lineage-copy reveal">
-              <h2 className="section-title" id="lineage-title">
-                {janusPage.lineage.title}
-              </h2>
-              <p className="section-intro">{janusPage.lineage.body}</p>
-            </div>
-            <figure className="lineage-product reveal">
-              <figcaption>
-                <span>Source</span>
-                <span>Finding</span>
-                <span>Review</span>
-              </figcaption>
-              <Image
-                src={sitePath("/lotus-rise/product/janus-evaluation-lineage-v2.webp")}
-                alt="Janus Evaluation lineage connecting evidence, findings and review"
-                width={1540}
-                height={707}
-                sizes="(max-width: 960px) calc(100vw - 32px), 620px"
-              />
-            </figure>
           </div>
         </section>
 
