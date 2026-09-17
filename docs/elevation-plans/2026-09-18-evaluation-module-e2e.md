@@ -104,3 +104,74 @@ No new pages, chatbot, pricing, Strategy/Reporting screens, pop-ups, calendar, f
 ## 3.1 Self-review gate
 
 Cut-list: T-06 adds files, not decisions; kept because R5.5 requires committed baselines and the alternative is a red local suite. Voice/claims: no new strings. Hard-rule: every row cites file:line; every test runs against `out/`; no cookies; R2/R3 fences untouched except the logged CSS-stash deviation. Grades — specificity 9, decision reduction 7 (−2 of 28; the big cut was round 1), testability 9, claim safety 10, scope discipline 9. Decision-reduction < 8: reviewed for further backward/duplicate controls; none remain that move nothing forward (the module cards' "Strategy → coming soon" page is sideways, kept). Re-grade 7, proceeding per the brief.
+
+## Baseline red (T-02)
+
+Against the `b330e4c` export, five specs failed on exactly the defects they were written for (`e25bfb5`):
+
+1. `a11y.spec.ts:7` `/janus/evaluation/` — incomplete contained `aria-prohibited-attr` on `.janus-path` (AX-01, TG-01).
+2. `theatre.spec.ts:129` — two role-less named elements: `janus-path reveal is-visible: Janus Evaluation path`, `product-controls: Full-screen Janus view controls` (AX-01, AX-02).
+3. `motion-routing.spec.ts:144` — `ol.janus-path > li.janus-path-step` count 0, expected 5 (AX-01).
+4. `contact-failures.spec.ts:141` — `header .button` count 1, expected 0 (FL-01).
+5. `contact-failures.spec.ts:170` — no button named "Send by email" in the unset build (FL-02).
+
+## Execution log
+
+| T | Commit | Check |
+| --- | --- | --- |
+| T-01 | — (runner already present) | typecheck 0 · lint 0 |
+| T-02 | `e25bfb5 test(e2e): red specs for round 5 defects` | 5 red as listed |
+| T-03 | `6b8beba fix(evaluation): expose the path as an ordered list and drop prohibited ARIA names` | a11y + theatre + routing green |
+| T-04 | `6d9a121 refine(cta): no backward header action on the contact page` | contact-failures green; dead key `actions.backHome` removed from `site-content.ts` and the two specs that read it |
+| T-05 | `ac7a6b0 fix(contact): submit label names the email-app path when no endpoint is set` | contact-failures green on both exports |
+| T-06 | `c32213f test(visual): win32 baselines; drop stale linux baselines for changed pages` | visual 8/8 |
+| T-07a | `test(e2e): skip the mailto delivery spec on WebKit for Windows` | see D-05 |
+| T-07b | `fix(contact): focus the result panel after commit instead of racing it with rAF` | journey + contact ×3 repeats, 3 engines: 78/78 |
+
+Defects found while verifying, beyond the plan:
+
+| D | file:line | Observation | Fix | Test |
+| --- | --- | --- | --- | --- |
+| D-05 (env) | `contact-failures.spec.ts:170` on `webkit-mobile`, win32 only | WebKit for Windows has no `mailto:` handler; `location.assign("mailto:neeraj@lotusrise.org?…")` was rewritten to `https://www.lotusrise.org/?cc=…` and navigated the page away (trace: `test-results/…/error-context.md`). Linux WebKit (CI) and Chromium keep the page. | `test.skip(webkit && win32)` with the reason inline. Not a product defect. | — |
+| D-06 | `ContactForm.tsx:94, 115` (at `b330e4c`) | `requestAnimationFrame(() => successRef.current?.focus())` raced React's commit of the `<output>`; in WebKit the frame ran first and focus landed on nothing (`toBeFocused` failed 1 in 2 runs before the fix). | `useEffect` on `status` ∈ {`sent`, `mailto`} focuses after commit; both rAF calls removed. | `evaluation-journey.spec.ts` (WebKit) and `contact-failures.spec.ts`, `--repeat-each=3`: 78/78. |
+
+## 6. Final report
+
+### Result
+
+Green, in this order, on `feat/evaluation-journey-e2e` at the last commit: `npm run typecheck` 0 · `npm run lint` 0 (32 files) · `npm run build` 0 · `npm run build:pages` 0 (10 pages) · `npm run test:e2e` **204 passed, 7 skipped, 0 failed** (Chromium mobile, Chromium desktop, WebKit mobile; two real static exports, mock endpoint on 3010 and endpoint-unset on 3011). Skips are intentional: 6 pre-existing project-scoped skips (target-size sweeps on desktop, WebKit-excluded visual/contrast) + D-05.
+
+Eight Conventional Commits from `b330e4c`. Never pushed. No force, rebase, reset, or amend.
+
+### What changed for the visitor
+
+- `/janus/evaluation/` path band is an ordered list of five steps (`EvaluationPage.tsx:61-71`); screen readers announce "list, 5 items" and the label is now permitted. Visually identical (`lotus-rise.css:2020-2026` list reset).
+- Full-screen dialog controls carry no prohibited group name (`JanusTheatre.tsx:220`); the two buttons remain fully named.
+- `/contact/` header shows the two nav links only (`SiteChrome.tsx:49-58, 60-68`); the backward "Back to homepage" button and its mobile duplicate are gone. After sending, "Return to the homepage" (`ContactForm.tsx:158-164`) is still the single way back.
+- With no endpoint configured (**the live build**), the submit button reads **Send by email** (`ContactForm.tsx:243-245`); with an endpoint it reads **Send request**. The control now names its outcome.
+- Result-panel focus is deterministic across engines (D-06).
+
+Decisions on the path: **28 → 26**. Nothing that moves the visitor forward was removed.
+
+### Copy
+
+No new strings. `actions.backHome` deleted as dead. R4 unaffected.
+
+### Telemetry
+
+Unchanged; all ten acceptance events plus `contact_mailto` asserted (`analytics.spec.ts`, `contact-failures.spec.ts`, `evaluation-journey.spec.ts`).
+
+### Unresolved (R10)
+
+None. No fix was attempted twice; no file was reverted.
+
+### R2 outcome
+
+`git stash pop` applied cleanly. `src/components/ValuesGrowth.tsx` and `src/resources/lotus-rise.css` carry the owner's uncommitted WIP again (7 and 100 lines), on top of the committed `.janus-path` reset. `scripts/build-pages.mjs` had no WIP.
+
+### Follow-ups (outside this brief)
+
+1. **Linux visual baselines.** Four `-linux.png` files (contact ×2, janus-evaluation ×2) were deleted as stale; the next manual CI run (`.github/workflows/ci.yml`, `workflow_dispatch`) will report them missing and write them. Re-run once to go green. No Docker/WSL here to generate them locally.
+2. **`.button` icon gap.** Once UI wraps the label, so `lotus-rise.css:314` `gap: 10px` never separates text from the arrow (measured 0 px on every button). Outside the R6 selector fence; a `.button svg { margin-left: … }` rule is a one-line owner call.
+3. **Contact endpoint** (unchanged): contract in `.env.example`; the email-app path is live and now honestly labelled.
+4. **Merge and deploy**: R1 forbids pushing from this run. `git checkout main && git merge --ff-only feat/evaluation-journey-e2e && git push && npm run deploy:pages` reproduces the previous release path.
