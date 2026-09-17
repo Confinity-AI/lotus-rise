@@ -57,8 +57,10 @@ export function SiteHeader({ currentPage = "home" }: SiteChromeProps) {
             </StaticLinkButton>
           </nav>
           <details className="mobile-nav">
-            <summary className="mobile-nav-trigger" aria-label="Open navigation" title="Menu">
+            <summary className="mobile-nav-trigger">
               <HiBars3 aria-hidden="true" />
+              <span className="mobile-nav-label mobile-nav-label-open">Open navigation</span>
+              <span className="mobile-nav-label mobile-nav-label-close">Close navigation</span>
             </summary>
             <nav className="mobile-nav-panel" aria-label="Mobile navigation">
               <PageLinks currentPage={currentPage} />

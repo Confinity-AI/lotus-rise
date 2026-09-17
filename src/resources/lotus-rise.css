@@ -168,9 +168,11 @@ a {
 
 .nav-links a:not(.button) {
   position: relative;
+  min-width: 44px;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   color: #d9e8e0 !important;
 }
 
@@ -225,7 +227,26 @@ a {
   display: none;
 }
 
+.mobile-nav-trigger .mobile-nav-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.mobile-nav-trigger .mobile-nav-label-close,
+.mobile-nav[open] .mobile-nav-trigger .mobile-nav-label-open {
+  display: none;
+}
+
+.mobile-nav[open] .mobile-nav-trigger .mobile-nav-label-close {
+  display: block;
+}
+
 .mobile-nav-trigger {
+  position: relative;
   width: 46px;
   height: 46px;
   display: grid;
@@ -931,7 +952,7 @@ a {
 
 .product-image-button {
   width: 100%;
-  aspect-ratio: 1540 / 707;
+  aspect-ratio: 1659 / 848;
   display: block;
   overflow: hidden;
   padding: 0;
@@ -1648,9 +1669,11 @@ html[data-js="true"] .ai-flow.is-visible .ai-flow-step {
 }
 
 .footer-links a {
+  min-width: 44px;
   min-height: 44px;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   color: #c7d8cf !important;
 }
 
@@ -1820,43 +1843,6 @@ html[data-js="true"] .reveal.is-visible {
 .janus-hero-product img {
   width: 100%;
   height: auto;
-}
-
-.janus-problem {
-  padding: 112px 0;
-  border-top: 1px solid rgba(21, 35, 29, 0.08);
-  border-bottom: 1px solid rgba(21, 35, 29, 0.12);
-  background: var(--paper);
-}
-
-.janus-problem-layout {
-  display: grid;
-  grid-template-columns: minmax(320px, 0.72fr) minmax(560px, 1.28fr);
-  gap: clamp(60px, 7vw, 100px);
-  align-items: center;
-}
-
-.janus-problem-copy h2 {
-  max-width: 620px;
-  margin: 0;
-  font-family: var(--display);
-  font-size: 56px;
-  font-weight: 500;
-  line-height: 1.06;
-}
-
-.janus-problem-copy > p {
-  max-width: 600px;
-  margin: 26px 0 0;
-  color: var(--muted);
-  font-size: 18px;
-}
-
-.janus-problem-visual {
-  display: grid;
-  grid-template-columns: minmax(140px, 0.36fr) 44px minmax(0, 1.64fr);
-  gap: 18px;
-  align-items: center;
 }
 
 .janus-record-pieces {
@@ -2033,7 +2019,7 @@ html[data-js="true"] .reveal.is-visible {
 
 .janus-path {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   border-top: 1px solid rgba(255, 255, 255, 0.34);
   border-bottom: 1px solid rgba(255, 255, 255, 0.34);
 }
@@ -2071,7 +2057,15 @@ html[data-js="true"] .reveal.is-visible {
   font-weight: 760;
 }
 
+.janus-path-step p {
+  margin: 8px 0 0;
+  color: #d2dfd8;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
 .janus-path-step strong {
+  display: block;
   max-width: 190px;
   font-family: var(--display);
   font-size: 24px;
@@ -2194,42 +2188,6 @@ html[data-js="true"] .reveal.is-visible {
 .product-note.janus-home-note {
   width: min(1040px, 100%);
   margin: 12px auto 58px;
-}
-
-.lineage-product {
-  margin: 0;
-  overflow: hidden;
-  border: 1px solid rgba(21, 35, 29, 0.18);
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 0 28px 70px rgba(21, 35, 29, 0.13);
-}
-
-.lineage-product figcaption {
-  min-height: 48px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-bottom: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 10px;
-  font-weight: 760;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.lineage-product figcaption span {
-  display: grid;
-  place-items: center;
-  border-right: 1px solid var(--line);
-}
-
-.lineage-product figcaption span:last-child {
-  border-right: 0;
-}
-
-.lineage-product img {
-  width: 100%;
-  height: auto;
 }
 
 .module-order {
@@ -3198,36 +3156,33 @@ html[data-js="true"] .reveal.is-visible {
   }
 
   .janus-path {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
-  .janus-path-step:nth-child(2) {
+  .janus-path-step {
+    min-height: 0;
+    gap: 12px;
     border-right: 0;
-  }
-
-  .janus-path-step:nth-child(-n + 2) {
     border-bottom: 1px solid rgba(255, 255, 255, 0.22);
   }
 
-  .janus-path-step:nth-child(2)::after {
-    display: none;
+  .janus-path-step:last-child {
+    border-bottom: 0;
   }
 
-  .janus-problem-layout,
+  .janus-path-step:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    bottom: -5px;
+    left: 26px;
+  }
+
   .team-hero-inner,
   .team-origin-inner,
   .team-roster-head,
   .team-values-inner,
   .team-statement-inner {
     grid-template-columns: 1fr;
-  }
-
-  .janus-problem-layout {
-    gap: 54px;
-  }
-
-  .janus-problem-visual {
-    width: min(100%, 720px);
   }
 
   .janus-review-layout {
@@ -3249,10 +3204,6 @@ html[data-js="true"] .reveal.is-visible {
   }
 
   .janus-review-product {
-    width: min(100%, 760px);
-  }
-
-  .lineage-product {
     width: min(100%, 760px);
   }
 
@@ -3776,26 +3727,17 @@ html[data-js="true"] .reveal.is-visible {
   }
 
   .janus-path-step {
-    min-height: 158px;
-    padding: 22px 18px 24px;
+    min-height: 0;
+    gap: 10px;
+    padding: 20px 18px 22px;
   }
 
   .janus-path-step strong {
     font-size: 20px;
   }
 
-  .janus-problem {
-    padding: 78px 0;
-  }
-
-  .janus-problem-copy h2,
   .team-values-copy h2 {
     font-size: 42px;
-  }
-
-  .janus-problem-visual {
-    grid-template-columns: 1fr;
-    gap: 18px;
   }
 
   .janus-record-pieces {
@@ -4222,7 +4164,8 @@ html[data-js="true"] .reveal.is-visible {
   }
 
   .reveal,
-  html[data-js="true"] .reveal {
+  html[data-js="true"] .reveal,
+  html[data-js="true"] .reveal.is-visible {
     opacity: 1;
     transform: none;
   }
