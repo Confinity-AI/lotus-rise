@@ -298,13 +298,35 @@ Method: read every string on the four pages in reading order as a first-time pro
 
 Suite after round 3: **151 passed, 5 skipped** (46 → 51 cases × 2 projects). `npm run test:e2e:report` opens the HTML report.
 
+## Round 4: final say on the open items, and production grade
+
+Authority for this round: the owner delegated every remaining decision. Each item below records what was decided, why, and what evidence backs it.
+
+| ID | Decision | Reasoning and evidence | Test |
+| --- | --- | --- | --- |
+| R4-01 **Capture with dev billing UI** (was R2-11, "not fixed") | **Cropped.** `janus-program-path-v2.webp` (1659×848, 59 KB) is the approved capture with the app sidebar removed (x < 246 px); no pixel inside the kept region changed. The old file is deleted from `public/`. | The billing panel and "MODE - NOT PRODUCTION" badge sit entirely inside the sidebar (`/tmp` extraction at x 0–330 confirmed). The sidebar also showed module names ("Strat", "Grant") that do not match site copy. Everything the caption promises — app bar, breadcrumb, program stages, program card, "Five-step path" — is outside the sidebar and kept. Cropping a real capture is framing, not retouching; the portrait rule (`IMPLEMENTATION_ACCEPTANCE.md:42`) is about identity details and does not apply. Naming follows the existing `janus-evaluation-lineage-v2.webp` convention. | routing: image boxes; theatre: frame stability; visual baselines. |
+| R4-02 **Frame ratio** | `.product-image-button` aspect becomes `1659 / 848` (was `1540 / 707`). | The program path is now the tallest capture; at the old ratio `cover` clipped its app bar and chip row. At the new ratio the two 1540×707 captures lose ~5 % of each side, which is empty margin (checked frame-by-frame). Height still identical across tabs. | theatre: "product frame height is stable across all tabs". |
+| R4-03 **Path vocabulary** (was R3-10, "owner question") | **Aligned to the product.** Five steps — Profile, Design, Fieldwork, Analysis, Deliverables — each with a one-line gloss in audience language. | The capture directly beneath the band says "Five-step path: Profile, Design, Fieldwork, Analysis, Deliverables", and the reviewed-report capture's stage selector reads "DELIVERABLES · Deliverables". Two vocabularies for one path was the single most visible contradiction on the page. The glosses ("The reviewed report, approved by people.") keep the audience meaning the old labels carried. Body copy: "Five steps, one record." No framework-alignment claim is made even though the capture says "CDC-aligned" (R4: compliance-type claims stay out). | routing: "the path band mirrors the product's own five steps" (asserts the exact five names). |
+| R4-04 **Contact endpoint** | **No `mailto:`; contract documented.** | Research found no verifiable public address; a data broker's "email format" guess is not evidence and would fabricate a recipient. `.env.example` and `README.md` now state the exact request (`POST`, JSON, five keys, any 2xx = success) and the endpoint's duties (CORS, validation, rate limiting), so provisioning is a configuration task. | contact: exact payload test. |
+| R4-05 **CI** | `.github/workflows/ci.yml` on PRs and `main`: typecheck, lint, `next build`, Chromium install, full suite, report + traces uploaded. | Production grade without CI is not production grade. Deploy stays manual. Baselines were generated on Linux Chromium, matching the runner. | — |
+| R4-06 **Second engine** | `webkit-mobile` project (iPhone 13) runs journey, theatre, contact and smoke. | Safari is common on the buyer side. Finding: the export's `upgrade-insecure-requests` meta (`layout.tsx`) makes WebKit upgrade every `http://localhost` request to `https://`, so nothing hydrates under test; Chromium exempts localhost. Production is HTTPS end to end and unaffected. Test-only fix in `helpers.ts`: for WebKit, answer upgraded requests from the plain server; the artefact stays byte-identical. Native `<dialog>`, pointer gestures, `<output>` focus and validation all pass in WebKit. | 55 cases on the WebKit project. |
+| R4-07 **Layout stability** | `stability.spec.ts` measures real `layout-shift` entries across a full scroll and asserts CLS < 0.1 on all four pages, plus that switching theatre views never moves the caption. | The deterministic slice of Lighthouse the journey depends on. | stability spec. |
+| R4-08 **Chrome targets** (was C9 follow-up) | Header and footer text links get `min-width: 44px` and centred content. | With final say the R6 selector fence no longer applies; 44×44 everywhere matches the acceptance bar and the sweep now covers header and footer too (skip link excluded: intentionally off-screen). | a11y: 44 px sweep across main, header, footer. |
+| R4-09 **Mobile menu label** (was AX-08) | `<summary>` now has two visually-hidden labels toggled by `details[open]`: "Open navigation" / "Close navigation". | Accessible name reflects state; no JS. | a11y: "the mobile menu names its state". |
+| R4-10 **404 chrome** (was RT-03) | `not-found.tsx` renders header/footer as `home`, so the header CTA is "Contact us" and the body button is the single way home. | One action per viewport. | routing: "the 404 page offers one way home". |
+| R4-11 **Reduced motion** (was follow-up 8) | `html[data-js="true"] .reveal.is-visible` added to the reduced-motion block; settled state is literally `transform: none`. | Test tightened from identity-or-none to `none`. | reduced-motion spec. |
+| R4-12 **Dead CSS** (was follow-up 7) | `.janus-problem*` and `.lineage-product*` rules removed (−59 lines net) with a scanner that also trims them out of shared selector lists. | No markup referenced them. | lint (Biome CSS). |
+| R4-13 **Not done, on purpose** | Values-journey PNGs on the homepage (1.7 MB total) are heavy but lazy-loaded, below the fold, brand assets, and outside the Evaluation module. Converting formats is an owner call on brand assets. JS payload (~1.1 MB of Once UI + React chunks) is framework-level. Both logged. | — | — |
+
+Suite after round 4: **199 passed, 6 intentionally skipped** across Chromium mobile, Chromium desktop and WebKit mobile.
+
 ## 6. Final report
 
 ### Result
 
-Green in this order, and now order-independent: `npm run typecheck`, `npm run lint`, `npm run build`, `npm run build:pages`, `npm run test:e2e` — **151 passed, 5 intentionally skipped** (51 test cases × 2 projects, Chromium, reduced motion, against two real static exports in `.e2e/out-mock/` and `.e2e/out-unset/`). The Playwright HTML report is written to `playwright-report/index.html` (~600 KB, self-contained) on every run, alongside the `list` reporter output.
+Green in this order, and now order-independent: `npm run typecheck`, `npm run lint`, `npm run build`, `npm run build:pages`, `npm run test:e2e` — **199 passed, 6 intentionally skipped** (Chromium mobile, Chromium desktop, WebKit mobile on the interactive specs; reduced motion; against two real static exports in `.e2e/out-mock/` and `.e2e/out-unset/`). The Playwright HTML report is written to `playwright-report/index.html` (~600 KB, self-contained) on every run, alongside the `list` reporter output.
 
-Seventeen Conventional Commits on `feat/evaluation-journey-e2e` from `38b3795`, in three rounds: the planned T-01…T-11, a UX/UI sweep of the executed flow (round 2), and a sense-and-outputs pass (round 3).
+Eighteen Conventional Commits on `feat/evaluation-journey-e2e` from `38b3795`, in four rounds: the planned T-01…T-11, a UX/UI sweep of the executed flow (round 2), a sense-and-outputs pass (round 3), and the owner-delegated close-out (round 4).
 
 Harness note: the first verification attempt of round 2 failed twelve specs because `npm run build:pages` leaves `out/` built **without** the contact endpoint, and `reuseExistingServer: true` let a stale server keep serving it — so the contact specs silently ran against the degrade branch. `tests/e2e/server.mjs` now exports into its own `.e2e/out-mock/` and `.e2e/out-unset/` directories and the smoke spec asserts each server is serving the export it is meant to serve, so a wrong fixture fails immediately with a clear message instead of cascading.
 
@@ -340,18 +362,13 @@ Decisions on the path: **34 → 22 (−35 %)**. Removed: home theatre controls (
 
 None. No file was reverted.
 
-### Launch blockers and follow-ups (owner-controlled or outside this pass)
+### Launch blockers and follow-ups
 
-1. **Contact endpoint** (#1). Production ships with `NEXT_PUBLIC_CONTACT_ENDPOINT` unset; `/contact/` now says so before the visitor types. Provide the endpoint at build time (`.env.example:2`) plus server-side validation and bot protection (`IMPLEMENTATION_ACCEPTANCE.md:47-48`). Payload keys: `name`, `email`, `organization`, `role`, `message`.
-2. **Re-export `janus-program-path.webp`** (R2-11). The current file shows development billing UI and a "MODE - NOT PRODUCTION" badge in the bottom-left, fully legible in the full-screen dialog. It appears on `/`, `/janus/` and theatre tab 1. Needs a re-export with safe demo state; cropping it would remove the "Five-step path" panel that the caption promises, and retouching an approved capture is out of bounds.
-3. **Path vocabulary** (R3-10). Decide whether the four-step path band should adopt the product's own stage names shown in the capture beneath it, or stay in audience language.
-4. **CI wiring** (R3 out of scope). Add a workflow that runs `npm run typecheck && npm run lint && npm run test:e2e` with `npx playwright install --with-deps chromium`. Visual baselines are Linux/Chromium; regenerate with `npx playwright test tests/e2e/visual.spec.ts --update-snapshots` when copy or layout changes intentionally.
-5. **Analytics sink.** `window.__lotusAnalytics` and `window.__lotusConsent` are the integration points; the consent UI and provider are not in this repo.
-6. **Header/footer targets** (C9). Footer links measure 44 px tall but 36-50 px wide, and header nav links are 44x44 or narrower; they sit outside R6 selectors and under the WCAG 2.5.8 inline exception. `<summary aria-label="Open navigation">` never reads "Close" (AX-08). `not-found.tsx` header CTA duplicates its body button (RT-03).
-7. **Dead CSS outside R6**: `.lineage-product*` (`lotus-rise.css`, after the removed `.janus-lineage-*` rules) and `.janus-problem-*` rules no longer have markup.
-8. **Reduced motion `.reveal`**: settled state is an identity matrix (`translateY(0)` from `.reveal.is-visible` outranks the reduced-motion `transform: none`); visually equivalent, asserted as identity-or-none. Making it literally `none` needs one extra selector on `.reveal`, which is outside R6.
-9. Cross-browser (WebKit/Firefox) and Lighthouse runs.
-10. Reconfirm legal wording and quote permission before launch (`AGENTS.md:29`); unchanged by this work.
+1. **Contact endpoint** (the only blocker). Production ships with `NEXT_PUBLIC_CONTACT_ENDPOINT` unset; `/contact/` says so honestly before the visitor types. The exact contract is in `.env.example` and `README.md`; provisioning is configuration plus a small server with CORS, validation and rate limiting.
+2. **Analytics sink and consent UI.** `window.__lotusAnalytics` and `window.__lotusConsent` are the integration points; both live outside this repository.
+3. **Homepage brand PNGs** (1.7 MB, lazy, below the fold) could be re-encoded as WebP; brand assets, owner call.
+4. **Legal wording and quote permission** (`AGENTS.md:29`); unchanged by this work.
+5. Lighthouse in CI, if a score is wanted beyond the deterministic CLS check that now runs.
 
 ### Deviation from R1
 
