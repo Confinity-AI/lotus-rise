@@ -143,8 +143,10 @@ test.describe("routing and export integrity", () => {
 
   test("the path band mirrors the product's own five steps", async ({ page }) => {
     await page.goto("/janus/evaluation/");
-    const steps = page.locator(".janus-path-step");
+    // An ordered list: AT announces "list, 5 items" and the list role permits the aria-label.
+    const steps = page.locator("ol.janus-path > li.janus-path-step");
     await expect(steps).toHaveCount(content.evaluationPage.path.steps.length);
+    await expect(page.locator("ol.janus-path")).toHaveCSS("list-style-type", "none");
     for (const [index, step] of content.evaluationPage.path.steps.entries()) {
       await expect(steps.nth(index).locator("strong")).toHaveText(step.title);
       await expect(steps.nth(index).locator("p")).toHaveText(step.copy);

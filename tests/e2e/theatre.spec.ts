@@ -126,6 +126,22 @@ test.describe("Janus theatre", () => {
     ]);
   });
 
+  test("no role-less element in the theatre or the open dialog carries an ARIA name", async ({
+    page,
+  }) => {
+    const { dialog, expand } = await openTheatre(page);
+    await expand.click();
+    await expect(dialog).toHaveJSProperty("open", true);
+    const named = await page.evaluate(() =>
+      Array.from(
+        document.querySelectorAll(
+          "main div[aria-label]:not([role]), main span[aria-label]:not([role]), main div[aria-labelledby]:not([role])",
+        ),
+      ).map((node) => `${node.className}: ${node.getAttribute("aria-label")}`),
+    );
+    expect(named).toEqual([]);
+  });
+
   test("clicking the image opens the dialog and the expand button is the only focusable opener", async ({
     page,
   }) => {

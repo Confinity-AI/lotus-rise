@@ -138,6 +138,20 @@ test.describe("contact failure states", () => {
     await expect(success.getByRole("link", { name: actions.returnHome })).toBeVisible();
   });
 
+  test("with an endpoint the submit says send, and the page offers no way back", async ({
+    page,
+  }) => {
+    await page.goto("/contact/");
+    await expect(page.locator("form.contact-form")).toHaveAttribute("data-configured", "true");
+    await expect(page.getByRole("button", { name: actions.send })).toBeVisible();
+    await expect(page.getByRole("button", { name: actions.sendByEmail })).toHaveCount(0);
+    // FL-01: the header CTA slot is empty on the contact page; nav links remain, on both layouts.
+    await expect(page.locator("header .button")).toHaveCount(0);
+    await expect(page.locator("header").getByText(actions.backHome)).toHaveCount(0);
+    await expect(page.locator("header .nav-links-desktop a")).toHaveCount(content.navigation.length);
+    await expect(page.locator("header .mobile-nav-panel a")).toHaveCount(content.navigation.length);
+  });
+
   test("sending state disables the button and marks the form busy", async ({ page }) => {
     await page.route(MOCK_ENDPOINT_PATTERN, async (route) => {
       await new Promise((resolve) => setTimeout(resolve, 800));
@@ -166,15 +180,18 @@ test.describe("contact endpoint unset (build with env absent)", () => {
     await expect(form).toHaveAttribute("data-configured", "false");
     const notice = page.locator("output.form-status");
     await expect(notice).toHaveText(copy.configuration);
-    await expect(page.getByRole("button", { name: actions.send })).toBeEnabled();
+    // The control names what it does: it opens the visitor's email app, it does not "send".
+    const submit = page.getByRole("button", { name: actions.sendByEmail });
+    await expect(submit).toBeEnabled();
+    await expect(page.getByRole("button", { name: actions.send })).toHaveCount(0);
 
     // Validation still guards the email path.
-    await page.getByRole("button", { name: actions.send }).click();
+    await submit.click();
     await expect(page.locator(".field-error")).toHaveCount(5);
     await expect(page.locator("output.form-success")).toHaveCount(0);
 
     await fillContactForm(page);
-    await page.getByRole("button", { name: actions.send }).click();
+    await submit.click();
 
     const panel = page.locator("output.form-success");
     await expect(panel).toBeVisible();

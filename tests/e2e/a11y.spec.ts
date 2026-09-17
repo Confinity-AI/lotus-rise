@@ -19,6 +19,13 @@ test.describe("accessibility", () => {
           nodes: violation.nodes.map((node) => node.target.join(" ")),
         })),
       ).toEqual([]);
+      // axe files prohibited ARIA on role-less elements under "incomplete", not "violations".
+      // Colour-contrast incompletes are measured by contrast.spec.ts instead.
+      expect(
+        results.incomplete
+          .filter((item) => item.id.startsWith("aria-"))
+          .map((item) => ({ id: item.id, nodes: item.nodes.map((node) => node.target.join(" ")) })),
+      ).toEqual([]);
     });
 
     test(`${route} has one h1 and no skipped heading levels`, async ({ page }) => {
