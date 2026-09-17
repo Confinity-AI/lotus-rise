@@ -167,7 +167,17 @@ test.describe("contact failure states", () => {
 });
 
 test.describe("contact endpoint unset (build with env absent)", () => {
-  test("delivers through the visitor's email app to the team", async ({ page, baseURL }) => {
+  test("delivers through the visitor's email app to the team", async ({
+    page,
+    baseURL,
+    browserName,
+  }) => {
+    // WebKit on Windows has no mailto: handler and rewrites the address as an https URL,
+    // navigating the page away. Linux WebKit (CI) and Chromium keep the page and pass.
+    test.skip(
+      browserName === "webkit" && process.platform === "win32",
+      "WebKit on Windows has no mailto: handler",
+    );
     await captureAnalytics(page);
     let requests = 0;
     await page.route(/__contact/, (route) => {
