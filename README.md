@@ -57,4 +57,4 @@ Read `IMPLEMENTATION_ACCEPTANCE.md` before launch. The contact endpoint, legal w
 
 ## Continuous integration
 
-`.github/workflows/ci.yml` runs typecheck, lint, `next build` and the full Playwright suite on every pull request and on pushes to `main`, and uploads the HTML report and any failure traces as an artifact. Visual baselines are generated on Linux Chromium and match the runner. Deployment stays manual (`npm run deploy:pages`).
+`.github/workflows/ci.yml` runs typecheck, lint, `next build` and the full Playwright suite, and uploads the HTML report and any failure traces as an artifact. It is manual (`workflow_dispatch`) so it does not spend Actions minutes automatically; the same suite runs locally with `npm run test:e2e`. Visual baselines are generated on Linux Chromium and match the runner. Deployment stays manual (`npm run deploy:pages`).

@@ -1,9 +1,9 @@
 name: CI
 
+# Manual only, to avoid spending Actions minutes automatically. Run from the Actions tab
+# when a full remote verification is wanted; the same suite runs locally with npm run test:e2e.
 on:
-  pull_request:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   checks:
