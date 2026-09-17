@@ -17,9 +17,7 @@ export function EvaluationPage() {
         <section className="subpage-hero janus-page-hero" aria-labelledby="evaluation-title">
           <div className="container subpage-hero-inner">
             <div className="subpage-hero-copy reveal">
-              <p className="module-status">
-                {evaluationPage.product} · {evaluationPage.status}
-              </p>
+              <p className="module-status">{evaluationPage.status}</p>
               <h1 id="evaluation-title">{evaluationPage.hero.title}</h1>
               <p>{evaluationPage.hero.lead}</p>
               <div className="hero-actions">

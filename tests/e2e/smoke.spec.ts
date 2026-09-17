@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { path, routes, test, unsetBase, plainBase } from "./helpers";
+import { path, plainBase, routes, test, unsetBase } from "./helpers";
 
 test.describe("static export smoke", () => {
   // Fails loudly if a stale server is serving the wrong export, instead of letting every

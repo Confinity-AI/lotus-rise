@@ -27,9 +27,7 @@ test("home → Evaluation → theatre → dialog → contact → sent → home",
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     content.evaluationPage.hero.title,
   );
-  await expect(page.locator(".module-status")).toHaveText(
-    `${content.evaluationPage.product} · ${content.evaluationPage.status}`,
-  );
+  await expect(page.locator(".module-status")).toHaveText(content.evaluationPage.status);
 
   // One primary action in the hero viewport.
   const hero = page.locator(".subpage-hero");

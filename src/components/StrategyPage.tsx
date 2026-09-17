@@ -13,9 +13,7 @@ export function StrategyPage() {
         <section className="strategy-hero" aria-labelledby="strategy-title">
           <div className="container strategy-hero-inner">
             <div className="strategy-hero-copy reveal">
-              <p className="module-status">
-                {strategyPage.product} · {strategyPage.status}
-              </p>
+              <p className="module-status">{strategyPage.status}</p>
               <h1 id="strategy-title">{strategyPage.hero.title}</h1>
               <p>{strategyPage.hero.lead}</p>
               <StaticLinkButton

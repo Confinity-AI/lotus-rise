@@ -52,8 +52,8 @@ export const siteContent = {
         action: "Register interest",
       },
     ],
-    note: "From the current private preview. The interface may change.",
-    captureCaption: "Janus Evaluation · Program path",
+    note: "A screen from the current private preview. The interface may change.",
+    captureCaption: "The program path in Janus Evaluation",
     views: [
       {
         title: "Program path",
@@ -119,10 +119,10 @@ export const siteContent = {
   },
   closing: {
     title: "See where Janus can help.",
-    body: "Evaluation is in private preview. Tell us what your team is working on and we will say plainly where Janus may be a useful fit.",
+    body: "Tell us what your team is working on, and we will let you know whether Janus can help.",
   },
   janusPage: {
-    status: "Janus · Evaluation in private preview",
+    status: "Evaluation is in private preview",
     hero: {
       title: "Strategy, evaluation and reporting. Connected.",
       lead: "Janus is an AI-powered product suite that helps social-sector teams turn evidence into decisions and clear reporting without losing the thinking in between.",
@@ -140,11 +140,10 @@ export const siteContent = {
     },
     closing: {
       title: "Start with the part that matters now.",
-      body: "Evaluation is in private preview now. Tell us about one real evaluation and we will say plainly whether Janus is a useful fit.",
+      body: "Bring one real evaluation and we will show you how Janus handles it.",
     },
   },
   evaluationPage: {
-    product: "Janus Evaluation",
     status: "Private preview",
     hero: {
       title: "Keep the whole evaluation connected.",
@@ -153,13 +152,19 @@ export const siteContent = {
     },
     path: {
       title: "Build the record as the work happens.",
-      body: "Five steps, one record. Questions, measures, evidence and findings stay linked from setup to review, and the report is the end of the path, not a fresh start.",
+      body: "Janus follows the same five steps your evaluation does. Questions, measures, evidence and findings stay linked from setup to review, so the report is the end of the path, not a fresh start.",
       steps: [
-        { title: "Profile", copy: "The program, its context and the people it serves." },
-        { title: "Design", copy: "Evaluation questions, measures and methods." },
-        { title: "Fieldwork", copy: "Evidence gathered and kept with its source." },
-        { title: "Analysis", copy: "Findings traced back to the evidence." },
-        { title: "Deliverables", copy: "The reviewed report, approved by people." },
+        {
+          title: "Profile",
+          copy: "Describe the program, who it serves and what it hopes to change.",
+        },
+        {
+          title: "Design",
+          copy: "Set the evaluation questions and decide how you will measure them.",
+        },
+        { title: "Fieldwork", copy: "Gather the evidence and keep it with its source." },
+        { title: "Analysis", copy: "Draw findings that point back to the evidence behind them." },
+        { title: "Deliverables", copy: "Review the report and approve what is ready to share." },
       ],
     },
     gallery: {
@@ -168,7 +173,7 @@ export const siteContent = {
     },
     review: {
       title: "Let AI do the first pass. Keep the judgment with the team.",
-      body: "Janus can prepare a first pass. People check each finding against its source, change the work and approve what is ready to share.",
+      body: "Janus can prepare a first pass. People check the evidence, change the work and approve what is ready to share.",
       steps: [
         {
           title: "Source material",
@@ -196,7 +201,6 @@ export const siteContent = {
     },
   },
   strategyPage: {
-    product: "Janus Strategy",
     hero: {
       title: "Turn learning into the next decision.",
       lead: "Janus Strategy will help teams bring evidence, past results and organizational context into the decisions that shape what comes next.",
@@ -304,16 +308,16 @@ export const siteContent = {
   },
   contact: {
     title: "What would you like to discuss with us?",
-    lead: "Tell us what your team is trying to make easier and where the work slows down.",
+    lead: "Tell us what your team is trying to make easier. We read every note ourselves.",
     nextTitle: "What happens next",
-    next: "We'll read your note and reply with a clear next step. If you are asking for the Janus Evaluation preview, mention one real evaluation you have in mind.",
+    next: "We will reply with a clear next step. If you are asking about the Janus Evaluation preview, tell us about one real evaluation you have in mind.",
     recipients: {
       to: "neeraj@lotusrise.org",
       cc: ["neeraj@amalgam-inc.com", "ryan@amalgam-inc.com"],
       subject: "Janus Evaluation preview request",
     },
     form: {
-      required: "Every field is required.",
+      required: "All fields are required.",
       messageLabel: "What are you trying to make easier?",
       messagePlaceholder: "A few sentences are enough.",
       help: "We'll only use these details to reply to your request.",
@@ -321,19 +325,19 @@ export const siteContent = {
         name: "Enter the name we should use when we reply.",
         email: "Enter a work email address, like name@organization.org.",
         organization: "Enter the organization you work with.",
-        role: "Select the option that fits your organization.",
+        role: "Choose the option that best describes your organization.",
         message: "Tell us in a sentence or two what you are working on.",
       },
       configuration:
-        "This form sends through your email app. Your note goes straight to the Lotus Rise team.",
-      mailtoTitle: "Almost there.",
+        "When you send, your email app will open with your note ready to go to the Lotus Rise team.",
+      mailtoTitle: "Your email is ready.",
       mailtoBody:
-        "Your email app should have opened with your note ready to send. If it did not, use the button below.",
+        "Your email app should have opened with your note. If it did not, use the button below.",
       submitError:
         "We could not send your request. Your details are still here, so please try again in a moment.",
       successTitle: "Thank you.",
-      successBody: "Your note is with us.",
-      successReply: "We'll reply to",
+      successBody: "We have your note.",
+      successReply: "We will reply to",
       successReplyTail: "with a clear next step.",
       noscript: "This form needs JavaScript to send your request.",
     },

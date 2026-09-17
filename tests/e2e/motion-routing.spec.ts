@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { content, journeyRoutes, path, routes, test } from "./helpers";
+import { path, content, journeyRoutes, routes, test } from "./helpers";
 
 test.describe("reduced motion", () => {
   test("reveal blocks carry no transform and the lotus renders settled", async ({ page }) => {
@@ -122,11 +122,8 @@ test.describe("routing and export integrity", () => {
   test("every Janus page states module status above its H1", async ({ page }) => {
     const expected: Array<[string, string]> = [
       ["/janus/", content.janusPage.status],
-      [
-        "/janus/evaluation/",
-        `${content.evaluationPage.product} · ${content.evaluationPage.status}`,
-      ],
-      ["/janus/strategy/", `${content.strategyPage.product} · ${content.strategyPage.status}`],
+      ["/janus/evaluation/", content.evaluationPage.status],
+      ["/janus/strategy/", content.strategyPage.status],
     ];
     for (const [route, text] of expected) {
       await page.goto(route);

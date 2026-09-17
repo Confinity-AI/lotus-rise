@@ -92,7 +92,7 @@ export function JanusPage() {
               </p>
             </div>
             <figure className="janus-suite-proof reveal">
-              <figcaption>Real Janus view · {janusPage.ai.caption}</figcaption>
+              <figcaption>Real Janus view: {janusPage.ai.caption.toLowerCase()}</figcaption>
               <Image
                 src={reviewedReport.image}
                 alt={reviewedReport.alt}
