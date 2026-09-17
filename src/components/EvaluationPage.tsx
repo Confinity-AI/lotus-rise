@@ -58,17 +58,17 @@ export function EvaluationPage() {
               </h2>
               <p className="section-intro">{evaluationPage.path.body}</p>
             </div>
-            <div className="janus-path reveal" aria-label="Janus Evaluation path">
+            <ol className="janus-path reveal" aria-label="Janus Evaluation path">
               {evaluationPage.path.steps.map((step, index) => (
-                <div className="janus-path-step" key={step.title}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                <li className="janus-path-step" key={step.title}>
+                  <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                   <div>
                     <strong>{step.title}</strong>
                     <p>{step.copy}</p>
                   </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </section>
 

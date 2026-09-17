@@ -217,7 +217,7 @@ export function JanusTheatre() {
           </div>
           <div className="product-dialog-footer">
             <p>{active.copy}</p>
-            <div className="product-controls" aria-label="Full-screen Janus view controls">
+            <div className="product-controls">
               <button
                 className="icon-button"
                 type="button"

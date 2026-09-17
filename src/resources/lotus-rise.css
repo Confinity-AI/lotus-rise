@@ -2020,6 +2020,9 @@ html[data-js="true"] .reveal.is-visible {
 .janus-path {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
   border-top: 1px solid rgba(255, 255, 255, 0.34);
   border-bottom: 1px solid rgba(255, 255, 255, 0.34);
 }
