@@ -241,7 +241,8 @@ export function ContactForm() {
         </p>
       )}
       <Button className="button button-primary" type="submit" disabled={status === "sending"}>
-        {status === "sending" ? actions.sending : actions.send} <HiArrowRight aria-hidden="true" />
+        {status === "sending" ? actions.sending : configured ? actions.send : actions.sendByEmail}{" "}
+        <HiArrowRight aria-hidden="true" />
       </Button>
       <p className="form-help">{copy.help}</p>
       <noscript>
