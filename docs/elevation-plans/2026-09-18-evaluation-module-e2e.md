@@ -169,9 +169,23 @@ None. No fix was attempted twice; no file was reverted.
 
 `git stash pop` applied cleanly. `src/components/ValuesGrowth.tsx` and `src/resources/lotus-rise.css` carry the owner's uncommitted WIP again (7 and 100 lines), on top of the committed `.janus-path` reset. `scripts/build-pages.mjs` had no WIP.
 
+## Round 5b: end states and finish (owner asked to keep going and to ship)
+
+Method: captured every terminal state on both viewports from the two real exports — validation, submit error, sending, sent, email-app fallback, 404, mobile menu, mobile dialog — and read each as the visitor's last screen.
+
+| ID | Sev | Where | Observation | Fix | Test |
+| --- | :-: | --- | --- | --- | --- |
+| R5-01 | P1 | `contact/page.tsx:22-34` + `ContactForm.tsx:148-166` (at `2ab475f`) | After sending, the "Thank you." panel sat beside the still-standing question **"What would you like to discuss with us?"**, the lead "Tell us what…", and a "What happens next" note that repeated the panel's own reply line. The last screen of the journey argued with itself. | `ContactForm` now renders both columns. Sent and email-app states replace them with one centred panel (`.contact-done`, spans the grid) carrying the page's single `h1`, the body, the reply address, and the actions. | contact-failures: done state has one `h1`, zero `.contact-copy`/`.contact-note`; journey and contact specs assert the `h1` text. |
+| R5-02 | P2 | `ContactForm.tsx` return links | "Return to the homepage" rendered as a filled dark button (design-system primary won over `.button-secondary`), so the sent state showed what looked like a second primary; the email-app state offered no way onward at all. | `variant="secondary"` + scoped outline (`.contact-done-actions .button-secondary`); email-app state gains the same return link beneath **Send by email**. | visual baselines; contact-failures link assertions. |
+| R5-03 | P2 | `lotus-rise.css:314, 4300` | Icon glued to label on every button and module link: Once UI wraps the label, so the flex `gap` never separated them (measured 0 px on submit, hero and header CTAs). | `.button svg { margin-left: 0.5em }`, `.suite-module-link svg { margin-left: 0.4em }`. Owner authorised going past the R6 fence for finish. | within `maxDiffPixelRatio`; visually verified on all CTAs. |
+
+Clean on inspection: validation state (persistent per-field messages, focus on first invalid), submit error (alert above the button, details kept), 404 (one way home), mobile menu, mobile full-screen dialog (pans, readable), path band and review section on mobile.
+
+Suite after 5b: **204 passed, 7 skipped** (`754eb78`). Baselines unchanged within tolerance.
+
 ### Follow-ups (outside this brief)
 
 1. **Linux visual baselines.** Four `-linux.png` files (contact ×2, janus-evaluation ×2) were deleted as stale; the next manual CI run (`.github/workflows/ci.yml`, `workflow_dispatch`) will report them missing and write them. Re-run once to go green. No Docker/WSL here to generate them locally.
-2. **`.button` icon gap.** Once UI wraps the label, so `lotus-rise.css:314` `gap: 10px` never separates text from the arrow (measured 0 px on every button). Outside the R6 selector fence; a `.button svg { margin-left: … }` rule is a one-line owner call.
+2. ~~`.button` icon gap~~ — done in 5b (R5-03).
 3. **Contact endpoint** (unchanged): contract in `.env.example`; the email-app path is live and now honestly labelled.
-4. **Merge and deploy**: R1 forbids pushing from this run. `git checkout main && git merge --ff-only feat/evaluation-journey-e2e && git push && npm run deploy:pages` reproduces the previous release path.
+4. **Merge and deploy** — done at the owner's instruction after 5b: fast-forward to `main`, push, `npm run deploy:pages`, live build hash verified, branch deleted. See the shipping note at the end of this file.
