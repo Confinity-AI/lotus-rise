@@ -19,6 +19,7 @@ export const siteContent = {
     backHome: "Back to homepage",
     returnHome: "Return to the homepage",
     send: "Send request",
+    sendByEmail: "Send by email",
     sending: "Sending",
   },
   hero: {
@@ -306,6 +307,11 @@ export const siteContent = {
     lead: "Tell us what your team is trying to make easier and where the work slows down.",
     nextTitle: "What happens next",
     next: "We'll read your note and reply with a clear next step. If you are asking for the Janus Evaluation preview, mention one real evaluation you have in mind.",
+    recipients: {
+      to: "neeraj@lotusrise.org",
+      cc: ["neeraj@amalgam-inc.com", "ryan@amalgam-inc.com"],
+      subject: "Janus Evaluation preview request",
+    },
     form: {
       required: "Every field is required.",
       messageLabel: "What are you trying to make easier?",
@@ -319,7 +325,10 @@ export const siteContent = {
         message: "Tell us in a sentence or two what you are working on.",
       },
       configuration:
-        "This form is not connected yet, so requests cannot be sent from this page. Please check back soon.",
+        "This form sends through your email app. Your note goes straight to the Lotus Rise team.",
+      mailtoTitle: "Almost there.",
+      mailtoBody:
+        "Your email app should have opened with your note ready to send. If it did not, use the button below.",
       submitError:
         "We could not send your request. Your details are still here, so please try again in a moment.",
       successTitle: "Thank you.",

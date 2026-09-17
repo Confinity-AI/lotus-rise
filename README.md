@@ -51,7 +51,7 @@ Plans, decks, research, evidence, and delivery archives live in `.private/`. The
 
 ## Contact endpoint
 
-The form posts JSON to `NEXT_PUBLIC_CONTACT_ENDPOINT` (see `.env.example` for the exact payload). The variable is inlined at build time, so set it in the environment that runs `npm run build:pages`. Until it is set, `/contact/` renders every field with an honest "not connected" notice and a disabled submit. The endpoint owns validation, spam protection and rate limiting.
+The form posts JSON to `NEXT_PUBLIC_CONTACT_ENDPOINT` (see `.env.example` for the exact payload). The variable is inlined at build time, so set it in the environment that runs `npm run build:pages`. Until it is set, `/contact/` still delivers: after validation the form opens the visitor's email app with the note prefilled, addressed to the recipients in `siteContent.contact.recipients` (`neeraj@lotusrise.org`, cc `neeraj@amalgam-inc.com` and `ryan@amalgam-inc.com`), and shows a "Send by email" button as a fallback. A server endpoint removes the email-app step and adds validation, spam protection and rate limiting on the server.
 
 Read `IMPLEMENTATION_ACCEPTANCE.md` before launch. The contact endpoint, legal wording, preview status, quote permission, final portrait approval, analytics, spam protection, and final product screenshots remain owner-controlled launch gates.
 

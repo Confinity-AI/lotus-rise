@@ -95,27 +95,6 @@ test.describe("measured text contrast", () => {
     await page.goto(`${unsetBase(baseURL)}/contact/`);
     await expect(page.locator("output.form-status")).toBeVisible();
     expect(await page.evaluate(MEASURE)).toEqual([]);
-
-    // The disabled submit is exempt from 1.4.3 but ships permanently in this state,
-    // so hold it to the same readable floor.
-    const disabled = page.locator("form.contact-form button[disabled]");
-    await expect(disabled).toHaveCount(1);
-    const ratio = await disabled.evaluate((node) => {
-      const luminance = (color: string) => {
-        const [r, g, b] = (color.match(/[\d.]+/g) as string[])
-          .slice(0, 3)
-          .map(Number)
-          .map((v) => v / 255)
-          .map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
-        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-      };
-      const [l1, l2] = [
-        luminance(getComputedStyle(node).color),
-        luminance(getComputedStyle(node).backgroundColor),
-      ].sort((a, b) => b - a);
-      return (l1 + 0.05) / (l2 + 0.05);
-    });
-    expect(ratio).toBeGreaterThanOrEqual(4.5);
   });
 
   test("suite module links stay legible on both the dark and light bands", async ({ page }) => {

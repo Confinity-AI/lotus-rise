@@ -153,7 +153,7 @@ test.describe("contact failure states", () => {
 });
 
 test.describe("contact endpoint unset (build with env absent)", () => {
-  test("degrades honestly before the visitor types anything", async ({ page, baseURL }) => {
+  test("delivers through the visitor's email app to the team", async ({ page, baseURL }) => {
     await captureAnalytics(page);
     let requests = 0;
     await page.route(/__contact/, (route) => {
@@ -165,28 +165,38 @@ test.describe("contact endpoint unset (build with env absent)", () => {
     const form = page.locator("form.contact-form");
     await expect(form).toHaveAttribute("data-configured", "false");
     const notice = page.locator("output.form-status");
-    await expect(notice).toBeVisible();
     await expect(notice).toHaveText(copy.configuration);
-    // The notice precedes the first field in reading order.
-    const order = await page.evaluate(() => {
-      const notice = document.querySelector("output.form-status");
-      const field = document.querySelector("#name");
-      return notice && field
-        ? Boolean(notice.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING)
-        : null;
-    });
-    expect(order).toBe(true);
+    await expect(page.getByRole("button", { name: actions.send })).toBeEnabled();
 
-    // Fields render; submit is disabled; nothing is sent.
-    await expect(page.getByLabel("Name")).toBeVisible();
-    await expect(page.getByRole("button", { name: actions.send })).toBeDisabled();
+    // Validation still guards the email path.
+    await page.getByRole("button", { name: actions.send }).click();
+    await expect(page.locator(".field-error")).toHaveCount(5);
+    await expect(page.locator("output.form-success")).toHaveCount(0);
+
     await fillContactForm(page);
-    await page.keyboard.press("Enter");
-    expect(requests).toBe(0);
-    await expect(page.locator(".form-error")).toHaveCount(0);
+    await page.getByRole("button", { name: actions.send }).click();
 
+    const panel = page.locator("output.form-success");
+    await expect(panel).toBeVisible();
+    await expect(panel.locator("h2")).toHaveText(copy.mailtoTitle);
+    const link = panel.getByRole("link", { name: actions.sendByEmail });
+    const href = (await link.getAttribute("href")) ?? "";
+    const url = new URL(href);
+    expect(url.protocol).toBe("mailto:");
+    expect(url.pathname).toBe(content.contact.recipients.to);
+    const params = new URLSearchParams(url.search);
+    expect(params.get("cc")).toBe(content.contact.recipients.cc.join(","));
+    expect(params.get("subject")).toBe(
+      `${content.contact.recipients.subject} from ${contactFixture.organization}`,
+    );
+    const body = params.get("body") ?? "";
+    for (const value of Object.values(contactFixture)) expect(body).toContain(value);
+    expect(href).not.toContain("+");
+
+    expect(requests).toBe(0);
     const names = (await readAnalytics(page)).map((event) => event.name);
     expect(names.filter((name) => name === "contact_configuration_error")).toHaveLength(1);
+    expect(names).toContain("contact_mailto");
     expect(names).not.toContain("contact_submit");
   });
 });

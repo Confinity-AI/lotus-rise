@@ -364,7 +364,7 @@ None. No file was reverted.
 
 ### Launch blockers and follow-ups
 
-1. **Contact endpoint** (the only blocker). Production ships with `NEXT_PUBLIC_CONTACT_ENDPOINT` unset; `/contact/` says so honestly before the visitor types. The exact contract is in `.env.example` and `README.md`; provisioning is configuration plus a small server with CORS, validation and rate limiting.
+1. **Contact endpoint** (optional now, not a blocker). The owner supplied real recipients (`neeraj@lotusrise.org`, cc `neeraj@amalgam-inc.com`, `ryan@amalgam-inc.com`), so with the endpoint unset the form validates, then opens the visitor's email app with the note prefilled and shows a "Send by email" fallback (`contact_mailto` event). The original C6 `mailto:` rule now has an evidence-bound address. A server endpoint (contract in `.env.example`) would remove the email-app step and add server-side validation and rate limiting.
 2. **Analytics sink and consent UI.** `window.__lotusAnalytics` and `window.__lotusConsent` are the integration points; both live outside this repository.
 3. **Homepage brand PNGs** (1.7 MB, lazy, below the fold) could be re-encoded as WebP; brand assets, owner call.
 4. **Legal wording and quote permission** (`AGENTS.md:29`); unchanged by this work.

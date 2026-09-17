@@ -7,7 +7,7 @@ import { Button } from "@once-ui-system/core";
 import { type FormEvent, useEffect, useRef, useState } from "react";
 import { HiArrowRight } from "react-icons/hi2";
 
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sending" | "sent" | "mailto" | "error";
 type FieldName = keyof typeof copy.fieldErrors;
 
 const endpoint = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT || "";
@@ -15,12 +15,33 @@ const configured = endpoint.length > 0;
 const { form: copy } = siteContent.contact;
 const { actions } = siteContent;
 const fieldOrder: FieldName[] = ["name", "email", "organization", "role", "message"];
+const { recipients } = siteContent.contact;
+
+/** Without a server endpoint the visitor's own email app carries the note to the team. */
+function mailtoFor(payload: Record<string, string>) {
+  const lines = [
+    `Name: ${payload.name}`,
+    `Work email: ${payload.email}`,
+    `Organization: ${payload.organization}`,
+    `Organization type: ${payload.role}`,
+    "",
+    payload.message,
+  ];
+  const params = new URLSearchParams({
+    cc: recipients.cc.join(","),
+    subject: `${recipients.subject} from ${payload.organization}`,
+    body: lines.join("\n"),
+  });
+  // URLSearchParams encodes spaces as "+", which mail clients render literally.
+  return `mailto:${recipients.to}?${params.toString().replace(/\+/g, "%20")}`;
+}
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
   const [invalid, setInvalid] = useState<Partial<Record<FieldName, boolean>>>({});
   const [sentTo, setSentTo] = useState("");
+  const [mailto, setMailto] = useState("");
   const successRef = useRef<HTMLOutputElement>(null);
   const startedRef = useRef(false);
   const sendingRef = useRef(false);
@@ -55,7 +76,7 @@ export function ContactForm() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
-    if (!configured || sendingRef.current) return;
+    if (sendingRef.current) return;
 
     if (!form.checkValidity()) {
       reportInvalidFields(form);
@@ -63,6 +84,17 @@ export function ContactForm() {
     }
 
     setInvalid({});
+    if (!configured) {
+      const payload = Object.fromEntries(new FormData(form).entries()) as Record<string, string>;
+      const href = mailtoFor(payload);
+      setMailto(href);
+      setStatus("mailto");
+      track("contact_mailto");
+      window.location.assign(href);
+      requestAnimationFrame(() => successRef.current?.focus());
+      return;
+    }
+
     sendingRef.current = true;
     setStatus("sending");
     setError("");
@@ -99,6 +131,18 @@ export function ContactForm() {
       "aria-describedby": invalid[name] ? `${name}-error` : undefined,
       onInput: () => clearInvalid(name),
     };
+  }
+
+  if (status === "mailto") {
+    return (
+      <output className="form-success is-visible" aria-live="polite" tabIndex={-1} ref={successRef}>
+        <h2>{copy.mailtoTitle}</h2>
+        <p>{copy.mailtoBody}</p>
+        <a className="button button-primary" href={mailto} data-cta={actions.sendByEmail}>
+          {actions.sendByEmail} <HiArrowRight aria-hidden="true" />
+        </a>
+      </output>
+    );
   }
 
   if (status === "sent") {
@@ -196,11 +240,7 @@ export function ContactForm() {
           {error}
         </p>
       )}
-      <Button
-        className="button button-primary"
-        type="submit"
-        disabled={!configured || status === "sending"}
-      >
+      <Button className="button button-primary" type="submit" disabled={status === "sending"}>
         {status === "sending" ? actions.sending : actions.send} <HiArrowRight aria-hidden="true" />
       </Button>
       <p className="form-help">{copy.help}</p>
