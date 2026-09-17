@@ -50,6 +50,12 @@ export function ContactForm() {
     if (!configured) track("contact_configuration_error");
   }, []);
 
+  // Focus after React has committed the <output>; a requestAnimationFrame can run before the
+  // commit in WebKit and land on nothing.
+  useEffect(() => {
+    if (status === "sent" || status === "mailto") successRef.current?.focus();
+  }, [status]);
+
   function noteStart() {
     if (startedRef.current) return;
     startedRef.current = true;
@@ -91,7 +97,6 @@ export function ContactForm() {
       setStatus("mailto");
       track("contact_mailto");
       window.location.assign(href);
-      requestAnimationFrame(() => successRef.current?.focus());
       return;
     }
 
@@ -112,7 +117,6 @@ export function ContactForm() {
       setSentTo(String(payload.email ?? ""));
       setStatus("sent");
       track("contact_complete");
-      requestAnimationFrame(() => successRef.current?.focus());
     } catch {
       setError(copy.submitError);
       setStatus("error");
