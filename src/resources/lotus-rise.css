@@ -329,6 +329,8 @@ a {
 .button svg {
   position: relative;
   top: 1px;
+  /* Once UI wraps the label, so the flex gap above never separates text from icon. */
+  margin-left: 0.5em;
   width: 1.05em;
   height: 1.05em;
   flex: 0 0 auto;
@@ -2876,11 +2878,49 @@ html[data-js="true"] .reveal.is-visible {
   display: block;
 }
 
+.form-success h1,
 .form-success h2 {
   margin: 0 0 8px;
   font-family: var(--display);
   font-size: 34px;
   font-weight: 500;
+}
+
+/* Done state: one panel across both columns, so the answered question is not left standing. */
+.contact-done {
+  grid-column: 1 / -1;
+  width: min(100%, 640px);
+  margin: 0 auto;
+  padding: 44px;
+}
+
+.contact-done h1 {
+  font-size: 44px;
+  line-height: 1.05;
+}
+
+.contact-done > p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 18px;
+}
+
+.contact-done-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.contact-done-actions .button {
+  margin-top: 0;
+}
+
+/* Scoped so the outline beats the design-system secondary variant regardless of order. */
+.contact-done-actions .button-secondary {
+  border-color: rgba(21, 35, 29, 0.35);
+  background: #fff;
+  color: var(--ink);
 }
 
 /* Boards */
@@ -4313,6 +4353,7 @@ html[data-js="true"] .reveal.is-visible {
 .suite-module-link svg {
   position: relative;
   top: 1px;
+  margin-left: 0.4em;
   width: 1.05em;
   height: 1.05em;
   flex: 0 0 auto;

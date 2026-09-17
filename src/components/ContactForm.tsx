@@ -12,10 +12,10 @@ type FieldName = keyof typeof copy.fieldErrors;
 
 const endpoint = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT || "";
 const configured = endpoint.length > 0;
-const { form: copy } = siteContent.contact;
-const { actions } = siteContent;
+const { contact, actions } = siteContent;
+const { form: copy } = contact;
 const fieldOrder: FieldName[] = ["name", "email", "organization", "role", "message"];
-const { recipients } = siteContent.contact;
+const { recipients } = contact;
 
 /** Without a server endpoint the visitor's own email app carries the note to the team. */
 function mailtoFor(payload: Record<string, string>) {
@@ -137,121 +137,163 @@ export function ContactForm() {
     };
   }
 
+  // Done states replace both columns: the question has been answered, so the page reads as
+  // one acknowledgement rather than a thank-you panel beside a stale prompt.
   if (status === "mailto") {
     return (
-      <output className="form-success is-visible" aria-live="polite" tabIndex={-1} ref={successRef}>
-        <h2>{copy.mailtoTitle}</h2>
+      <output
+        className="form-success is-visible contact-done"
+        aria-live="polite"
+        tabIndex={-1}
+        ref={successRef}
+      >
+        <h1>{copy.mailtoTitle}</h1>
         <p>{copy.mailtoBody}</p>
-        <a className="button button-primary" href={mailto} data-cta={actions.sendByEmail}>
-          {actions.sendByEmail} <HiArrowRight aria-hidden="true" />
-        </a>
+        <div className="contact-done-actions">
+          <a className="button button-primary" href={mailto} data-cta={actions.sendByEmail}>
+            {actions.sendByEmail} <HiArrowRight aria-hidden="true" />
+          </a>
+          <StaticLinkButton
+            className="button button-secondary"
+            variant="secondary"
+            href="/"
+            data-cta={actions.returnHome}
+          >
+            {actions.returnHome}
+          </StaticLinkButton>
+        </div>
       </output>
     );
   }
 
   if (status === "sent") {
     return (
-      <output className="form-success is-visible" aria-live="polite" tabIndex={-1} ref={successRef}>
-        <h2>{copy.successTitle}</h2>
+      <output
+        className="form-success is-visible contact-done"
+        aria-live="polite"
+        tabIndex={-1}
+        ref={successRef}
+      >
+        <h1>{copy.successTitle}</h1>
         <p>{copy.successBody}</p>
         {sentTo && (
           <p className="form-success-reply">
             {copy.successReply} <strong>{sentTo}</strong> {copy.successReplyTail}
           </p>
         )}
-        <StaticLinkButton
-          className="button button-secondary"
-          href="/"
-          data-cta={actions.returnHome}
-        >
-          {actions.returnHome}
-        </StaticLinkButton>
+        <div className="contact-done-actions">
+          <StaticLinkButton
+            className="button button-secondary"
+            variant="secondary"
+            href="/"
+            data-cta={actions.returnHome}
+          >
+            {actions.returnHome}
+          </StaticLinkButton>
+        </div>
       </output>
     );
   }
 
   return (
-    <form
-      className="contact-form"
-      method="post"
-      noValidate
-      onSubmit={submit}
-      onFocus={noteStart}
-      aria-busy={status === "sending"}
-      data-configured={configured}
-    >
-      {!configured && <output className="form-status">{copy.configuration}</output>}
-      <p className="form-required">{copy.required}</p>
-      <div className="form-row">
-        <div className="field">
-          <label htmlFor="name">Name</label>
-          <input {...fieldProps("name")} autoComplete="name" />
-          {invalid.name && (
-            <p className="field-error" id="name-error">
-              {copy.fieldErrors.name}
+    <>
+      <section className="contact-copy">
+        <h1>{contact.title}</h1>
+        <p>{contact.lead}</p>
+        <div className="contact-note">
+          <strong>{contact.nextTitle}</strong>
+          <br />
+          {contact.next}
+        </div>
+      </section>
+      <section aria-label="Contact form">
+        <form
+          className="contact-form"
+          method="post"
+          noValidate
+          onSubmit={submit}
+          onFocus={noteStart}
+          aria-busy={status === "sending"}
+          data-configured={configured}
+        >
+          {!configured && <output className="form-status">{copy.configuration}</output>}
+          <p className="form-required">{copy.required}</p>
+          <div className="form-row">
+            <div className="field">
+              <label htmlFor="name">Name</label>
+              <input {...fieldProps("name")} autoComplete="name" />
+              {invalid.name && (
+                <p className="field-error" id="name-error">
+                  {copy.fieldErrors.name}
+                </p>
+              )}
+            </div>
+            <div className="field">
+              <label htmlFor="email">Work email</label>
+              <input {...fieldProps("email")} type="email" autoComplete="email" />
+              {invalid.email && (
+                <p className="field-error" id="email-error">
+                  {copy.fieldErrors.email}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="field">
+              <label htmlFor="organization">Organization</label>
+              <input {...fieldProps("organization")} autoComplete="organization" />
+              {invalid.organization && (
+                <p className="field-error" id="organization-error">
+                  {copy.fieldErrors.organization}
+                </p>
+              )}
+            </div>
+            <div className="field">
+              <label htmlFor="role">Organization type</label>
+              <select {...fieldProps("role")} defaultValue="">
+                <option value="" disabled>
+                  Select one
+                </option>
+                <option>Foundation</option>
+                <option>Nonprofit</option>
+                <option>Evaluation team</option>
+                <option>Other mission-led organization</option>
+              </select>
+              {invalid.role && (
+                <p className="field-error" id="role-error">
+                  {copy.fieldErrors.role}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="field">
+            <label htmlFor="message">{copy.messageLabel}</label>
+            <textarea {...fieldProps("message")} placeholder={copy.messagePlaceholder} />
+            {invalid.message && (
+              <p className="field-error" id="message-error">
+                {copy.fieldErrors.message}
+              </p>
+            )}
+          </div>
+          {status === "error" && (
+            <p className="form-error" role="alert">
+              {error}
             </p>
           )}
-        </div>
-        <div className="field">
-          <label htmlFor="email">Work email</label>
-          <input {...fieldProps("email")} type="email" autoComplete="email" />
-          {invalid.email && (
-            <p className="field-error" id="email-error">
-              {copy.fieldErrors.email}
-            </p>
-          )}
-        </div>
-      </div>
-      <div className="form-row">
-        <div className="field">
-          <label htmlFor="organization">Organization</label>
-          <input {...fieldProps("organization")} autoComplete="organization" />
-          {invalid.organization && (
-            <p className="field-error" id="organization-error">
-              {copy.fieldErrors.organization}
-            </p>
-          )}
-        </div>
-        <div className="field">
-          <label htmlFor="role">Organization type</label>
-          <select {...fieldProps("role")} defaultValue="">
-            <option value="" disabled>
-              Select one
-            </option>
-            <option>Foundation</option>
-            <option>Nonprofit</option>
-            <option>Evaluation team</option>
-            <option>Other mission-led organization</option>
-          </select>
-          {invalid.role && (
-            <p className="field-error" id="role-error">
-              {copy.fieldErrors.role}
-            </p>
-          )}
-        </div>
-      </div>
-      <div className="field">
-        <label htmlFor="message">{copy.messageLabel}</label>
-        <textarea {...fieldProps("message")} placeholder={copy.messagePlaceholder} />
-        {invalid.message && (
-          <p className="field-error" id="message-error">
-            {copy.fieldErrors.message}
-          </p>
-        )}
-      </div>
-      {status === "error" && (
-        <p className="form-error" role="alert">
-          {error}
-        </p>
-      )}
-      <Button className="button button-primary" type="submit" disabled={status === "sending"}>
-        {status === "sending" ? actions.sending : configured ? actions.send : actions.sendByEmail}{" "}
-        <HiArrowRight aria-hidden="true" />
-      </Button>
-      <p className="form-help">{copy.help}</p>
-      <noscript>
-        <p className="form-help">{copy.noscript}</p>
-      </noscript>
-    </form>
+          <Button className="button button-primary" type="submit" disabled={status === "sending"}>
+            {status === "sending"
+              ? actions.sending
+              : configured
+                ? actions.send
+                : actions.sendByEmail}{" "}
+            <HiArrowRight aria-hidden="true" />
+          </Button>
+          <p className="form-help">{copy.help}</p>
+          <noscript>
+            <p className="form-help">{copy.noscript}</p>
+          </noscript>
+        </form>
+      </section>
+    </>
   );
 }

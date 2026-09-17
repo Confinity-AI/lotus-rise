@@ -80,7 +80,7 @@ test("home → Evaluation → theatre → dialog → contact → sent → home",
   await expect(output).toBeVisible();
   await expect(output).toBeFocused();
   await expect(output).toContainText(content.contact.form.successTitle);
-  await expect(output.locator("h2")).toHaveText(content.contact.form.successTitle);
+  await expect(output.locator("h1")).toHaveText(content.contact.form.successTitle);
 
   await output.getByRole("link", { name: actions.returnHome }).click();
   await expect(page).toHaveURL(/^https?:\/\/localhost:3010\/$/);

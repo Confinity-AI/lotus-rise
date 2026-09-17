@@ -131,7 +131,10 @@ test.describe("contact failure states", () => {
       },
     });
 
-    await expect(success.locator("h2")).toHaveText(copy.successTitle);
+    await expect(success.locator("h1")).toHaveText(copy.successTitle);
+    // The done state is the whole page: the answered question and its note are gone, one h1 remains.
+    await expect(page.locator("h1")).toHaveCount(1);
+    await expect(page.locator(".contact-copy, .contact-note")).toHaveCount(0);
     await expect(success.locator(".form-success-reply")).toHaveText(
       `${copy.successReply} ${contactFixture.email} ${copy.successReplyTail}`,
     );
@@ -205,7 +208,7 @@ test.describe("contact endpoint unset (build with env absent)", () => {
 
     const panel = page.locator("output.form-success");
     await expect(panel).toBeVisible();
-    await expect(panel.locator("h2")).toHaveText(copy.mailtoTitle);
+    await expect(panel.locator("h1")).toHaveText(copy.mailtoTitle);
     const link = panel.getByRole("link", { name: actions.sendByEmail });
     const href = (await link.getAttribute("href")) ?? "";
     const url = new URL(href);
