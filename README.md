@@ -49,4 +49,12 @@ npm run test:e2e
 
 Plans, decks, research, evidence, and delivery archives live in `.private/`. The folder is excluded by both repository and local Git rules and must never be committed or deployed.
 
+## Contact endpoint
+
+The form posts JSON to `NEXT_PUBLIC_CONTACT_ENDPOINT` (see `.env.example` for the exact payload). The variable is inlined at build time, so set it in the environment that runs `npm run build:pages`. Until it is set, `/contact/` renders every field with an honest "not connected" notice and a disabled submit. The endpoint owns validation, spam protection and rate limiting.
+
 Read `IMPLEMENTATION_ACCEPTANCE.md` before launch. The contact endpoint, legal wording, preview status, quote permission, final portrait approval, analytics, spam protection, and final product screenshots remain owner-controlled launch gates.
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs typecheck, lint, `next build` and the full Playwright suite on every pull request and on pushes to `main`, and uploads the HTML report and any failure traces as an artifact. Visual baselines are generated on Linux Chromium and match the runner. Deployment stays manual (`npm run deploy:pages`).
