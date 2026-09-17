@@ -165,7 +165,7 @@ test.describe("routing and export integrity", () => {
     const response = await page.goto("/janus/reporting/");
     expect(response?.status()).toBe(404);
     await expect(page.locator("main").getByRole("link", { name: /homepage/i })).toHaveCount(1);
-    await expect(page.locator("header").getByText(content.actions.backHome)).toHaveCount(0);
+    await expect(page.locator("header").getByText(/back to homepage/i)).toHaveCount(0);
   });
 
   test("the hub and the module do not open on the same capture", async ({ page }) => {

@@ -147,7 +147,7 @@ test.describe("contact failure states", () => {
     await expect(page.getByRole("button", { name: actions.sendByEmail })).toHaveCount(0);
     // FL-01: the header CTA slot is empty on the contact page; nav links remain, on both layouts.
     await expect(page.locator("header .button")).toHaveCount(0);
-    await expect(page.locator("header").getByText(actions.backHome)).toHaveCount(0);
+    await expect(page.locator("header").getByText(/back to homepage/i)).toHaveCount(0);
     await expect(page.locator("header .nav-links-desktop a")).toHaveCount(content.navigation.length);
     await expect(page.locator("header .mobile-nav-panel a")).toHaveCount(content.navigation.length);
   });

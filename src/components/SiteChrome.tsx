@@ -48,13 +48,13 @@ export function SiteHeader({ currentPage = "home" }: SiteChromeProps) {
           </a>
           <nav className="nav-links nav-links-desktop" aria-label="Primary navigation">
             <PageLinks currentPage={currentPage} />
-            <StaticLinkButton
-              className={contact ? "button button-secondary" : "button button-primary"}
-              href={contact ? "/" : "/contact/"}
-            >
-              {contact ? siteContent.actions.backHome : siteContent.actions.contactUs}
-              {!contact && <HiArrowRight aria-hidden="true" />}
-            </StaticLinkButton>
+            {/* The contact page is the end of the path: no competing or backward action in its header. */}
+            {!contact && (
+              <StaticLinkButton className="button button-primary" href="/contact/">
+                {siteContent.actions.contactUs}
+                <HiArrowRight aria-hidden="true" />
+              </StaticLinkButton>
+            )}
           </nav>
           <details className="mobile-nav">
             <summary className="mobile-nav-trigger">
@@ -64,9 +64,7 @@ export function SiteHeader({ currentPage = "home" }: SiteChromeProps) {
             </summary>
             <nav className="mobile-nav-panel" aria-label="Mobile navigation">
               <PageLinks currentPage={currentPage} />
-              <a href={sitePath(contact ? "/" : "/contact/")}>
-                {contact ? siteContent.actions.backHome : siteContent.actions.contactUs}
-              </a>
+              {!contact && <a href={sitePath("/contact/")}>{siteContent.actions.contactUs}</a>}
             </nav>
           </details>
         </div>

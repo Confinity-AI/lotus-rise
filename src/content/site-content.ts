@@ -16,7 +16,6 @@ export const siteContent = {
     requestPreview: "Request a preview",
     registerInterest: "Register interest",
     contactUs: "Contact us",
-    backHome: "Back to homepage",
     returnHome: "Return to the homepage",
     send: "Send request",
     sendByEmail: "Send by email",
