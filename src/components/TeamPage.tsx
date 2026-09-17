@@ -5,6 +5,8 @@ import { sitePath } from "@/lib/site-path";
 import Image from "next/image";
 import { HiArrowRight } from "react-icons/hi2";
 
+const [programPath] = siteContent.janus.views;
+
 export function TeamPage() {
   const { team } = siteContent;
 
@@ -63,10 +65,10 @@ export function TeamPage() {
                 <div className="team-origin-product-media">
                   <span>Real Janus view</span>
                   <Image
-                    src={sitePath("/lotus-rise/product/janus-program-path.webp")}
+                    src={programPath.image}
                     alt="Janus program path showing the connected evaluation workflow"
-                    width={1905}
-                    height={848}
+                    width={programPath.width}
+                    height={programPath.height}
                     sizes="(max-width: 960px) calc(100vw - 48px), 520px"
                   />
                 </div>

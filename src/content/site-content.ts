@@ -57,8 +57,8 @@ export const siteContent = {
       {
         title: "Program path",
         shortTitle: "Program path",
-        image: sitePath("/lotus-rise/product/janus-program-path.webp"),
-        width: 1905,
+        image: sitePath("/lotus-rise/product/janus-program-path-v2.webp"),
+        width: 1659,
         height: 848,
         copy: "See every stage of the evaluation in one path.",
         alt: "Real Janus screen showing the evaluation program path",
@@ -152,8 +152,14 @@ export const siteContent = {
     },
     path: {
       title: "Build the record as the work happens.",
-      body: "Questions, measures, evidence and findings stay linked from setup to review. The report is the end of the path, not a fresh start.",
-      steps: ["Program plan", "Questions + measures", "Evidence + findings", "Review + report"],
+      body: "Five steps, one record. Questions, measures, evidence and findings stay linked from setup to review, and the report is the end of the path, not a fresh start.",
+      steps: [
+        { title: "Profile", copy: "The program, its context and the people it serves." },
+        { title: "Design", copy: "Evaluation questions, measures and methods." },
+        { title: "Fieldwork", copy: "Evidence gathered and kept with its source." },
+        { title: "Analysis", copy: "Findings traced back to the evidence." },
+        { title: "Deliverables", copy: "The reviewed report, approved by people." },
+      ],
     },
     gallery: {
       title: "See Evaluation as it is today.",
