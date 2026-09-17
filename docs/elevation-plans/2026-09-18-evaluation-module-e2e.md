@@ -183,9 +183,18 @@ Clean on inspection: validation state (persistent per-field messages, focus on f
 
 Suite after 5b: **204 passed, 7 skipped** (`754eb78`). Baselines unchanged within tolerance.
 
+## Round 5c: the last dead end, and the CI attempt
+
+| ID | Sev | Where | Observation | Fix | Test |
+| --- | :-: | --- | --- | --- | --- |
+| R5-04 | P1 | `ContactForm.tsx:212` (at `754eb78`) | With JavaScript off, the form was `method="post"` with no `action`: submit POSTed to the static host and died with a 405, while the `<noscript>` note only said the form "needs JavaScript". The one path with no way forward. | `action="mailto:<to>?cc=…&subject=…"` + `encType="text/plain"`: a no-JS submit opens the visitor's email app with each field on its own line, to the same recipients the JS path uses. With JS on, `preventDefault()` runs first, so nothing changes. Note now says what will happen (`contact.form.noscript`). | contact-failures: served HTML has `method="post"`, `enctype="text/plain"`, a `mailto:` action to `recipients.to` with the `cc` list, and the noscript note. |
+| R5-05 | — | `.github/workflows/ci.yml` | Triggered the manual run (`gh workflow run ci.yml`, run 35287587855) to let Linux write the four missing visual baselines. GitHub declined to start the job: **"your account is locked due to a billing issue."** | None possible from this repo. Baselines for this platform (win32) are committed and green; the Linux set needs either the billing hold cleared and one CI run, or a Linux machine running `npx playwright test visual --update-snapshots`. | — |
+
+Suite after 5c: **207 passed, 7 skipped**.
+
 ### Follow-ups (outside this brief)
 
-1. **Linux visual baselines.** Four `-linux.png` files (contact ×2, janus-evaluation ×2) were deleted as stale; the next manual CI run (`.github/workflows/ci.yml`, `workflow_dispatch`) will report them missing and write them. Re-run once to go green. No Docker/WSL here to generate them locally.
+1. **Linux visual baselines.** Four `-linux.png` files (contact ×2, janus-evaluation ×2) were deleted as stale. CI cannot run until the GitHub billing hold on the account is cleared (R5-05); then one `workflow_dispatch` run writes them and a second goes green.
 2. ~~`.button` icon gap~~ — done in 5b (R5-03).
 3. **Contact endpoint** (unchanged): contract in `.env.example`; the email-app path is live and now honestly labelled.
 4. **Merge and deploy** — done at the owner's instruction after 5b: fast-forward to `main`, push, `npm run deploy:pages`, live build hash verified, branch deleted. See the shipping note at the end of this file.

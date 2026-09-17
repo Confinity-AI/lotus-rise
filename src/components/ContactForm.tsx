@@ -36,6 +36,14 @@ function mailtoFor(payload: Record<string, string>) {
   return `mailto:${recipients.to}?${params.toString().replace(/\+/g, "%20")}`;
 }
 
+/** No-JS fallback: a plain-text POST to mailto: opens the email app with the fields as lines. */
+const noScriptAction = `mailto:${recipients.to}?${new URLSearchParams({
+  cc: recipients.cc.join(","),
+  subject: recipients.subject,
+})
+  .toString()
+  .replace(/\+/g, "%20")}`;
+
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
@@ -210,6 +218,8 @@ export function ContactForm() {
         <form
           className="contact-form"
           method="post"
+          action={noScriptAction}
+          encType="text/plain"
           noValidate
           onSubmit={submit}
           onFocus={noteStart}

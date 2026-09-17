@@ -338,7 +338,8 @@ export const siteContent = {
       successBody: "We have your note.",
       successReply: "We will reply to",
       successReplyTail: "with a clear next step.",
-      noscript: "This form needs JavaScript to send your request.",
+      noscript:
+        "JavaScript is off, so sending will open your email app with your details filled in.",
     },
   },
 } as const;

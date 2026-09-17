@@ -5,6 +5,7 @@ import {
   contactFixture,
   content,
   fillContactForm,
+  plainBase,
   readAnalytics,
   test,
   unsetBase,
@@ -153,6 +154,24 @@ test.describe("contact failure states", () => {
     await expect(page.locator("header").getByText(/back to homepage/i)).toHaveCount(0);
     await expect(page.locator("header .nav-links-desktop a")).toHaveCount(content.navigation.length);
     await expect(page.locator("header .mobile-nav-panel a")).toHaveCount(content.navigation.length);
+  });
+
+  test("without JavaScript the form still reaches the team through the email app", async ({
+    request,
+    baseURL,
+  }) => {
+    // Served HTML only: what a no-JS browser gets. A plain-text POST to mailto: opens the
+    // visitor's email app with each field as a line; the noscript note says so.
+    const html = await (await request.get(`${plainBase(baseURL)}/contact/`)).text();
+    const form = /<form[^>]*class="contact-form"[^>]*>/.exec(html)?.[0] ?? "";
+    expect(form).toContain('method="post"');
+    expect(form.toLowerCase()).toContain('enctype="text/plain"');
+    const action = /action="([^"]+)"/.exec(form)?.[1]?.replace(/&amp;/g, "&") ?? "";
+    const url = new URL(action);
+    expect(url.protocol).toBe("mailto:");
+    expect(url.pathname).toBe(content.contact.recipients.to);
+    expect(new URLSearchParams(url.search).get("cc")).toBe(content.contact.recipients.cc.join(","));
+    expect(html).toContain(`<noscript><p class="form-help">${copy.noscript}</p></noscript>`);
   });
 
   test("sending state disables the button and marks the form busy", async ({ page }) => {
