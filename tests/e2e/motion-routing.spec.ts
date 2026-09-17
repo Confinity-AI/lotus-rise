@@ -1,5 +1,5 @@
-import { expect, test } from "@playwright/test";
-import { content, journeyRoutes, path, routes } from "./helpers";
+import { expect } from "@playwright/test";
+import { content, journeyRoutes, path, routes, test } from "./helpers";
 
 test.describe("reduced motion", () => {
   test("reveal blocks carry no transform and the lotus renders settled", async ({ page }) => {
@@ -12,9 +12,8 @@ test.describe("reduced motion", () => {
         opacity: getComputedStyle(node).opacity,
       })),
     );
-    // The entrance transform is translateY(18px); settled state must be identity or none.
     for (const entry of transforms) {
-      expect(["none", "matrix(1, 0, 0, 1, 0, 0)"]).toContain(entry.transform);
+      expect(entry.transform).toBe("none");
       expect(entry.opacity).toBe("1");
     }
     const lotus = page.locator(".lotus-bloom");
@@ -143,6 +142,31 @@ test.describe("routing and export integrity", () => {
       });
       expect(before).toBe(true);
     }
+  });
+
+  test("the path band mirrors the product's own five steps", async ({ page }) => {
+    await page.goto("/janus/evaluation/");
+    const steps = page.locator(".janus-path-step");
+    await expect(steps).toHaveCount(content.evaluationPage.path.steps.length);
+    for (const [index, step] of content.evaluationPage.path.steps.entries()) {
+      await expect(steps.nth(index).locator("strong")).toHaveText(step.title);
+      await expect(steps.nth(index).locator("p")).toHaveText(step.copy);
+    }
+    // Each stage name is one the product itself uses (visible in the program-path capture).
+    expect(content.evaluationPage.path.steps.map((step) => step.title)).toEqual([
+      "Profile",
+      "Design",
+      "Fieldwork",
+      "Analysis",
+      "Deliverables",
+    ]);
+  });
+
+  test("the 404 page offers one way home", async ({ page }) => {
+    const response = await page.goto("/janus/reporting/");
+    expect(response?.status()).toBe(404);
+    await expect(page.locator("main").getByRole("link", { name: /homepage/i })).toHaveCount(1);
+    await expect(page.locator("header").getByText(content.actions.backHome)).toHaveCount(0);
   });
 
   test("the hub and the module do not open on the same capture", async ({ page }) => {

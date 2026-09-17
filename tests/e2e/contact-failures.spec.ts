@@ -1,12 +1,13 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
 import {
-  MOCK_ENDPOINT,
-  UNSET_BASE,
+  MOCK_ENDPOINT_PATTERN,
   captureAnalytics,
   contactFixture,
   content,
   fillContactForm,
   readAnalytics,
+  test,
+  unsetBase,
 } from "./helpers";
 
 const { form: copy } = content.contact;
@@ -17,7 +18,9 @@ test.describe("contact failure states", () => {
     page,
   }) => {
     await captureAnalytics(page);
-    await page.route(MOCK_ENDPOINT, (route) => route.fulfill({ status: 500, body: "nope" }));
+    await page.route(MOCK_ENDPOINT_PATTERN, (route) =>
+      route.fulfill({ status: 500, body: "nope" }),
+    );
     await page.goto("/contact/");
     await fillContactForm(page);
     await page.getByRole("button", { name: actions.send }).click();
@@ -36,7 +39,7 @@ test.describe("contact failure states", () => {
   });
 
   test("network failure → alert, button re-enabled", async ({ page }) => {
-    await page.route(MOCK_ENDPOINT, (route) => route.abort("connectionrefused"));
+    await page.route(MOCK_ENDPOINT_PATTERN, (route) => route.abort("connectionrefused"));
     await page.goto("/contact/");
     await fillContactForm(page);
     await page.getByRole("button", { name: actions.send }).click();
@@ -46,7 +49,7 @@ test.describe("contact failure states", () => {
 
   test("double click sends exactly one request", async ({ page }) => {
     let requests = 0;
-    await page.route(MOCK_ENDPOINT, async (route) => {
+    await page.route(MOCK_ENDPOINT_PATTERN, async (route) => {
       requests += 1;
       await new Promise((resolve) => setTimeout(resolve, 400));
       await route.fulfill({ status: 200, contentType: "application/json", body: "{}" });
@@ -63,7 +66,7 @@ test.describe("contact failure states", () => {
   test("missing required field blocks submit and reports a validation error", async ({ page }) => {
     await captureAnalytics(page);
     let requests = 0;
-    await page.route(MOCK_ENDPOINT, (route) => {
+    await page.route(MOCK_ENDPOINT_PATTERN, (route) => {
       requests += 1;
       return route.fulfill({ status: 200, body: "{}" });
     });
@@ -101,7 +104,7 @@ test.describe("contact failure states", () => {
     page,
   }) => {
     let received: { method: string; contentType: string | undefined; body: unknown } | null = null;
-    await page.route(MOCK_ENDPOINT, (route) => {
+    await page.route(MOCK_ENDPOINT_PATTERN, (route) => {
       const request = route.request();
       received = {
         method: request.method(),
@@ -136,7 +139,7 @@ test.describe("contact failure states", () => {
   });
 
   test("sending state disables the button and marks the form busy", async ({ page }) => {
-    await page.route(MOCK_ENDPOINT, async (route) => {
+    await page.route(MOCK_ENDPOINT_PATTERN, async (route) => {
       await new Promise((resolve) => setTimeout(resolve, 800));
       await route.fulfill({ status: 200, body: "{}" });
     });
@@ -150,14 +153,14 @@ test.describe("contact failure states", () => {
 });
 
 test.describe("contact endpoint unset (build with env absent)", () => {
-  test("degrades honestly before the visitor types anything", async ({ page }) => {
+  test("degrades honestly before the visitor types anything", async ({ page, baseURL }) => {
     await captureAnalytics(page);
     let requests = 0;
     await page.route(/__contact/, (route) => {
       requests += 1;
       return route.fulfill({ status: 200, body: "{}" });
     });
-    await page.goto(`${UNSET_BASE}/contact/`);
+    await page.goto(`${unsetBase(baseURL)}/contact/`);
 
     const form = page.locator("form.contact-form");
     await expect(form).toHaveAttribute("data-configured", "false");

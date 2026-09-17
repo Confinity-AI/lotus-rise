@@ -1,5 +1,5 @@
-import { expect, test } from "@playwright/test";
-import { UNSET_BASE, journeyRoutes } from "./helpers";
+import { expect } from "@playwright/test";
+import { journeyRoutes, test, unsetBase } from "./helpers";
 
 /**
  * Measured contrast, not just axe. Design-system button variants can win a specificity
@@ -91,8 +91,8 @@ test.describe("measured text contrast", () => {
     });
   }
 
-  test("the endpoint-unset contact page is legible too", async ({ page }) => {
-    await page.goto(`${UNSET_BASE}/contact/`);
+  test("the endpoint-unset contact page is legible too", async ({ page, baseURL }) => {
+    await page.goto(`${unsetBase(baseURL)}/contact/`);
     await expect(page.locator("output.form-status")).toBeVisible();
     expect(await page.evaluate(MEASURE)).toEqual([]);
 

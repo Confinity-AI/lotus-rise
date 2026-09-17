@@ -1,5 +1,5 @@
-import { type Page, expect, test } from "@playwright/test";
-import { captureAnalytics, content, readAnalytics } from "./helpers";
+import { type Page, expect } from "@playwright/test";
+import { captureAnalytics, content, readAnalytics, test } from "./helpers";
 
 const views = content.janus.views;
 const EVALUATION = "/janus/evaluation/";

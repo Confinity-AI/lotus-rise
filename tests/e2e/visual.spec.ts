@@ -1,5 +1,5 @@
-import { expect, test } from "@playwright/test";
-import { journeyRoutes } from "./helpers";
+import { expect } from "@playwright/test";
+import { journeyRoutes, test } from "./helpers";
 
 test.describe("visual baselines (reduced motion, full page)", () => {
   for (const route of journeyRoutes) {

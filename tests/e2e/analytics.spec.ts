@@ -1,5 +1,5 @@
-import { expect, test } from "@playwright/test";
-import { captureAnalytics, content, readAnalytics } from "./helpers";
+import { expect } from "@playwright/test";
+import { captureAnalytics, content, readAnalytics, test } from "./helpers";
 
 test.describe("consent-aware analytics listener", () => {
   test("forwards nothing without consent and sets no cookies or storage", async ({

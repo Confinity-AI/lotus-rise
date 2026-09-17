@@ -1,10 +1,11 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
 import {
-  MOCK_ENDPOINT,
+  MOCK_ENDPOINT_PATTERN,
   captureAnalytics,
   content,
   fillContactForm,
   readAnalytics,
+  test,
 } from "./helpers";
 
 const views = content.janus.views;
@@ -12,7 +13,7 @@ const { actions } = content;
 
 test("home → Evaluation → theatre → dialog → contact → sent → home", async ({ page }) => {
   await captureAnalytics(page);
-  await page.route(MOCK_ENDPOINT, (route) =>
+  await page.route(MOCK_ENDPOINT_PATTERN, (route) =>
     route.fulfill({ status: 200, contentType: "application/json", body: "{}" }),
   );
 
@@ -84,7 +85,7 @@ test("home → Evaluation → theatre → dialog → contact → sent → home",
   await expect(output.locator("h2")).toHaveText(content.contact.form.successTitle);
 
   await output.getByRole("link", { name: actions.returnHome }).click();
-  await expect(page).toHaveURL("http://localhost:3010/");
+  await expect(page).toHaveURL(/^https?:\/\/localhost:3010\/$/);
 
   const events = await readAnalytics(page);
   expect(events.map((event) => event.name)).toEqual([
