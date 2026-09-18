@@ -48,9 +48,14 @@ export function SiteHeader({ currentPage = "home" }: SiteChromeProps) {
           </a>
           <nav className="nav-links nav-links-desktop" aria-label="Primary navigation">
             <PageLinks currentPage={currentPage} />
-            {/* The contact page is the end of the path: no competing or backward action in its header. */}
+            {/* The contact page is the end of the path: no competing or backward action in its header.
+                Elsewhere the header link is secondary so each hero keeps the one filled action. */}
             {!contact && (
-              <StaticLinkButton className="button button-primary" href="/contact/">
+              <StaticLinkButton
+                className="button button-secondary"
+                variant="secondary"
+                href="/contact/"
+              >
                 {siteContent.actions.contactUs}
                 <HiArrowRight aria-hidden="true" />
               </StaticLinkButton>

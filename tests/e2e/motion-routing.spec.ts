@@ -242,8 +242,12 @@ test.describe("routing and export integrity", () => {
       );
       expect(filledInView, route).toHaveLength(1);
       await expect(page.locator("header .button-primary")).toHaveCount(0);
+      // The contact link stays in the header, demoted; counted in the DOM so the mobile project
+      // (where the desktop nav is display:none) asserts the same markup.
       await expect(
-        page.locator("header .nav-links-desktop").getByRole("link", { name: content.actions.contactUs }),
+        page.locator("header .nav-links-desktop .button-secondary", {
+          hasText: content.actions.contactUs,
+        }),
       ).toHaveCount(1);
     }
   });
