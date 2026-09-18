@@ -24,10 +24,7 @@ export function StrategyPage() {
                 {actions.registerInterest} <HiArrowRight aria-hidden="true" />
               </StaticLinkButton>
             </div>
-            <div
-              className="strategy-decision-path reveal"
-              aria-label="How Janus Strategy will support decisions"
-            >
+            <div className="strategy-decision-path reveal">
               <span className="strategy-path-label">A connected decision record</span>
               {strategyPage.areas.map((area, index) => (
                 <article key={area.title}>
