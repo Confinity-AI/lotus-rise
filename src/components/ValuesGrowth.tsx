@@ -5,10 +5,10 @@ import type { CSSProperties } from "react";
 
 const stages = siteContent.principles.items;
 const stageImages = [
-  "/lotus-rise/brand/lotus-journey-01-integrity.png",
-  "/lotus-rise/brand/lotus-journey-02-innovation.png",
-  "/lotus-rise/brand/lotus-journey-03-empowerment.png",
-  "/lotus-rise/brand/lotus-journey-04-commitment.png",
+  "/lotus-rise/brand/lotus-journey-01-integrity.webp",
+  "/lotus-rise/brand/lotus-journey-02-innovation.webp",
+  "/lotus-rise/brand/lotus-journey-03-empowerment.webp",
+  "/lotus-rise/brand/lotus-journey-04-commitment.webp",
 ];
 
 export function ValuesGrowth() {
