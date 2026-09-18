@@ -194,4 +194,57 @@ test.describe("routing and export integrity", () => {
       expect(new Set(section).size).toBe(section.length);
     }
   });
+
+  test("every product capture is described by its one content alt", async ({ page }) => {
+    // One capture, one description, wherever it appears (R6: copy lives in site-content).
+    const known = new Map(content.janus.views.map((view) => [view.image, view.alt]));
+    for (const route of ["/", "/janus/", "/janus/evaluation/"]) {
+      await page.goto(route);
+      const captures = await page.evaluate(() =>
+        Array.from(document.querySelectorAll<HTMLImageElement>("main img")).map((image) => {
+          const src = new URL(image.currentSrc || image.src).searchParams.get("url");
+          return { src: src ?? new URL(image.src).pathname, alt: image.alt };
+        }),
+      );
+      const product = captures.filter((capture) => capture.src.includes("/product/"));
+      expect(product.length).toBeGreaterThan(0);
+      for (const capture of product) {
+        expect(capture.alt, `${route} ${capture.src}`).toBe(known.get(capture.src));
+      }
+    }
+  });
+
+  test("the review path is an ordered list of four steps", async ({ page }) => {
+    await page.goto("/janus/evaluation/");
+    const steps = page.locator("ol.janus-review-path > li");
+    await expect(steps).toHaveCount(content.evaluationPage.review.steps.length);
+    await expect(page.locator("ol.janus-review-path")).toHaveCSS("list-style-type", "none");
+    for (const [index, step] of content.evaluationPage.review.steps.entries()) {
+      await expect(steps.nth(index).locator("h3")).toHaveText(step.title);
+      await expect(steps.nth(index).locator("span[aria-hidden='true']")).toHaveText(
+        String(index + 1).padStart(2, "0"),
+      );
+    }
+  });
+
+  test("the first viewport of every journey page has one filled primary action", async ({
+    page,
+  }) => {
+    for (const route of ["/", "/janus/", "/janus/evaluation/"]) {
+      await page.goto(route);
+      const filledInView = await page.evaluate(() =>
+        Array.from(document.querySelectorAll<HTMLElement>(".button-primary"))
+          .filter((node) => {
+            const box = node.getBoundingClientRect();
+            return box.height > 0 && box.top < window.innerHeight;
+          })
+          .map((node) => node.textContent?.trim() ?? ""),
+      );
+      expect(filledInView, route).toHaveLength(1);
+      await expect(page.locator("header .button-primary")).toHaveCount(0);
+      await expect(
+        page.locator("header .nav-links-desktop").getByRole("link", { name: content.actions.contactUs }),
+      ).toHaveCount(1);
+    }
+  });
 });
