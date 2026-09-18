@@ -48,4 +48,35 @@ test.describe("layout stability", () => {
       expect(Math.abs((after?.y ?? 0) - (before?.y ?? 0))).toBeLessThanOrEqual(1);
     }
   });
+
+  // Byte budget for imagery on the journey. Static files, so this is deterministic. The
+  // ceiling is the largest capture in the repo with headroom; a regression to PNG artwork
+  // (1.7 MB for four decorative images at f08925a) fails it.
+  for (const route of journeyRoutes) {
+    test(`${route} ships no image over 200 KB and under 600 KB of imagery in total`, async ({
+      page,
+    }) => {
+      const images = new Map<string, number>();
+      page.on("response", async (response) => {
+        if (response.request().resourceType() !== "image") return;
+        const body = await response.body().catch(() => Buffer.alloc(0));
+        images.set(new URL(response.url()).pathname, body.length);
+      });
+      await page.goto(route, { waitUntil: "networkidle" });
+      await page.evaluate(async () => {
+        const step = window.innerHeight * 0.8;
+        for (let y = 0; y < document.documentElement.scrollHeight; y += step) {
+          window.scrollTo(0, y);
+          await new Promise((resolve) => setTimeout(resolve, 60));
+        }
+      });
+      await page.waitForLoadState("networkidle");
+      let total = 0;
+      for (const [pathname, bytes] of images) {
+        expect(bytes, pathname).toBeLessThan(200 * 1024);
+        total += bytes;
+      }
+      expect(total).toBeLessThan(600 * 1024);
+    });
+  }
 });
