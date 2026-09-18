@@ -297,3 +297,43 @@ None. No fix was attempted twice; no file was reverted.
 1. Linux visual baselines (home ×2, janus ×2 now stale; contact ×2 and janus-evaluation ×2 still missing) — needs the GitHub billing hold cleared and one manual CI run, or a Linux machine with `npx playwright test visual --update-snapshots=all`.
 2. Contact endpoint — unchanged; the email-app path is live and labelled.
 3. Merge to `main` and `npm run deploy:pages` — owner's call; not done this round.
+
+## Round 6b: continue until nothing measurable is left (owner: "execute all that remains")
+
+Method: measured rather than read. Byte weight per route and per resource on both viewports from the export; focus-ring computed styles on twelve journey controls; axe on all six public routes; mobile screenshots of every journey screen and end state.
+
+| ID | Sev | Where (at `d0acc7e`) | Observation | Fix | Test |
+| --- | :-: | --- | --- | --- | --- |
+| PF-01 | P1 | `ValuesGrowth.tsx:7-12`; `public/lotus-rise/brand/lotus-journey-0*.png` | The home page (journey step 1) transferred **3.5 MB**, of which **1.7 MB** was four decorative 512×768 PNGs (`alt=""`, `aria-hidden`) in the values section: 365 + 319 + 481 + 560 KB. Every product capture is 49–58 KB. | Same images as WebP via the `sharp` already in `dependencies` (q82, alpha q90): 26 + 18 + 47 + 59 = **150 KB**. `ValuesGrowth.tsx` was stashed, edited on the committed lines, popped clean (owner WIP is on lines 27-35, untouched). PNGs left in place: deleting tracked files is an ask-first action (`AGENTS.md`); listed below. | stability: "ships no image over 200 KB and under 600 KB of imagery in total" on every journey route (red on the PNG export: `lotus-journey-02-innovation.png` 326 616 B). |
+| CP-05 | P2 | `site-content.ts:44` | The Strategy card says **Coming soon** and its link said **Explore Strategy**. `/janus/strategy/` has no screens (R4); "Explore" promises a product the visitor will not find. Reporting, also coming soon, already says **Register interest**. | `See what is planned`. One string, no claim, roadmap label kept. | motion-routing: "only the module with real screens invites the visitor to explore it" (cards with a non-preview status never start with "Explore"). |
+| AX-04 | P1 | `StrategyPage.tsx:27-30` | `aria-label` on a role-less `div` (`aria-prohibited-attr`, serious). Same pattern as AX-01/AX-02; missed because `a11y.spec.ts` swept only the four journey routes and Strategy is the journey's lateral exit from two module cards. | Attribute removed (a name on a generic element is ignored by AT; nothing lost). | a11y sweep widened from `journeyRoutes` to all six `routes` (axe, heading levels, target sizes); red on `/janus/strategy/` both projects before the fix. |
+
+Measured and clean: focus rings settle to the 3 px gold ring (`lotus-rise.css:65-68`) on skip link, brand, nav links, header secondary, hero primary, module links, footer, tabs, expand, select, textarea, submit (first readings mid-transition were a probe artefact, re-read after 700 ms). Mobile: dialog pans and stays readable, menu names its state, validation state focuses the first invalid field with a persistent message, theatre tabs remain a three-part segmented control. `/janus/evaluation/` transfers 236 KB, `/contact/` 167 KB.
+
+Measured and refused: the 584 KB script chunk on every page is the `@once-ui-system/core` provider stack (contains `recharts`, `motion`, `prism`; no chart or toast is used anywhere in `src/`). Removing `DataThemeProvider`/`ToastProvider` would likely drop it, but `once-ui/docs/THEME_SYSTEM.md:16` says "If a repo already has this stack, preserve it." Refusal recorded; follow-up below. The hero lotus (`lotus-hero-photoreal.webp`, 175 KB, 1024², rendered ≤ 430 px) is within budget and is the LCP element; left as is.
+
+### Execution log (6b)
+
+| Commit | Change | Check |
+| --- | --- | --- |
+| `test(e2e): image byte budget on journey routes (red on PNG artwork)` | stability spec | 1 red as listed |
+| `perf(home): values artwork as WebP (1.7 MB to 150 KB)` | four `.webp`, `ValuesGrowth.tsx:8-11` | stability green |
+| `test(e2e): coming-soon module cards do not say Explore (red)` | motion-routing | red: `"Explore Strategy "` |
+| `copy(janus): Strategy card names the roadmap it opens` | `site-content.ts:44` | motion-routing green |
+| `test(a11y): sweep every public route` | `a11y.spec.ts:3,6` | red on `/janus/strategy/` ×2 |
+| `fix(strategy): drop prohibited ARIA name on the decision-path block` | `StrategyPage.tsx:27` | a11y green, 6 routes × 2 projects |
+| `test(visual): refresh win32 baselines (WebP artwork, Strategy card label)` | 4 baselines | visual 8/8 |
+
+### Result (6b)
+
+`npm run typecheck` 0 · `npm run lint` 0 · `npm run build` 0 · `npm run build:pages` 0 (10 pages) · `npm run test:e2e` **233 passed, 9 skipped, 0 failed** (two new skips are the desktop-project target-size tests for the two added routes; by design). Twelve commits from `f08925a`. Stash popped clean twice; owner WIP intact (7 + 100 lines).
+
+Decisions on the path: 26 → 26. R4: one changed string, no claim. R11: no dependency. R3: untouched.
+
+### What is left, and why it is left
+
+1. **Linux visual baselines** — no WSL, no Docker on this machine (`wsl --status`: not installed); GitHub Actions blocked by the billing hold (round 5c). Needs one of those.
+2. **Unused PNG artwork** — `public/lotus-rise/brand/lotus-journey-0{1..4}.png` (1.7 MB) are tracked and now unreferenced. Deleting tracked files is ask-first; `git rm` them when approved.
+3. **Once UI bundle** — 584 KB chunk with unused chart/toast code, kept per `THEME_SYSTEM.md`. If the workspace owner relaxes that rule, drop `DataThemeProvider` and `ToastProvider` from `Providers.tsx` and re-measure.
+4. **Contact endpoint** — cannot be provisioned from a static repo; email-app path is live and labelled.
+5. **Merge and deploy** — R1 says never push; not done. `git merge --ff-only feat/evaluation-journey-e2e` on `main` then `npm run deploy:pages` when you are ready.
