@@ -227,6 +227,25 @@ test.describe("routing and export integrity", () => {
     }
   });
 
+  test("only the module with real screens invites the visitor to explore it", async ({ page }) => {
+    // A "Coming soon" card that says "Explore" promises a product; the link should name the
+    // roadmap or the interest form it actually opens.
+    for (const route of ["/", "/janus/"]) {
+      await page.goto(route);
+      const cards = page.locator(".suite-module");
+      await expect(cards).toHaveCount(content.janus.modules.length);
+      for (const [index, module] of content.janus.modules.entries()) {
+        const card = cards.nth(index);
+        await expect(card.locator("small")).toHaveText(module.status);
+        const link = card.locator(".suite-module-link");
+        await expect(link).toHaveText(new RegExp(`^${module.action}`));
+        if (module.status !== content.evaluationPage.status) {
+          await expect(link).not.toHaveText(/^Explore/);
+        }
+      }
+    }
+  });
+
   test("the first viewport of every journey page has one filled primary action", async ({
     page,
   }) => {
