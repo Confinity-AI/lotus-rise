@@ -2100,10 +2100,13 @@ html[data-js="true"] .reveal.is-visible {
 
 .janus-review-path {
   display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
   border-top: 1px solid rgba(21, 35, 29, 0.22);
 }
 
-.janus-review-path article {
+.janus-review-path li {
   min-height: 96px;
   display: grid;
   grid-template-columns: 38px minmax(0, 1fr);
@@ -3237,12 +3240,12 @@ html[data-js="true"] .reveal.is-visible {
     grid-template-columns: 1fr 1fr;
   }
 
-  .janus-review-path article {
+  .janus-review-path li {
     padding: 20px 22px;
     border-right: 1px solid rgba(21, 35, 29, 0.16);
   }
 
-  .janus-review-path article:nth-child(even) {
+  .janus-review-path li:nth-child(even) {
     border-right: 0;
   }
 
@@ -3830,15 +3833,15 @@ html[data-js="true"] .reveal.is-visible {
     grid-template-columns: 1fr;
   }
 
-  .janus-review-path article,
-  .janus-review-path article:last-child {
+  .janus-review-path li,
+  .janus-review-path li:last-child {
     min-height: auto;
     padding: 20px 0;
     border-right: 0;
     border-bottom: 1px solid rgba(21, 35, 29, 0.16);
   }
 
-  .janus-review-path article:last-child {
+  .janus-review-path li:last-child {
     border-bottom: 0;
   }
 

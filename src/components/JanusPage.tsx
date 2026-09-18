@@ -38,7 +38,7 @@ export function JanusPage() {
               </figcaption>
               <Image
                 src={programPath.image}
-                alt="Janus Evaluation program path showing each stage of the workflow"
+                alt={programPath.alt}
                 width={programPath.width}
                 height={programPath.height}
                 loading="eager"

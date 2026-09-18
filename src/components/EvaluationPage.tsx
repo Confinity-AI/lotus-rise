@@ -39,7 +39,7 @@ export function EvaluationPage() {
               </figcaption>
               <Image
                 src={reviewedReport.image}
-                alt="Janus Evaluation reviewed report ready for human approval"
+                alt={reviewedReport.alt}
                 width={reviewedReport.width}
                 height={reviewedReport.height}
                 loading="eager"
@@ -97,17 +97,17 @@ export function EvaluationPage() {
               <p className="section-intro">{evaluationPage.review.body}</p>
             </div>
             <div className="janus-review-layout">
-              <div className="janus-review-path reveal">
+              <ol className="janus-review-path reveal">
                 {evaluationPage.review.steps.map((step, index) => (
-                  <article key={step.title}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
+                  <li key={step.title}>
+                    <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                     <div>
                       <h3>{step.title}</h3>
                       <p>{step.copy}</p>
                     </div>
-                  </article>
+                  </li>
                 ))}
-              </div>
+              </ol>
               <figure className="janus-review-product reveal">
                 <figcaption>
                   <span>Real Janus view</span>
@@ -115,7 +115,7 @@ export function EvaluationPage() {
                 </figcaption>
                 <Image
                   src={lineage.image}
-                  alt="Janus Evaluation lineage connecting evidence, findings and review"
+                  alt={lineage.alt}
                   width={lineage.width}
                   height={lineage.height}
                   sizes="(max-width: 960px) calc(100vw - 48px), 680px"
