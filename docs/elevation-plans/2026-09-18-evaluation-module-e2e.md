@@ -198,3 +198,102 @@ Suite after 5c: **207 passed, 7 skipped**.
 2. ~~`.button` icon gap~~ — done in 5b (R5-03).
 3. **Contact endpoint** (unchanged): contract in `.env.example`; the email-app path is live and now honestly labelled.
 4. **Merge and deploy** — done at the owner's instruction after 5b: fast-forward to `main`, push, `npm run deploy:pages`, live build hash verified, branch deleted. See the shipping note at the end of this file.
+
+---
+
+# Round 6 (2026-09-18, second pass)
+
+Branch `feat/evaluation-journey-e2e` recreated from `f08925a` (= `main` = live). Baseline at `f08925a`: `typecheck` 0 · `lint` 0 (32 files) · `build:pages` 0 (10 pages) · `test:e2e` **207 passed, 7 skipped**. Live vs local: identical `h1` and `data-cta` sequence on `/`, `/janus/`, `/janus/evaluation/`, `/contact/`; HTML length differs by 3–19 bytes (build id). Live contact is the endpoint-unset build (`data-configured="false"`).
+
+## 0. Intake facts
+
+F1–F7 as re-verified in round 5 (table above) remain true at `f08925a`; nothing in the brief's starting table describes the shipped site any more. Sections A (journey map), C1, C2, C4–C6, G (harness), H (telemetry) and I (refusals) are unchanged from round 5 and not restated.
+
+R2: `scripts/build-pages.mjs` had no uncommitted edits. `ValuesGrowth.tsx` and `lotus-rise.css` were stashed together (same reasoning and deviation as round 5); the round's CSS edits touch `.janus-review-path` only, on the committed file. Pop at the end: clean.
+
+## B. Findings (round 6)
+
+| ID | Sev | file:line (at `f08925a`) | Observation | Why it matters | Fix | Test |
+| --- | :-: | --- | --- | --- | --- | --- |
+| FL-03 | P1 | `SiteChrome.tsx:52-57` | The header **Contact us** was a filled `button-primary` on every page, so the first viewport of `/`, `/janus/` and `/janus/evaluation/` showed two filled actions (header + hero). On the module page both filled buttons lead to `/contact/` under different labels (**Contact us**, **Request a preview**). | Brief §3: one primary per viewport. Two filled buttons to the same place is the pattern the round-5 contact fix removed one screen later. `.site-header .button-secondary` (`lotus-rise.css:215-223`) already existed, unused. | `variant="secondary"` + `button-secondary`; no CSS added. Mobile panel unchanged (already a plain link). | motion-routing: "the first viewport of every journey page has one filled primary action" (counts `.button-primary` with `top < innerHeight`; asserts zero in header, one secondary contact link in the DOM). |
+| CP-04 | P2 | `EvaluationPage.tsx:42, 118`; `JanusPage.tsx:41` | Three captures carried inline `alt` strings in components while the same images already have `alt` in `site-content.ts:64, 73, 82`. The program-path capture was described one way on `/` and another on `/janus/`. | R6 (copy only in `site-content.ts`); one capture, one description, so a screen-reader user meets the same image the same way on every page. | `alt={view.alt}`. | motion-routing: "every product capture is described by its one content alt" (`/`, `/janus/`, `/janus/evaluation/`). |
+| AX-03 | P2 | `EvaluationPage.tsx:100-110`; `lotus-rise.css:2106, 3240-3245, 3833-3841` | The four review steps were `article`s in a `div` with visible numerals not hidden from AT: no list semantics, and "01 Source material" read aloud. The path band one section above was fixed to `ol/li` in round 5 (AX-01); this block had the same shape and was missed. | Same AT outcome as AX-01: four unrelated headings instead of "list, 4 items". | `ol.janus-review-path > li`, numerals `aria-hidden`; CSS `article` → `li` plus list reset (journey selector). Visually identical (verified at 1440). | motion-routing: "the review path is an ordered list of four steps". |
+
+Clean on inspection: theatre (F6 unchanged), dialog, contact lifecycle (all states from round 5b/5c), sitemap = route list, canonical/OG, `noscript` path, analytics bus and listener (`AnalyticsListener.tsx`), reduced motion (`MotionReady.tsx:47-51`). No new strings anywhere, so R4 is untouched.
+
+Considered and kept: `/janus/` hero **Explore Evaluation** and suite card 1 **Explore Evaluation** are the same label to the same URL in different viewports (`JanusPage.tsx:23-29, 71-78`). The card link is one of three parallel module links; removing it would break the grid's parallelism and the hero action is the page's primary. Sideways duplicate, not a competing primary. Unchanged.
+
+## C. Decision log (additions)
+
+- **C3** CTA hierarchy: header **Contact us** demoted to secondary on every page except `/contact/` (where it is absent, round 5). **Request a preview** remains the one filled label on the module page. Rationale: demotion keeps a way to contact from every page for visitors who arrive off-path (`/team/`, `/janus/strategy/`), while the hero owns the filled action. Removing the header link outright was the more destructive option and was not taken.
+- **C7** Decisions: 26 → 26. No control removed this round; one filled action per first viewport instead of two. FL-03 is a hierarchy fix, not a count fix, and is recorded as such.
+- **C8** Visual baselines: all eight win32 baselines refreshed with `--update-snapshots=all` (the header change is under the 1 % ratio, so `changed` mode would have left the images stale). Linux baselines (home ×2, janus ×2) are now stale as well; same follow-up as round 5c.
+
+## E. Defects
+
+| D | file:line | Fix | Proving test |
+| --- | --- | --- | --- |
+| D-07 | `SiteChrome.tsx:52-57` | secondary header link | motion-routing "one filled primary action" |
+| D-08 | `EvaluationPage.tsx:42, 118`; `JanusPage.tsx:41` | `alt={view.alt}` | motion-routing "one content alt" |
+| D-09 | `EvaluationPage.tsx:100-110`; `lotus-rise.css` `.janus-review-path` | `ol/li`, `aria-hidden` numerals | motion-routing "ordered list of four steps" |
+
+## F. Task list and execution log
+
+| T | Files | Commit | Check |
+| --- | --- | --- | --- |
+| T-01 | — | runner present; no-op | typecheck 0 · lint 0 |
+| T-02 | `motion-routing.spec.ts` | `b679025 test(e2e): red specs for round 6 defects` | 3 red on `f08925a` export (below) |
+| T-03 | `EvaluationPage.tsx`, `JanusPage.tsx`, `lotus-rise.css` | `0df283a fix(evaluation): captures use their one content alt; review path is an ordered list` | motion-routing, a11y, contrast, theatre green |
+| T-04 | `SiteChrome.tsx`, `motion-routing.spec.ts` | `611ca4e refine(cta): header contact link is secondary so each hero keeps the one filled action` | motion-routing green both projects |
+| T-05 | `visual.spec.ts-snapshots/*-win32.png` | `test(visual): refresh win32 baselines for the secondary header link` | visual 8/8 |
+| T-06 | — | full gate + stash pop + this report | below |
+
+### Baseline red (T-02), against the `f08925a` export
+
+1. `motion-routing.spec.ts` "one content alt": `/janus/ /lotus-rise/product/janus-program-path-v2.webp` expected `"Real Janus screen showing the evaluation program path"`, received `"Janus Evaluation program path showing each stage of the workflow"` (mobile + desktop).
+2. `motion-routing.spec.ts` "ordered list of four steps": `ol.janus-review-path > li` count 0, expected 4 (mobile + desktop).
+3. `motion-routing.spec.ts` "one filled primary action": `/` received `["Contact us", "Explore Janus"]`, expected length 1 (desktop).
+
+One test-only correction after T-04: the header assertion used `getByRole("link")`, which excludes the `display:none` desktop nav on the mobile project; changed to a DOM count on `.nav-links-desktop .button-secondary`. Not a product fix; not an R10 event.
+
+## 3.1 Self-review gate
+
+Cut-list: no task adds a control, page, component or dependency; T-05 adds no decisions. Voice/claims: zero new strings. Hard-rule: every row cites file:line at `f08925a`; all tests run against `.e2e/out-mock` and `.e2e/out-unset` (real exports); no cookies; R3 fences untouched; R2 deviation logged. Grades — specificity 9, decision reduction 6 (count unchanged; hierarchy fixed), testability 9, claim safety 10, scope discipline 9. Decision reduction < 8: re-checked every clickable on the four journey routes for backward or duplicate controls; the only duplicate (`/janus/` Explore Evaluation ×2) is kept with the reason above. Re-grade 6, proceeding per the brief.
+
+## 6. Final report (round 6)
+
+### Result
+
+Green, in this order, on `feat/evaluation-journey-e2e` at `611ca4e` + baselines: `npm run typecheck` 0 · `npm run lint` 0 (32 files) · `npm run build` 0 · `npm run build:pages` 0 (10 pages) · `npm run test:e2e` **213 passed, 7 skipped, 0 failed** (Chromium mobile, Chromium desktop, WebKit mobile; mock endpoint on 3010, endpoint-unset on 3011). Skips are the same seven as round 5.
+
+Six Conventional Commits from `f08925a` (including this report). Never pushed. No force, rebase, reset, or amend.
+
+### What changed for the visitor
+
+- Every page except `/contact/` shows one filled button in its first viewport: the hero's. The header **Contact us** is still there, as a quiet outlined link (`SiteChrome.tsx:51-61`).
+- Each Janus capture is described the same way wherever it appears (`EvaluationPage.tsx:42, 118`; `JanusPage.tsx:41` read `site-content.ts:64, 73, 82`).
+- The four review steps on `/janus/evaluation/` are announced as a list of four (`EvaluationPage.tsx:100-110`); the numerals are decorative. Visually identical.
+
+Decisions on the path: 26 → 26 (nothing removed; nothing that moves the visitor forward was touched).
+
+### Copy
+
+No new strings. R4 unaffected.
+
+### Telemetry
+
+Unchanged; all ten acceptance events plus `contact_mailto` remain asserted.
+
+### Unresolved (R10)
+
+None. No fix was attempted twice; no file was reverted.
+
+### R2 outcome
+
+`git stash pop` applied cleanly (auto-merge on `lotus-rise.css`). `ValuesGrowth.tsx` (7 lines) and `lotus-rise.css` (100 lines) carry the owner's WIP again, on top of the committed `.janus-review-path` change. `scripts/build-pages.mjs` had no WIP.
+
+### Follow-ups
+
+1. Linux visual baselines (home ×2, janus ×2 now stale; contact ×2 and janus-evaluation ×2 still missing) — needs the GitHub billing hold cleared and one manual CI run, or a Linux machine with `npx playwright test visual --update-snapshots=all`.
+2. Contact endpoint — unchanged; the email-app path is live and labelled.
+3. Merge to `main` and `npm run deploy:pages` — owner's call; not done this round.
