@@ -41,7 +41,7 @@ export const siteContent = {
         status: "Coming soon",
         copy: "Bring evidence and past learning into the next program, funding or organizational decision.",
         href: "/janus/strategy/",
-        action: "Explore Strategy",
+        action: "See what is planned",
       },
       {
         title: "Reporting",
