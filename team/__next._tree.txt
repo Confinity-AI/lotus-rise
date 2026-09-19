@@ -1,0 +1,5 @@
+:HL["/_next/static/css/7d0e89fa9f27c7e2.css","style"]
+:HL["/_next/static/css/760f59715d147c77.css","style"]
+:HL["/_next/static/css/78475547a39a1c31.css","style"]
+:HL["/_next/static/css/364571206bea7b14.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":4112,"slots":{"children":{"name":"team","param":null,"prefetchHints":4160,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}}}},"staleTime":300,"buildId":"WGiimghTg3qJMPp3gbbR9"}

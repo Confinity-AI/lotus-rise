@@ -1,0 +1,56 @@
+﻿# Normalize line endings on commit (works with .editorconfig)
+* text=auto eol=lf
+
+# Always CRLF for Windows-only scripts
+*.ps1   text eol=crlf
+*.psm1  text eol=crlf
+*.psd1  text eol=crlf
+*.bat   text eol=crlf
+*.cmd   text eol=crlf
+
+# Treat the following as binary (no diff/merge attempts)
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.ico   binary
+*.icns  binary
+*.pdf   binary
+*.zip   binary
+*.tar   binary
+*.tar.gz binary
+*.7z    binary
+*.rar   binary
+*.mp4   binary
+*.mov   binary
+*.mp3   binary
+*.wav   binary
+*.webm  binary
+*.fig   binary
+*.sketch binary
+*.psd   binary
+*.ai    binary
+*.docx  binary
+*.xlsx  binary
+*.pptx  binary
+*.exe   binary
+*.dll   binary
+*.so    binary
+*.dylib binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.eot   binary
+
+# GitHub Linguist hints
+*.mdc   linguist-language=Markdown
+*.mdx   linguist-language=Markdown
+
+# Don't include in `git archive` exports
+.cursor/        export-ignore
+.cursorignore   export-ignore
+.editorconfig   export-ignore
+.github/        export-ignore
+docs/           export-ignore

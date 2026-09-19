@@ -1,0 +1,103 @@
+﻿# Cursor indexing & @ context exclusions (additions on top of .gitignore)
+# Goal: keep the agent focused on source, tests, scripts, and curated docs.
+# Do NOT add real source folders here -- that hides them from the agent.
+
+# --- Build / dependency output ---
+node_modules/
+.next/
+.next-*/
+out/
+dist/
+build/
+.vercel/
+.turbo/
+.cache/
+.parcel-cache/
+.swc/
+coverage/
+.nyc_output/
+.tsbuildinfo
+**/tsconfig.tsbuildinfo
+
+# --- Local caches that should not ship ---
+.npm-cache*/
+.codex-tmp/
+.tmp/
+.history/
+.vscode-test/
+
+# --- Terraform / infra state ---
+**/.terraform/
+*.tfstate
+*.tfstate.*
+
+# --- Python / virtualenvs ---
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# --- IDE / OS noise ---
+.DS_Store
+Thumbs.db
+.idea/
+.vs/
+*.log
+
+# --- Lockfiles and minified assets (huge, no signal for agents) ---
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+*.min.js
+*.min.css
+*.map
+
+# --- Binary / media (Cursor cannot index meaningfully) ---
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
+*.pdf
+*.fig
+*.sketch
+*.psd
+*.ai
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.webm
+
+# --- Webpack / build cache leftovers ---
+**/cache/webpack/
+*.pack
+
+# --- Native bundle copies (Capacitor / RN) ---
+android/app/src/main/assets/public/
+ios/App/App/public/
+
+# --- Common low-signal asset folders ---
+public/site/documents/archives/
+**/Figma files/
+**/figma-exports/
+
+# --- Office documents (binary, no signal) ---
+*.docx
+*.doc
+*.xlsx
+*.xls
+*.pptx
+*.ppt
+*.exe
+*.dll
+
+# --- Auto-generated docs and archives ---
+**/_generated/
+**/_archive/
+**/_archived/
+**/archive/
+**/archived/
+**/qa/fixtures/
